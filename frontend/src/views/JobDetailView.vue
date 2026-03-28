@@ -38,17 +38,43 @@
       <section class="section-card">
         <el-tabs v-model="activeTab">
           <el-tab-pane label="技能要求" name="skills">
-            <ul class="info-list">
-              <li>掌握岗位相关基础理论与专业知识。</li>
-              <li>具备独立分析与解决实际问题的能力。</li>
-              <li>熟悉常见工具与平台，能够完成日常工作任务。</li>
-              <li>具备良好的沟通协作与学习迭代能力。</li>
+            <div
+              v-if="detailSkillHtml"
+              class="rich-text"
+              v-html="detailSkillHtml"
+            />
+            <ul v-else class="info-list">
+              <li v-for="line in displaySkillBullets" :key="line">{{ line }}</li>
             </ul>
           </el-tab-pane>
           <el-tab-pane label="评价申请条件" name="conditions">
-            <div class="two-column">
+            <ul v-if="displayConditionBullets.length" class="info-list">
+              <li v-for="line in displayConditionBullets" :key="line">{{ line }}</li>
+            </ul>
+            <div v-else-if="hasStructuredConditions && jobPortrait" class="two-column">
               <div>
-                <p>学历要求：大专及以上（示意，可自行修改）。</p>
+                <p v-if="jobPortrait.conditions.education">
+                  <strong>学历要求：</strong>{{ jobPortrait.conditions.education }}
+                </p>
+                <p v-if="jobPortrait.conditions.majors">
+                  <strong>相关专业：</strong>{{ jobPortrait.conditions.majors }}
+                </p>
+                <p v-if="jobPortrait.conditions.internship">
+                  <strong>实习/项目：</strong>{{ jobPortrait.conditions.internship }}
+                </p>
+              </div>
+              <div>
+                <p v-if="jobPortrait.conditions.certificates">
+                  <strong>核心证书：</strong>{{ jobPortrait.conditions.certificates }}
+                </p>
+                <p v-if="jobPortrait.conditions.other">
+                  <strong>其他说明：</strong>{{ jobPortrait.conditions.other }}
+                </p>
+              </div>
+            </div>
+            <div v-else class="two-column">
+              <div>
+                <p>学历要求：大专及以上（示意；接口返回字段后将自动替换）。</p>
                 <p>相关专业：计算机类 / 通信类 / 电子信息等。</p>
                 <p>实习或项目经验：有相关项目经历更佳。</p>
               </div>
@@ -101,32 +127,48 @@
         <h2 class="section-title">换岗路径图谱</h2>
         <p class="section-desc">相关岗位血缘关系与转换路径，便于规划横向发展。</p>
 
-        <div v-if="jobPortrait && jobPortrait.transfers?.length" class="transfer-current">
-          <p class="transfer-from">从「{{ jobPortrait.name }}」可换岗的路径示例：</p>
+        <div v-if="jobPortrait && transferPaths.length" class="transfer-current">
+          <p class="transfer-from">从「{{ displayJobName }}」可换岗的路径示例：</p>
+          <p v-if="transferUsingFallback" class="section-desc transfer-fallback-hint">
+            当前岗位暂无后端返回的换岗明细，以下为通用横向发展示例，接入接口后将自动替换为真实路径。
+          </p>
           <div class="transfer-path-list">
-            <div v-for="p in jobPortrait.transfers" :key="p.title" class="transfer-path">
+            <div v-for="p in transferPaths" :key="p.title" class="transfer-path">
               <p class="transfer-path-title">{{ p.title }}</p>
               <div class="transfer-steps">
-                <span v-for="(s, i) in p.steps" :key="s" class="transfer-step">
+                <span v-for="(s, i) in p.steps" :key="`${p.title}-${i}-${s}`" class="transfer-step">
                   {{ s }}<span v-if="i < p.steps.length - 1" class="transfer-arrow">→</span>
                 </span>
               </div>
-              <ul class="transfer-gaps">
+              <ul v-if="p.keyGaps?.length" class="transfer-gaps">
                 <li v-for="g in p.keyGaps" :key="g">{{ g }}</li>
               </ul>
             </div>
           </div>
 
-          <div v-if="jobPortrait.relations?.length" class="bloodline">
+          <div v-if="relationsDisplay.length" class="bloodline">
             <p class="bloodline-title">相关岗位血缘（关联原因）：</p>
             <ul class="bloodline-list">
-              <li v-for="r in jobPortrait.relations" :key="r.role">
+              <li v-for="r in relationsDisplay" :key="r.role">
                 <span class="dim-name">{{ r.role }}：</span>
                 <span class="dim-desc">{{ r.reason }}</span>
               </li>
             </ul>
           </div>
         </div>
+        <p v-else-if="!loadingPortrait" class="section-desc">暂无换岗路径图谱数据。</p>
+      </section>
+
+      <section v-if="showPathChart" class="section-card">
+        <h2 class="section-title">岗位发展关系图</h2>
+        <p class="section-desc">
+          基于后端 path_graph（nodes / edges）或当前换岗路径自动生成的关系图，可拖拽与缩放。
+        </p>
+        <JobPortraitPathChart
+          :path-graph="jobPortrait?.pathGraph ?? null"
+          :transfer-paths="transferPaths"
+          :theme="theme"
+        />
       </section>
 
       <!-- 学长学姐有话说（评论区简化） -->
@@ -188,13 +230,30 @@ import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
 import { getJobPortrait } from '../data/jobPortraits'
 import { getJobDetail } from '../api/jobPortraitApi'
-import { loadJobListItemFromCache, portraitFromMergedRaw, unwrapData } from '../utils/jobPortraitNormalize'
+import { formatJobPortraitApiError } from '../api/jobPortraitErrors'
+import JobPortraitPathChart from '../components/JobPortraitPathChart.vue'
+import {
+  loadJobListItemFromCache,
+  portraitFromMergedRaw,
+  unwrapData,
+} from '../utils/jobPortraitNormalize'
 
 const route = useRoute()
 const { theme } = useTheme()
 
-// 顶部大图：请把「物联网调试员.jpg」放到项目根目录的 public 文件夹下，并改名为 iot-debugger.jpg（避免中文文件名导致无法调试）
-const heroImageSrc = '/iot-debugger.jpg'
+const defaultSkillBullets = [
+  '掌握岗位相关基础理论与专业知识。',
+  '具备独立分析与解决实际问题的能力。',
+  '熟悉常见工具与平台，能够完成日常工作任务。',
+  '具备良好的沟通协作与学习迭代能力。',
+]
+
+/** 优先使用接口 hero_image / cover_url；无则使用默认配图 */
+const heroImageSrc = computed(() => {
+  const url = jobPortrait.value?.heroImage?.trim()
+  if (url) return url
+  return '/iot-debugger.jpg'
+})
 
 function fieldFromTags(tags) {
   if (!Array.isArray(tags) || !tags.length) return '岗位画像'
@@ -245,23 +304,10 @@ function normalizeText(value, fallback = '') {
 
 function getMockPortrait(jobName) {
   const mock = getJobPortrait(jobName)
-  return mock
-    ? {
-        name: mock.name || jobName,
-        summary: mock.summary || '',
-        profileDims: Array.isArray(mock.profileDims) ? mock.profileDims : [],
-        relations: Array.isArray(mock.relations) ? mock.relations : [],
-        vertical: Array.isArray(mock.vertical) ? mock.vertical : [],
-        transfers: Array.isArray(mock.transfers) ? mock.transfers : []
-      }
-    : {
-        name: jobName,
-        summary: '',
-        profileDims: [],
-        relations: [],
-        vertical: [],
-        transfers: []
-      }
+  if (!mock) {
+    return portraitFromMergedRaw({ title: jobName, name: jobName }, jobName)
+  }
+  return portraitFromMergedRaw({ ...mock, title: mock.name }, mock.name || jobName)
 }
 
 async function loadPortrait() {
@@ -284,15 +330,15 @@ async function loadPortrait() {
   try {
     const res = await getJobDetail(id)
     const data = unwrapData(res)
-    if (data && typeof data === 'object' && (data.title || data.id)) {
-      const title = normalizeText(data.title, id)
+    if (data && typeof data === 'object' && (data.title || data.id || data.name)) {
+      const title = normalizeText(data.title || data.name, id)
       jobPortrait.value = portraitFromMergedRaw(data, title)
       isUsingMockFallback.value = false
     } else {
       throw new Error('岗位详情为空')
     }
   } catch (error) {
-    errorPortrait.value = normalizeText(error?.message, '接口请求失败')
+    errorPortrait.value = normalizeText(formatJobPortraitApiError(error), '接口请求失败')
     isUsingMockFallback.value = true
     const cached = loadJobListItemFromCache(id)
     jobPortrait.value = getMockPortrait(normalizeText(cached?.title, job.value.name))
@@ -331,6 +377,77 @@ const verticalPath = computed(() => {
     { title: `专家 / 架构师 或 管理岗（5 年+）`, focus: '负责方向规划、平台化与组织级效率提升。' }
   ]
 })
+
+/** 后端/本地 mock 有 transfers 时用真实数据，否则给通用横向发展示例（与垂直图谱兜底一致） */
+const transferPaths = computed(() => {
+  if (loadingPortrait.value) return []
+  const raw = jobPortrait.value?.transfers
+  if (Array.isArray(raw) && raw.length) return raw
+  if (!jobPortrait.value) return []
+  const name = displayJobName.value || job.value.name
+  return [
+    {
+      title: `相近技能线：${name} → 同领域相邻岗位 → 高级 / 专家`,
+      steps: [name, '同领域相关岗位（技术面延伸）', '高级专家 / 技术负责人'],
+      keyGaps: ['补齐相邻方向的核心技能栈', '参与更大范围交付或体系化建设', '跨团队协作与影响力']
+    },
+    {
+      title: `横向扩展线：${name} → 产品 / 交付 / 售前等协作岗`,
+      steps: [name, '协作型岗位（产品、交付、售前等）', '复合型负责人'],
+      keyGaps: ['业务理解与表达', '需求拆解与推进', '资源协调与沟通闭环']
+    }
+  ]
+})
+
+const transferUsingFallback = computed(() => {
+  if (loadingPortrait.value || !jobPortrait.value) return false
+  const raw = jobPortrait.value.transfers
+  return !Array.isArray(raw) || raw.length === 0
+})
+
+const relationsDisplay = computed(() => {
+  if (loadingPortrait.value) return []
+  const raw = jobPortrait.value?.relations
+  if (Array.isArray(raw) && raw.length) return raw
+  if (!jobPortrait.value) return []
+  return [
+    {
+      role: '同领域相邻岗位',
+      reason: '技能与工具链相近，换岗时可将现有经验平移，主要补齐业务场景差异。'
+    },
+    {
+      role: '上下游协作岗位',
+      reason: '在工作流中与当前岗位衔接紧密，换岗时可利用已熟悉的流程与客户/项目语境。'
+    }
+  ]
+})
+
+const detailSkillHtml = computed(() => {
+  if (loadingPortrait.value) return ''
+  const h = jobPortrait.value?.skillHtml
+  return typeof h === 'string' && h.trim() ? h.trim() : ''
+})
+
+const displaySkillBullets = computed(() => {
+  if (loadingPortrait.value) return defaultSkillBullets
+  const b = jobPortrait.value?.skillBullets
+  if (Array.isArray(b) && b.length) return b
+  return defaultSkillBullets
+})
+
+const displayConditionBullets = computed(() => {
+  if (loadingPortrait.value) return []
+  const b = jobPortrait.value?.conditionBullets
+  return Array.isArray(b) ? b : []
+})
+
+const hasStructuredConditions = computed(() => {
+  if (loadingPortrait.value || !jobPortrait.value?.conditions) return false
+  const c = jobPortrait.value.conditions
+  return !!(c.education || c.majors || c.internship || c.certificates || c.other)
+})
+
+const showPathChart = computed(() => !loadingPortrait.value && !!jobPortrait.value)
 
 const hasEmptyPortrait = computed(() => {
   if (loadingPortrait.value) return false
@@ -757,6 +874,21 @@ const handleSend = () => {
   line-height: 1.5;
 }
 
+.rich-text {
+  font-size: clamp(16px, 1.1vw, 18px);
+  line-height: 1.55;
+  color: inherit;
+}
+
+.rich-text :deep(p) {
+  margin: 0 0 10px;
+}
+
+.rich-text :deep(ul) {
+  margin: 0 0 10px;
+  padding-left: 1.25em;
+}
+
 .info-list {
   padding-left: 22px;
   margin: 0;
@@ -929,6 +1061,16 @@ const handleSend = () => {
   font-weight: 600;
   font-size: clamp(16px, 1.1vw, 18px);
   margin-bottom: 8px;
+}
+
+.transfer-fallback-hint {
+  font-size: clamp(13px, 0.9vw, 15px);
+  color: #666;
+  margin: 0 0 10px;
+}
+
+.job-detail-view.dark .transfer-fallback-hint {
+  color: var(--dm-text-secondary);
 }
 
 .comment-list {

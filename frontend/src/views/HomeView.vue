@@ -35,8 +35,9 @@
               先试了解
             </el-button>
             <el-button
+              type="primary"
               size="large"
-              class="secondary-btn"
+              class="primary-btn secondary-btn"
               @click="handleBuildProfileClick"
             >
               构建画像
@@ -216,6 +217,11 @@ import {
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
 import VinylProSection from '../components/VinylProSection.vue'
+import carouselJobs from '../assets/carousel-job-portrait.png'
+import carouselAbilities from '../assets/carousel-ability-portrait.png'
+import carouselPlan from '../assets/carousel-training-plan.png'
+import carouselGuide from '../assets/carousel-guide.png'
+import carouselHistory from '../assets/carousel-history.png'
 
 const { theme } = useTheme()
 const router = useRouter()
@@ -229,35 +235,35 @@ const carouselCards = [
     id: 1,
     title: '分界面一：岗位画像',
     desc: '就业岗位画像总览',
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
+    image: carouselJobs,
     url: '/jobs'
   },
   {
     id: 2,
     title: '分界面二：能力画像',
     desc: '学生就业能力评估',
-    image: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=1200&q=80',
+    image: carouselAbilities,
     url: '/student-abilities'
   },
   {
     id: 3,
     title: '分界面三：训练计划',
     desc: '生成能力训练路径',
-    image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
+    image: carouselPlan,
     url: '/ability-training-plan'
   },
   {
     id: 4,
     title: '使用说明',
     desc: '系统使用与操作指引',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80',
+    image: carouselGuide,
     url: '/career-report-template'
   },
   {
     id: 5,
     title: '个人历史记录',
     desc: '查看个人历史报告',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80',
+    image: carouselHistory,
     url: '/career-report'
   }
 ]
@@ -279,11 +285,9 @@ const getCardStyle = (index) => {
   const rotateY = -offset * 15
   // 保持所有卡片同尺寸，仅用层级和透明度体现远近
   const scale = 1
-  const opacity = Math.max(0.42, 1 - abs * 0.28)
 
   return {
     transform: `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotateY}deg) scale(${scale})`,
-    opacity,
     zIndex: 99 - abs
   }
 }
@@ -487,6 +491,28 @@ const resumeCards = ref([
   box-shadow: 0 0 0 #000000 !important;
 }
 
+/* 将“构建画像”按钮颜色强制改为黄色（覆盖全局 primary 粉色） */
+.home-view .hero-actions .secondary-btn.el-button--primary {
+  background-color: var(--u-yellow) !important;
+  background: var(--u-yellow) !important;
+  color: var(--u-black) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+}
+
+.home-view .hero-actions .secondary-btn.el-button--primary:hover {
+  background-color: var(--u-yellow) !important;
+  background: var(--u-yellow) !important;
+  color: var(--u-black) !important;
+}
+
+html.dark .home-view .hero-actions .secondary-btn.el-button--primary {
+  background-color: var(--u-yellow) !important;
+  background: var(--u-yellow) !important;
+  color: var(--u-black) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+}
+
 /* 顶部导航：自适应屏幕 */
 .header {
   position: sticky;
@@ -688,20 +714,30 @@ const resumeCards = ref([
   margin-left: -310px;
   border-radius: 18px;
   overflow: hidden;
-  border: 2px solid rgba(16, 24, 40, 0.75);
-  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.3);
-  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.4s ease;
+  /* uiineed 风格：粗黑描边 + 立体偏移阴影 */
+  border: 4px solid #000;
+  /* 图片不需要阴影：去掉 box-shadow */
+  box-shadow: none;
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   text-decoration: none;
+  opacity: 1 !important;
+  background: #ffffff;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .carousel-card.focused {
-  box-shadow: 0 22px 42px rgba(16, 24, 40, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.55);
+  /* 中间聚焦卡片：黑色边框再加粗 */
+  border: 4px solid #000;
+  outline: none;
 }
 
 .carousel-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 1 !important;
+  display: block;
 }
 
 .carousel-overlay {
