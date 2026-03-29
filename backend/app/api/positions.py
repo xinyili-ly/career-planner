@@ -4,7 +4,7 @@ from typing import List, Dict, Optional, Any
 import json
 import asyncio
 
-router = APIRouter(prefix="/api/positions", tags=["positions"])
+router = APIRouter(tags=["positions"])
 
 # 数据模型定义
 class ProfileDim(BaseModel):
@@ -76,6 +76,7 @@ class JobDetailResponseData(BaseModel):
 class JobDetailResponse(BaseModel):
     code: int = 0
     message: str = "ok"
+    apiVersion: str = "1"
     data: JobDetailResponseData
 
 class RecommendResponseData(BaseModel):
@@ -87,6 +88,7 @@ class RecommendResponseData(BaseModel):
 class RecommendResponse(BaseModel):
     code: int = 0
     message: str = "ok"
+    apiVersion: str = "1"
     data: RecommendResponseData
 
 class PathResponseData(BaseModel):
@@ -96,6 +98,7 @@ class PathResponseData(BaseModel):
 class PathResponse(BaseModel):
     code: int = 0
     message: str = "ok"
+    apiVersion: str = "1"
     data: PathResponseData
 
 class TransferResponseData(BaseModel):
@@ -105,21 +108,24 @@ class TransferResponseData(BaseModel):
 class TransferResponse(BaseModel):
     code: int = 0
     message: str = "ok"
+    apiVersion: str = "1"
     data: TransferResponseData
 
 class BaseResponse(BaseModel):
-    code: int
-    message: str
+    code: int = 0
+    message: str = "ok"
+    apiVersion: str = "1"
     data: Any
 
 # 依赖注入函数
 async def get_job_profiles() -> List[Dict]:
     """加载岗位画像数据"""
     try:
-        with open('../../job_profiles.json', 'r', encoding='utf-8') as f:
+        with open('../data/jobs.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"加载岗位画像数据失败: {str(e)}")
+        # 如果找不到文件，返回空列表
+        return []
 
 async def get_job_graph() -> Dict:
     """加载岗位图谱数据"""
@@ -127,7 +133,8 @@ async def get_job_graph() -> Dict:
         with open('../../job_graph.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"加载岗位图谱数据失败: {str(e)}")
+        # 如果找不到文件，返回空字典
+        return {"vertical_paths": {}, "horizontal_paths": {}}
 
 # 辅助函数
 async def find_job_by_title(job_profiles: List[Dict], title: str) -> Optional[Dict]:
@@ -138,7 +145,7 @@ async def find_job_by_title(job_profiles: List[Dict], title: str) -> Optional[Di
     return None
 
 # API端点
-@router.get("/list", response_model=BaseResponse, summary="获取岗位列表")
+@router.get("/recommend/list", response_model=BaseResponse, summary="获取岗位列表")
 async def get_job_list(job_profiles: List[Dict] = Depends(get_job_profiles)):
     """获取系统中所有岗位的详细信息列表"""
     job_list = []
@@ -345,7 +352,7 @@ async def get_horizontal_path(
         )
     )
 
-@router.get("/detail/{id}", response_model=JobDetailResponse, summary="获取岗位完整详情")
+@router.get("/job_detail/{id}", response_model=JobDetailResponse, summary="获取岗位完整详情")
 async def get_job_detail(
     id: str,
     job_profiles: List[Dict] = Depends(get_job_profiles),
