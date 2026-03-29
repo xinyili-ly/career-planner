@@ -14,25 +14,32 @@
         </div>
 
         <div class="entry-cards">
-          <div class="entry-card" @click="step = 'upload'">
+          <button type="button" class="entry-card entry-card--upload" @click="step = 'upload'">
             <div class="entry-card-icon">📄</div>
             <h3 class="entry-card-title">上传解析简历</h3>
             <p class="entry-card-desc">已有简历文件？上传后由系统智能解析，快速生成能力画像与评分。</p>
             <span class="entry-card-link">去上传 →</span>
-          </div>
-          <div class="entry-card" @click="goToChat">
+          </button>
+          <button type="button" class="entry-card entry-card--chat" @click="goToChat">
             <div class="entry-card-icon">💬</div>
             <h3 class="entry-card-title">AI 对话获取</h3>
             <p class="entry-card-desc">暂无完整简历？通过多轮对话逐步填写，由 AI 帮你整理成能力画像。</p>
             <span class="entry-card-link">开始对话 →</span>
-          </div>
+          </button>
         </div>
 
-        <section class="trust-panel">
+        <section class="trust-panel trust-panel--entry">
           <h3 class="trust-title">专业可靠 · 深度理解你的简历</h3>
           <div class="trust-grid">
-            <div class="trust-item" v-for="item in trustPoints" :key="item.title">
-              <div class="trust-icon">📌</div>
+            <div
+              class="trust-item"
+              v-for="(item, index) in trustPoints"
+              :key="item.title"
+              :class="`trust-item--${index}`"
+            >
+              <div class="trust-icon" aria-hidden="true">
+                {{ item.icon ?? '📌' }}
+              </div>
               <div>
                 <p class="trust-item-title">{{ item.title }}</p>
                 <p class="trust-item-desc">{{ item.desc }}</p>
@@ -42,13 +49,6 @@
           <a href="javascript:void(0)" class="link-text">查看参考文献</a>
         </section>
 
-        <section class="page-extra-intro">
-          <h3 class="extra-intro-title">能力维度说明</h3>
-          <p class="extra-intro-text">
-            本中心从专业技能、证书资质、创新能力、学习能力、抗压能力、沟通能力、实习经历等七个维度对简历进行解析，
-            并综合生成完整度与竞争力评分。完成后可前往「职业生涯发展」进行人岗匹配与规划报告生成。
-          </p>
-        </section>
       </section>
 
       <!-- 上传解析简历：仅上传相关 -->
@@ -86,20 +86,11 @@
           </el-upload>
         </div>
 
-        <section class="trust-panel">
+        <section class="trust-panel trust-panel--upload-explain">
           <h3 class="trust-title">解析说明</h3>
           <ul class="upload-tips">
             <li>解析结果包含专业技能、证书、创新能力、学习能力、抗压能力、沟通能力、实习能力等维度。</li>
             <li>完整度与竞争力评分将用于人岗匹配与生涯报告生成，数据仅用于本地分析。</li>
-          </ul>
-        </section>
-
-        <section class="page-extra-intro">
-          <h3 class="extra-intro-title">上传须知</h3>
-          <ul class="upload-tips">
-            <li>请确保简历内容真实、完整，便于系统准确提取教育背景、项目经历与技能信息。</li>
-            <li>建议使用一页或两页的简历版本，格式清晰、无大量表格嵌套时解析效果更佳。</li>
-            <li>解析完成后将自动跳转至能力画像结果页，您可查看雷达图与综合评分，并前往职业生涯发展页进行岗位匹配。</li>
           </ul>
         </section>
       </section>
@@ -170,13 +161,6 @@
           </el-button>
         </div>
 
-        <section class="page-extra-intro">
-          <h3 class="extra-intro-title">填写建议</h3>
-          <p class="extra-intro-text">
-            请按助手提问顺序如实填写，教育背景、项目经历、技能证书等信息将直接影响后续能力画像与岗位匹配结果。
-            若某项暂时没有，可简要说明或填「暂无」，完成后可随时在结果页查看并前往「职业生涯发展」生成规划报告。
-          </p>
-        </section>
       </section>
 
       <!-- 步骤三：学生就业能力画像（对应第三张图） -->
@@ -199,8 +183,41 @@
 
             <div class="radar-card">
               <p class="radar-title">雷达图（n 维度）</p>
-              <div class="radar-placeholder">
-                这里预留给你后面接入真实雷达图组件（ECharts 等）。
+              <div class="radar-chart" role="img" aria-label="个人能力雷达图（示例）">
+                <svg class="radar-svg" viewBox="0 0 240 240" aria-hidden="true">
+                  <g>
+                    <polygon
+                      v-for="(poly, idx) in radarChart.gridPolygons"
+                      :key="idx"
+                      :points="poly"
+                      class="radar-grid"
+                    />
+                    <line
+                      v-for="(axis, idx) in radarChart.axes"
+                      :key="idx"
+                      :x1="radarChart.cx"
+                      :y1="radarChart.cy"
+                      :x2="axis.x"
+                      :y2="axis.y"
+                      class="radar-axis"
+                    />
+                    <polygon :points="radarChart.dataPolygon" class="radar-data" />
+                    <polygon :points="radarChart.dataPolygon" class="radar-data-outline" />
+                    <g>
+                      <text
+                        v-for="(label, idx) in radarChart.labels"
+                        :key="idx"
+                        :x="label.x"
+                        :y="label.y"
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                        class="radar-label"
+                      >
+                        {{ label.text }}
+                      </text>
+                    </g>
+                  </g>
+                </svg>
               </div>
             </div>
           </aside>
@@ -254,15 +271,6 @@
                 📄 生成报告（需先选岗位）
               </el-button>
             </div>
-
-            <section class="page-extra-intro result-intro">
-              <h3 class="extra-intro-title">关于本能力画像</h3>
-              <p class="extra-intro-text">
-                上述雷达图与综合能力指数基于您填写的简历或对话内容生成，从多维度反映当前就业能力水平。
-                建议先「查看匹配岗位」了解适合的岗位方向，再在职业生涯发展页选择目标岗位并「生成报告」，
-                获取可执行的成长计划与量化评估指标。
-              </p>
-            </section>
           </section>
         </div>
       </section>
@@ -579,6 +587,55 @@
         </div>
       </section>
 
+      <!-- 简历智评中心页面底部说明区：三列布局，无细线框 -->
+      <section class="resume-bottom-explain" aria-label="简历智评中心底部说明区">
+        <div class="resume-bottom-cols">
+          <div class="resume-bottom-col">
+            <h3 class="resume-bottom-col-title">
+              <span class="resume-bottom-col-icon" aria-hidden="true">●</span>
+              能力维度说明
+            </h3>
+            <p class="resume-bottom-col-text">
+              本中心从专业技能、证书资质、创新能力、学习能力、抗压能力、沟通能力、实习经历等七个维度对简历进行解析，
+              并综合生成完整度与竞争力评分。完成后可前往「职业生涯发展」进行人岗匹配与规划报告生成。
+            </p>
+          </div>
+
+          <div class="resume-bottom-col">
+            <h3 class="resume-bottom-col-title">
+              <span class="resume-bottom-col-icon" aria-hidden="true">●</span>
+              上传须知
+            </h3>
+            <ul class="resume-bottom-list upload-tips">
+              <li>请确保简历内容真实、完整，便于系统准确提取教育背景、项目经历与技能信息。</li>
+              <li>建议使用一页或两页的简历版本，格式清晰、无大量表格嵌套时解析效果更佳。</li>
+              <li>解析完成后将自动跳转至能力画像结果页，您可查看雷达图与综合评分，并前往职业生涯发展页进行岗位匹配。</li>
+            </ul>
+          </div>
+
+          <div class="resume-bottom-col">
+            <h3 class="resume-bottom-col-title">
+              <span class="resume-bottom-col-icon" aria-hidden="true">●</span>
+              {{ ['result', 'match', 'report'].includes(step) ? '关于本能力画像' : '填写建议' }}
+            </h3>
+
+            <template v-if="['result', 'match', 'report'].includes(step)">
+              <p class="resume-bottom-col-text">
+                上述雷达图与综合能力指数基于您填写的简历或对话内容生成，从多维度反映当前就业能力水平。
+                建议先「查看匹配岗位」了解适合的岗位方向，再在职业生涯发展页选择目标岗位并「生成报告」，
+                获取可执行的成长计划与量化评估指标。
+              </p>
+            </template>
+            <template v-else>
+              <p class="resume-bottom-col-text">
+                请按助手提问顺序如实填写，教育背景、项目经历、技能证书等信息将直接影响后续能力画像与岗位匹配结果。
+                若某项暂时没有，可简要说明或填「暂无」，完成后可随时在结果页查看并前往「职业生涯发展」生成规划报告。
+              </p>
+            </template>
+          </div>
+        </div>
+      </section>
+
       <footer class="site-footer">
         <span>© {{ new Date().getFullYear() }} 职途智引 · AI职业规划助手</span>
       </footer>
@@ -745,14 +802,17 @@ const step = ref('entry')
 // 方法说明卡片数据
 const trustPoints = [
   {
+    icon: '🧠',
     title: '深度理解，而不是关键词匹配',
     desc: '基于大模型深度分析简历与岗位，结合实校招聘场景调试，理解你的经历远不止是扫描关键词。'
   },
   {
+    icon: '📈',
     title: '3800+ 官方数据源，每日更新',
     desc: '数据来源官方就业网、企业官网等官方渠道，不推荐过期或虚假岗位。'
   },
   {
+    icon: '🧩',
     title: '基于职业心理学理论',
     desc: '匹配结果参考职业兴趣理论等，不是随机推荐，而是根据你本人的特质出发。'
   }
@@ -886,6 +946,64 @@ const abilities = computed(() => {
         : ''
     }
   ]
+})
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
+
+const radarDimensions = computed(() => {
+  const comp = studentProfile.value?.competencies || {}
+  return [
+    { name: '专业技能', score: Number(comp.professional_skills?.score ?? 0) },
+    { name: '学习能力', score: Number(comp.learning_capability?.score ?? 0) },
+    { name: '抗压能力', score: Number(comp.stress_resistance?.score ?? 0) },
+    { name: '沟通能力', score: Number(comp.communication_skills?.score ?? 0) },
+    { name: '创新能力', score: Number(comp.innovation_capability?.score ?? 0) },
+    { name: '实习能力', score: Number(comp.internship_experience?.score ?? 0) }
+  ].map((d) => ({ ...d, score: clamp(d.score, 0, 10) }))
+})
+
+const radarChart = computed(() => {
+  const dims = radarDimensions.value.length ? radarDimensions.value : []
+  const cx = 120
+  const cy = 120
+  const radius = 82
+  const levels = 5
+
+  const toPoint = (angleRad, r) => ({
+    x: cx + Math.cos(angleRad) * r,
+    y: cy + Math.sin(angleRad) * r
+  })
+
+  const count = Math.max(3, dims.length || 6)
+  const step = (Math.PI * 2) / count
+  const start = -Math.PI / 2
+
+  const angles = Array.from({ length: count }, (_, i) => start + step * i)
+
+  const gridPolygons = Array.from({ length: levels }, (_, levelIdx) => {
+    const r = (radius * (levelIdx + 1)) / levels
+    return angles.map((a) => {
+      const p = toPoint(a, r)
+      return `${p.x.toFixed(2)},${p.y.toFixed(2)}`
+    }).join(' ')
+  })
+
+  const axes = angles.map((a) => toPoint(a, radius))
+
+  const labels = angles.map((a, idx) => {
+    const p = toPoint(a, radius + 12)
+    const text = dims[idx]?.name ?? `维度${idx + 1}`
+    return { x: p.x, y: p.y, text }
+  })
+
+  const dataPolygon = angles.map((a, idx) => {
+    const score = dims[idx]?.score ?? 0
+    const r = (radius * clamp(score, 0, 10)) / 10
+    const p = toPoint(a, r)
+    return `${p.x.toFixed(2)},${p.y.toFixed(2)}`
+  }).join(' ')
+
+  return { cx, cy, gridPolygons, axes, labels, dataPolygon }
 })
 
 const suggestions = computed(() => {
@@ -1198,10 +1316,11 @@ const exportReport = (format) => {
 }
 
 .abilities-view.dark .panel {
-  background: var(--dm-gradient-card);
-  border: 1px solid var(--dm-border);
+  /* 去掉第二页外层大方框：外层只负责布局，不负责“卡片底”视觉 */
+  background: transparent;
+  border: none;
+  box-shadow: none;
   color: var(--dm-text);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .header {
@@ -1342,12 +1461,80 @@ const exportReport = (format) => {
   padding: 24px 20px 28px;
   background: rgba(255, 255, 255, 0.6);
   border-radius: 14px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  /* 去掉细线框 */
+  border: none;
 }
 
 .abilities-view.dark .page-extra-intro {
   background: var(--dm-surface-elevated);
-  border-color: var(--dm-border);
+  border-color: transparent;
+}
+
+.resume-bottom-explain {
+  margin-top: 24px;
+  padding: 16px 20px 20px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 16px;
+}
+
+.abilities-view.dark .resume-bottom-explain {
+  background: var(--dm-surface-elevated);
+}
+
+.resume-bottom-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 22px;
+}
+
+.resume-bottom-col {
+  min-width: 0;
+}
+
+.resume-bottom-col-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(16px, 1.1vw, 18px);
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+.abilities-view.dark .resume-bottom-col-title {
+  color: var(--dm-text);
+}
+
+.resume-bottom-col-icon {
+  display: inline-flex;
+  width: 18px;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  color: #000;
+  flex: 0 0 auto;
+}
+
+.resume-bottom-col-text {
+  margin: 0;
+  font-size: clamp(14px, 0.95vw, 16px);
+  line-height: 1.75;
+  color: #475569;
+}
+
+.abilities-view.dark .resume-bottom-col-text {
+  color: var(--dm-text-secondary);
+}
+
+.resume-bottom-list {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .resume-bottom-cols {
+    grid-template-columns: 1fr;
+  }
 }
 
 .extra-intro-title {
@@ -1380,14 +1567,13 @@ const exportReport = (format) => {
 }
 
 .panel {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.08) 1.6px, transparent 2.3px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  /* 去掉第二页外层大方框：不再给外层卡片底色/边框/阴影 */
+  background: transparent;
   border-radius: 18px;
+  backdrop-filter: none;
   padding: 24px 24px 32px;
-  border: var(--u-border);
-  box-shadow: var(--u-box-shadow);
+  border: none;
+  box-shadow: none;
 }
 
 .entry-panel {
@@ -1441,18 +1627,36 @@ const exportReport = (format) => {
 
 .trust-panel {
   margin-top: 20px;
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-body-bg), var(--u-gradient-fade));
+  /* 同样移除厚重波点，让卡片悬浮但不“糊住”底色 */
+  background: rgba(255, 255, 255, 0.55);
   border-radius: 16px;
   padding: 16px 18px 18px;
-  border: var(--u-border);
-  box-shadow: 2px 2px 0px var(--u-black);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
 }
 
 .abilities-view.dark .trust-panel {
-  background: var(--dm-surface);
+  background: rgba(28, 33, 40, 0.62);
+  border: 1px solid var(--dm-border);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+.trust-panel--entry {
+  /* 入口页：该区域本身也作为卡片展示（黑色边框） */
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 16px;
+  padding: 16px 18px 35px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+  margin-top: 60px;
+}
+
+.abilities-view.dark .trust-panel--entry {
+  background: rgba(28, 33, 40, 0.62);
+  border: 1px solid var(--dm-border);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
 }
 
 .abilities-view.dark .trust-item-desc {
@@ -1463,6 +1667,17 @@ const exportReport = (format) => {
   color: var(--dm-accent);
 }
 
+.trust-panel--upload-explain {
+  margin-top: 65px;
+  border: 2px solid var(--u-black);
+  box-shadow: 2px 2px 0px var(--u-black);
+}
+
+.abilities-view.dark .trust-panel--upload-explain {
+  border: 3px solid var(--u-black);
+  box-shadow: 2px 2px 0px var(--u-black);
+}
+
 .trust-title {
   font-size: clamp(18px, 1.2vw, 22px);
   margin-bottom: 10px;
@@ -1470,17 +1685,64 @@ const exportReport = (format) => {
 
 .trust-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 18px;
+  align-items: stretch;
+  margin-top: 50px;
+}
+
+.trust-item--0 {
+  background: rgba(232, 246, 255, 0.68);
+  border: 2px solid var(--u-black);
+}
+
+.trust-item--1 {
+  background: rgba(255, 214, 233, 0.68);
+  border: 2px solid var(--u-black);
+}
+
+.trust-item--2 {
+  background: rgba(226, 255, 236, 0.68);
+  border: 2px solid var(--u-black);
+}
+
+.abilities-view.dark .trust-item--0 {
+  background: rgba(56, 189, 248, 0.12);
+  border: 2px solid var(--u-black);
+}
+
+.abilities-view.dark .trust-item--1 {
+  background: rgba(236, 72, 153, 0.12);
+  border: 2px solid var(--u-black);
+}
+
+.abilities-view.dark .trust-item--2 {
+  background: rgba(34, 197, 94, 0.12);
+  border: 2px solid var(--u-black);
+}
+
+@media (max-width: 900px) {
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
 
 .trust-item {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 14px 16px;
+  border-radius: 14px;
+  box-shadow:
+    0 14px 26px rgba(16, 24, 40, 0.06),
+    3px 3px 0px var(--u-black);
 }
 
 .trust-icon {
   font-size: 18px;
+  /* 让左侧图标与标题文字对齐更自然（“图片部分”整体略下移） */
+  margin-top: 2px;
 }
 
 .trust-item-title {
@@ -1496,7 +1758,8 @@ const exportReport = (format) => {
 
 .link-text {
   display: inline-block;
-  margin-top: 8px;
+  /* 让“查看参考文献”与上下内容保持一致垂直间距 */
+  margin-top: 30px;
   font-size: clamp(15px, 0.95vw, 17px);
   color: var(--u-black);
   background: var(--u-bg-submit);
@@ -1509,45 +1772,57 @@ const exportReport = (format) => {
 /* 入口：两个卡片 */
 .entry-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
   margin-top: 24px;
 }
 
 .entry-card {
-  background: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  text-align: left;
+  background: transparent;
   border-radius: 20px;
-  padding: 28px 24px;
-  border: var(--u-border);
-  box-shadow: var(--u-box-shadow);
+  padding: clamp(26px, 3vw, 36px) clamp(18px, 2.3vw, 28px);
+  border: 2px solid var(--u-black);
+  box-shadow: 6px 6px 0px var(--u-black);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  min-height: clamp(220px, 26vh, 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition:
+    transform 0.14s ease,
+    box-shadow 0.14s ease,
+    border-color 0.14s ease;
 }
 
-/* 混搭：两张入口卡片用蓝/粉区分，减少大面积米黄 */
-.entry-cards .entry-card:nth-child(1) {
-  background: var(--u-body-bg);
+.entry-card--upload {
+  background: #e8f6ff; /* 淡蓝 */
 }
 
-.entry-cards .entry-card:nth-child(2) {
-  background: var(--u-bg-submit);
+.entry-card--chat {
+  background: #ffd6e9; /* 莫兰迪粉 */
 }
 
-.abilities-view.dark .entry-card {
-  background: var(--dm-surface-card);
-  border-color: var(--dm-border);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+.entry-card:focus-visible {
+  outline: 3px solid var(--u-black);
+  outline-offset: 4px;
 }
 
 .entry-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 6px 6px 0px var(--u-black);
-  border-color: var(--u-black);
+  /* hover：硬阴影消失 + 右下位移模拟“按下” */
+  box-shadow: none;
+  transform: translate(5px, 6px);
 }
 
 .abilities-view.dark .entry-card:hover {
-  border-color: var(--dm-border-accent);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25), 0 0 20px rgba(167, 139, 250, 0.08);
+  box-shadow: none;
+  transform: translate(5px, 6px);
+}
+
+.entry-card:active {
+  transform: translate(3px, 4px);
+  box-shadow: none;
 }
 
 .entry-card-icon {
@@ -1556,13 +1831,13 @@ const exportReport = (format) => {
 }
 
 .entry-card-title {
-  font-size: clamp(20px, 1.4vw, 24px);
+  font-size: clamp(22px, 1.6vw, 28px);
   font-weight: 700;
   margin-bottom: 10px;
 }
 
 .entry-card-desc {
-  font-size: clamp(15px, 1vw, 17px);
+  font-size: clamp(16px, 1.1vw, 18px);
   color: #555;
   line-height: 1.55;
   margin-bottom: 16px;
@@ -1639,6 +1914,63 @@ const exportReport = (format) => {
   margin: 0;
 }
 
+/* 上传框：复用主界面 HomeView 的“简历上传框”效果 */
+.upload-area-wrap :deep(.el-upload) {
+  width: 100%;
+}
+
+.upload-area-wrap :deep(.el-upload-dragger) {
+  width: 100%;
+  border: 2px dashed rgba(51, 50, 46, 0.35);
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fdf8ef 0%, #fff7f5 100%);
+  padding: 22px 18px;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.upload-area-wrap :deep(.el-upload-dragger:hover) {
+  border-color: rgba(51, 50, 46, 0.62);
+  background: linear-gradient(180deg, #fff9f1 0%, #fff4f0 100%);
+  transform: translateY(-1px);
+}
+
+.upload-area-wrap :deep(.el-upload__text) {
+  color: rgba(51, 50, 46, 0.9);
+  font-size: clamp(14px, 0.95vw, 16px);
+}
+
+.upload-area-wrap :deep(.el-upload__tip) {
+  color: rgba(51, 50, 46, 0.72);
+  font-size: clamp(12px, 0.85vw, 14px);
+}
+
+.upload-area-wrap :deep(.el-icon--upload) {
+  color: rgba(51, 50, 46, 0.55);
+  margin-bottom: 8px;
+}
+
+.abilities-view.dark :deep(.upload-area .el-upload-dragger) {
+  border-color: var(--dm-border);
+  background: var(--dm-surface-card);
+}
+
+.abilities-view.dark :deep(.upload-area .el-upload-dragger:hover) {
+  border-color: var(--dm-border-accent);
+  background: var(--dm-surface-elevated);
+}
+
+.abilities-view.dark :deep(.upload-area .el-upload__text) {
+  color: var(--dm-text);
+}
+
+.abilities-view.dark :deep(.upload-area .el-upload__tip),
+.abilities-view.dark :deep(.upload-area .el-icon--upload) {
+  color: var(--dm-text-secondary);
+}
+
 .upload-tips {
   padding-left: 22px;
   margin: 12px 0 0;
@@ -1708,7 +2040,8 @@ const exportReport = (format) => {
 
 .abilities-view.dark .chat-window {
   background: var(--dm-surface);
-  border: 1px solid var(--dm-border);
+  border: 2px solid var(--u-black);
+  box-shadow: 3px 3px 0px var(--u-black);
 }
 
 .abilities-view.dark .bubble {
@@ -1753,6 +2086,30 @@ const exportReport = (format) => {
   color: var(--dm-text-secondary);
 }
 
+.abilities-view.dark .radar-chart {
+  background: var(--dm-surface-elevated);
+}
+
+.abilities-view.dark .radar-grid {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+.abilities-view.dark .radar-axis {
+  stroke: rgba(255, 255, 255, 0.14);
+}
+
+.abilities-view.dark .radar-data {
+  fill: rgba(99, 191, 183, 0.26);
+}
+
+.abilities-view.dark .radar-data-outline {
+  stroke: rgba(255, 255, 255, 0.7);
+}
+
+.abilities-view.dark .radar-label {
+  fill: rgba(255, 255, 255, 0.82);
+}
+
 .abilities-view.dark .tag {
   background: var(--dm-warm-soft);
   color: var(--dm-warm);
@@ -1766,6 +2123,8 @@ const exportReport = (format) => {
   min-height: 380px;
   max-height: 480px;
   overflow-y: auto;
+  border: 2px solid var(--u-black);
+  box-shadow: 3px 3px 0px var(--u-black);
 }
 
 .chat-message {
@@ -1814,6 +2173,11 @@ const exportReport = (format) => {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.chat-input-bar :deep(.el-input__wrapper) {
+  border: 2px solid var(--u-black);
+  box-shadow: none;
 }
 
 .chat-footer {
@@ -1891,6 +2255,49 @@ const exportReport = (format) => {
   font-weight: 600;
 }
 
+.radar-chart {
+  height: clamp(500px, 62vh, 600px);
+  border-radius: 12px;
+  background: #f5f7fb;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+
+.radar-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 360px;
+  max-height: 360px;
+  overflow: visible;
+}
+
+.radar-grid {
+  fill: transparent;
+  stroke: rgba(15, 23, 42, 0.12);
+  stroke-width: 1;
+}
+
+.radar-axis {
+  stroke: rgba(15, 23, 42, 0.1);
+  stroke-width: 1;
+}
+
+.radar-data {
+  fill: rgba(99, 191, 183, 0.32);
+}
+
+.radar-data-outline {
+  fill: transparent;
+  stroke: rgba(15, 23, 42, 0.6);
+  stroke-width: 1.5;
+}
+
+.radar-label {
+  font-size: 11px;
+  fill: rgba(15, 23, 42, 0.78);
+}
+
 .radar-placeholder {
   height: clamp(240px, 26vh, 340px);
   border-radius: 12px;
@@ -1913,29 +2320,21 @@ const exportReport = (format) => {
 .score-card,
 .ability-card,
 .suggest-card {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  /* 移除波点底纹：保留线性渐变的轻盈卡片背景 */
+  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
   border-radius: 12px;
   padding: clamp(14px, 1.2vw, 20px);
-  border: var(--u-border);
-  box-shadow: 2px 2px 0px var(--u-black);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
 }
 
 /* 混搭：结果区三张卡片交替底色 */
 .result-right > :nth-child(2) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
 }
 
 .result-right > :nth-child(3) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
 }
 
 .score-label {
@@ -2065,21 +2464,15 @@ const exportReport = (format) => {
 }
 
 .compare-card {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
   border-radius: 12px;
   padding: 12px 14px;
-  border: var(--u-border);
-  box-shadow: 2px 2px 0px var(--u-black);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
 }
 
 .compare-grid .compare-card:nth-child(2) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-body-bg), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-body-bg), var(--u-gradient-fade));
 }
 
 .compare-title {
@@ -2169,36 +2562,24 @@ const exportReport = (format) => {
 
 .report-section {
   margin-top: 14px;
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
   border-radius: 14px;
   padding: 12px 14px;
-  border: var(--u-border);
-  box-shadow: 2px 2px 0px var(--u-black);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
 }
 
 /* 混搭：报告分段卡片交替底色 */
 .report-panel .report-section:nth-of-type(4n + 2) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
 }
 
 .report-panel .report-section:nth-of-type(4n + 3) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
 }
 
 .report-panel .report-section:nth-of-type(4n) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-discard), var(--u-gradient-fade));
+  background: linear-gradient(135deg, var(--u-bg-discard), var(--u-gradient-fade));
 }
 
 .hint-text {
@@ -2344,6 +2725,12 @@ const exportReport = (format) => {
 
   .page-scroll {
     padding-inline: 16px;
+  }
+
+  /* 小屏：两张入口卡片改为上下堆叠 */
+  .entry-cards {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .result-grid {

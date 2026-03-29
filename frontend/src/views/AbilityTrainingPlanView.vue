@@ -15,22 +15,104 @@
           </header>
 
           <section class="gantt-section">
-            <div class="side-label" aria-hidden="true">
-              <span>甘特图</span>
-              <span>示例</span>
-            </div>
-            <div class="gantt-card" role="img" aria-label="甘特图示例">
-              <img class="gantt-img" :src="ganttExampleImg" alt="甘特图示例" />
+            <div class="gantt-card-outer">
+              <div class="gantt-sticker-tag" aria-hidden="true">甘特图示例</div>
+              <div class="gantt-card" role="img" aria-label="甘特图示例">
+                <!-- 与实际生成页同款甘特图渲染结构（示例数据） -->
+                <div class="gantt" aria-hidden="true">
+                  <div class="gantt-head">
+                    <div class="corner"></div>
+                    <div v-for="w in weeks" :key="w" class="week">W{{ w }}</div>
+                  </div>
+
+                  <div v-for="row in ganttRows" :key="row.label" class="gantt-row">
+                    <div class="row-label">{{ row.label }}</div>
+                    <div class="row-grid">
+                      <div
+                        v-for="(bar, idx) in row.bars"
+                        :key="idx"
+                        class="bar"
+                        :class="bar.tone"
+                        :style="barStyle(bar)"
+                      >
+                        {{ bar.title }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 
           <section class="todo-section">
-            <div class="todo-card" role="img" aria-label="To Do List 示例">
-              <img class="todo-img" :src="todoExampleImg" alt="To Do List 示例" />
-            </div>
-            <div class="todo-side" aria-hidden="true">
-              <div class="todo-hand">To Do</div>
-              <div class="todo-hand">List</div>
+            <div class="todo-example-wrap">
+              <div class="todo-card-outer">
+                <div class="todo-card" role="group" aria-label="To Do List 示例">
+                  <ul class="todo-list" aria-label="待办事项示例">
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--done">
+                        <input class="todo-checkbox" type="checkbox" checked disabled>
+                        <span class="todo-text">第 1 周：完成能力基线测评</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--done">
+                        <input class="todo-checkbox" type="checkbox" checked disabled>
+                        <span class="todo-text">第 2 周：学习资源搭建与路线确认</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--done">
+                        <input class="todo-checkbox" type="checkbox" checked disabled>
+                        <span class="todo-text">第 3 周：完成基础技能训练（Phase 1）</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 4 周：阶段项目任务启动与里程碑拆解</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 5 周：产出训练结果并完成自测复盘</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 6 周：错题/薄弱点专项强化训练</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 7 周：同伴/导师评审与反馈迭代</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 8 周：第二阶段综合训练与联动应用</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 9 周：沉淀作品集与案例总结</span>
+                      </label>
+                    </li>
+                    <li class="todo-li">
+                      <label class="todo-item todo-item--todo">
+                        <input class="todo-checkbox" type="checkbox" disabled>
+                        <span class="todo-text">第 10 周：复盘总结与下一阶段计划</span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+                <div class="todo-sticker-tag" aria-hidden="true">To Do List 示例</div>
+              </div>
             </div>
           </section>
 
@@ -38,7 +120,7 @@
             <p class="bottom-note">
               如果你还没有生成基于你的职业发展报告，请先生成发展报告请完善生成你的专属提升计划哦，点击下面按钮进行构建学生能力画像。
             </p>
-            <button class="u-btn u-btn--primary u-btn--lg" type="button" @click="goStudentAbilities">
+            <button class="u-btn u-btn--primary u-btn--lg jump-btn" type="button" @click="goStudentAbilities">
               跳转页到第二页
             </button>
           </section>
@@ -57,11 +139,45 @@
 import { useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
-import ganttExampleImg from '../assets/training-guide/gantt-example.png'
-import todoExampleImg from '../assets/training-guide/todo-example.png'
 
 const { theme } = useTheme()
 const router = useRouter()
+
+const weeks = Array.from({ length: 12 }, (_, i) => i + 1)
+
+// 示例数据：保持与实际生成页同一套结构（ganttRows -> bars -> barStyle）
+const ganttRows = [
+  {
+    label: '基础能力补齐',
+    bars: [
+      { title: '算法/计网/OS/数据库梳理', start: 1, end: 4, tone: 'mint' },
+      { title: '高频专题强化 + 题单', start: 5, end: 8, tone: 'mint' },
+      { title: '面试高频点回炉', start: 9, end: 12, tone: 'pink' },
+    ],
+  },
+  {
+    label: '项目与作品集',
+    bars: [
+      { title: 'MVP 选型与需求拆解', start: 1, end: 2, tone: 'purple' },
+      { title: '核心功能开发 + 文档', start: 3, end: 7, tone: 'purple' },
+      { title: '上线部署 + 作品集包装', start: 8, end: 12, tone: 'yellow' },
+    ],
+  },
+  {
+    label: '求职与表达',
+    bars: [
+      { title: '项目讲解脚本（STAR）', start: 1, end: 3, tone: 'pink' },
+      { title: '模拟面试（技术/项目）', start: 4, end: 9, tone: 'yellow' },
+      { title: '投递-复盘-迭代闭环', start: 6, end: 12, tone: 'yellow' },
+    ],
+  },
+]
+
+const barStyle = (bar) => {
+  const start = Math.max(1, Math.min(12, Number(bar.start || 1)))
+  const end = Math.max(start, Math.min(12, Number(bar.end || start)))
+  return { gridColumn: `${start} / ${end + 1}` }
+}
 
 const goStudentAbilities = () => {
   router.push('/student-abilities')
@@ -71,6 +187,11 @@ const goStudentAbilities = () => {
 <style scoped>
 .ability-plan-view {
   --u-border-radius: 12px;
+  /* 示例左右卡片统一尺寸：页面宽度的二分之一（中等屏上再做上限收敛） */
+  --example-half-width: 50%;
+  /* 甘特图示例方框高度：贴近生成页（约 52 + 3*74） */
+  --example-height: clamp(280px, 34vh, 360px);
+  --todo-side-width: clamp(90px, 9vw, 140px);
 
   width: 100vw;
   min-height: 100vh;
@@ -240,23 +361,23 @@ const goStudentAbilities = () => {
 }
 
 .panel {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.1) 1.6px, transparent 2.2px) 0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-gradient-fade), var(--u-gradient-fade-mid));
+  /* 让第二/第三分界面的淡蓝背景透出来：外层不再使用大面积波点/硬边框 */
+  background: transparent;
   border-radius: 18px;
   padding: clamp(22px, 2.2vw, 40px);
-  border: var(--u-border);
-  box-shadow: var(--u-box-shadow);
+  border: none;
+  box-shadow: none;
 }
 
 .ability-plan-view.dark .panel {
-  background: var(--dm-gradient-card);
-  border: 1px solid var(--dm-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .guide-wrap {
-  width: min(1240px, 100%);
+  /* 让后续“半屏宽度”基于真实页面内容宽度计算 */
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -282,11 +403,10 @@ const goStudentAbilities = () => {
 }
 
 .gantt-section {
-  margin-top: clamp(18px, 2vw, 28px);
-  display: grid;
-  grid-template-columns: clamp(110px, 9vw, 150px) 1fr;
-  align-items: center;
-  gap: clamp(14px, 1.8vw, 24px);
+  margin-top: clamp(32px, 2.6vw, 40px);
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .side-label {
@@ -302,45 +422,254 @@ const goStudentAbilities = () => {
 }
 
 .gantt-card {
-  border-radius: 18px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: var(--u-box-shadow);
-  background: rgba(255, 255, 255, 0.9);
-  border: var(--u-border);
-  transform: translateZ(0);
+  /* 内层主要负责裁切图片圆角 */
+  box-shadow: none;
+  background: transparent;
+  border: none;
+  height: 100%;
+  /* 避免创建新的堆叠上下文导致贴纸被图片盖住 */
+  transform: none;
+  position: relative;
+  z-index: 1;
 }
 
-.gantt-img {
-  width: 100%;
-  height: auto;
-  display: block;
+.gantt-card-outer {
+  position: relative;
+  /* 甘特图示例卡片：改为渐变黄色（更像学习进度的“热度”） */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 254, 246, 0.98) 0%,
+    rgba(255, 248, 222, 0.88) 50%,
+    rgba(254, 236, 154, 0.78) 100%
+  );
+  border: 3px solid var(--u-black); /* 3px 黑边 */
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+  width: var(--example-half-width);
+  height: var(--example-height);
 }
 
-.gantt-section .gantt-card {
-  background: linear-gradient(135deg, var(--u-body-bg-fade), var(--u-gradient-fade));
+.ability-plan-view.dark .gantt-card-outer {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 165, 116, 0.20) 0%,
+    rgba(180, 83, 9, 0.16) 45%,
+    rgba(212, 165, 116, 0.11) 100%
+  );
 }
 
-.todo-section {
-  margin-top: clamp(18px, 2vw, 28px);
+.gantt-sticker-tag {
+  position: absolute;
+  top: -12px;
+  left: -8px;
+  z-index: 3;
+  pointer-events: none;
+  padding: 8px 12px;
+  /* 贴纸样式 Tag：亮红色背景 + 白字 + 黑边 */
+  background: #ff2d2d;
+  color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: clamp(13px, 1vw, 16px);
+  transform: rotate(-2deg);
+}
+
+.ability-plan-view.dark .gantt-sticker-tag {
+  /* 深色模式下保持同样的红色贴纸 */
+  background: #ff2d2d;
+  color: #ffffff;
+}
+
+.gantt {
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 254, 246, 0.95) 0%,
+    rgba(255, 248, 222, 0.84) 55%,
+    rgba(254, 236, 154, 0.74) 100%
+  );
+  border: 1px solid var(--u-border);
+  overflow: hidden;
+}
+
+.ability-plan-view.dark .gantt {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 165, 116, 0.18) 0%,
+    rgba(180, 83, 9, 0.14) 55%,
+    rgba(212, 165, 116, 0.11) 100%
+  );
+  border-color: var(--dm-border);
+}
+
+.gantt-head {
   display: grid;
-  grid-template-columns: 1fr clamp(120px, 10vw, 170px);
-  gap: clamp(12px, 1.6vw, 22px);
+  grid-template-columns: 160px repeat(12, 1fr);
+  align-items: center;
+  background: #f8fafc;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.ability-plan-view.dark .gantt-head {
+  background: var(--dm-surface-elevated);
+  border-bottom-color: var(--dm-border);
+}
+
+.corner {
+  height: 52px;
+}
+
+.week {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #1f2937;
+  font-size: 12px;
+}
+
+.ability-plan-view.dark .week {
+  color: var(--dm-text);
+}
+
+.gantt-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  min-height: 74px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.gantt-row:last-child {
+  border-bottom: none;
+}
+
+.row-label {
+  padding: 14px 12px;
+  font-weight: 700;
+  background: #fbfdff;
+  color: #334155;
+  display: flex;
   align-items: center;
 }
 
-.todo-card {
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: var(--u-box-shadow);
-  background: rgba(255, 255, 255, 0.9);
+.ability-plan-view.dark .row-label {
+  background: var(--dm-surface);
+  color: var(--dm-text);
+}
+
+.row-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  padding: 10px 12px;
+  gap: 10px;
+}
+
+.bar {
+  border-radius: 14px;
+  padding: 10px 12px;
+  color: var(--u-black);
+  font-size: 13px;
+  line-height: 1.25;
+  box-shadow: 2px 2px 0px var(--u-black);
   border: var(--u-border);
-  transform: translateZ(0);
+}
+
+.ability-plan-view.dark .bar {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--dm-text);
+  border-color: var(--dm-border);
+}
+
+.bar.mint {
+  background: linear-gradient(90deg, var(--u-bg-completed), var(--u-fade-completed));
+}
+
+.bar.purple {
+  background: linear-gradient(90deg, var(--u-body-bg), var(--u-fade-body));
+}
+
+.bar.yellow {
+  background: linear-gradient(90deg, var(--u-bg-normal), var(--u-fade-normal));
+}
+
+.bar.pink {
+  background: linear-gradient(90deg, var(--u-bg-submit), var(--u-fade-submit));
+}
+
+@media (max-width: 900px) {
+  .gantt-head {
+    grid-template-columns: 120px repeat(12, 1fr);
+  }
+
+  .gantt-row {
+    grid-template-columns: 120px 1fr;
+  }
+}
+
+.todo-section {
+  margin-top: clamp(44px, 3.6vw, 58px);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.todo-example-wrap {
+  width: var(--example-half-width);
+  height: var(--example-height);
+  display: block;
+}
+
+.todo-card-outer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  border: 3px solid var(--u-black);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+}
+
+.ability-plan-view.dark .todo-card-outer {
+  background: rgba(28, 33, 40, 0.88);
+}
+
+.todo-card {
+  border-radius: 14px;
+  overflow: hidden;
+  /* 轻盈悬浮感：柔和投影 + 圆角卡片 */
+  box-shadow: none;
+  /* UIIneed 配色：卡片底用主色 + 轻微渐变 */
+  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  border: none;
+  padding: 14px 14px 16px;
+  transform: none;
+  height: 100%;
+}
+
+.ability-plan-view.dark .todo-card {
+  background: var(--dm-surface-card);
+  box-shadow: none;
+}
+
+.ability-plan-view.dark .gantt-card {
+  border: none;
+  box-shadow: none;
 }
 
 @media (min-width: 1200px) {
   /* 大屏下再拉宽一档，让图片更“铺开” */
   .guide-wrap {
-    width: min(1400px, 100%);
+    width: 100%;
   }
 }
 
@@ -350,22 +679,121 @@ const goStudentAbilities = () => {
   display: block;
 }
 
-.todo-section .todo-card {
-  background: linear-gradient(135deg, var(--u-fade-submit), var(--u-gradient-fade));
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  overflow: auto;
+  /* 为右侧 sticker 留出空间（避免遮挡内容） */
+  padding-right: 8px;
+}
+
+.todo-li {
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  border: 2px solid var(--u-black);
+  background: var(--u-bg-normal);
+}
+
+.todo-item--done {
+  background: var(--u-bg-completed);
+}
+
+.todo-item--todo {
+  background: var(--u-bg-discard);
+}
+
+.ability-plan-view.dark .todo-item {
+  background: var(--dm-surface-card);
+}
+
+.ability-plan-view.dark .todo-item--done {
+  background: rgba(126, 179, 176, 0.18);
+}
+
+.ability-plan-view.dark .todo-item--todo {
+  background: rgba(109, 59, 82, 0.14);
+}
+
+.todo-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--u-black); /* 黑粗边 */
+  border-radius: 6px;
+  background: var(--u-bg-normal);
+  margin: 0;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.todo-checkbox:checked {
+  background: var(--u-black);
+}
+
+.todo-checkbox:checked::after {
+  content: '';
+  width: 8px;
+  height: 12px;
+  border-right: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  transform: rotate(45deg) translate(-1px, -1px);
+  display: block;
+}
+
+.todo-checkbox:disabled {
+  opacity: 1; /* 保持视觉一致 */
+}
+
+.todo-text {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--u-black);
 }
 
 .todo-side {
+  position: absolute;
+  top: 14px;
+  right: 10px;
   display: grid;
   gap: 8px;
   justify-items: center;
   color: rgba(15, 23, 42, 0.45);
 }
 
-.todo-hand {
-  font-size: clamp(22px, 2vw, 32px);
-  letter-spacing: 2px;
-  font-weight: 700;
+.todo-sticker-tag {
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  left: auto;
+  z-index: 3;
+  pointer-events: none;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 2px solid var(--u-black);
+  border-radius: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: clamp(13px, 1vw, 16px);
   transform: rotate(-2deg);
+}
+
+.ability-plan-view.dark .todo-sticker-tag {
+  background: rgba(28, 33, 40, 0.88);
 }
 
 .guide-bottom {
@@ -382,30 +810,47 @@ const goStudentAbilities = () => {
 }
 
 .jump-btn {
-  border: none;
+  border: 2px solid rgba(51, 50, 46, 0.25);
   cursor: pointer;
-  padding: 12px 26px;
+  padding: 12px 34px;
   border-radius: 999px;
-  background: rgba(253, 230, 200, 0.95);
-  color: rgba(180, 90, 20, 0.55);
-  font-weight: 800;
-  letter-spacing: 1px;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+  background: linear-gradient(135deg, rgba(253, 230, 200, 0.98) 0%, rgba(255, 214, 233, 0.98) 100%);
+  color: rgba(51, 50, 46, 0.88);
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  box-shadow: 0 18px 44px rgba(16, 24, 40, 0.12);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
 }
 
 .jump-btn:hover {
-  filter: brightness(1.02);
-  transform: translateY(-1px);
+  filter: none;
+  transform: translateY(-2px);
+  box-shadow: 0 26px 70px rgba(16, 24, 40, 0.16);
 }
 
 .jump-btn:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(16, 24, 40, 0.12);
+}
+
+.ability-plan-view.dark .jump-btn {
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+  background: var(--dm-gradient-card);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+}
+
+.ability-plan-view.dark .jump-btn:hover {
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
 }
 
 .site-footer {
   margin-top: auto;
   padding-top: 24px;
-  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  border-top: 1px solid rgba(124, 141, 167, 0.35);
   font-size: clamp(14px, 0.9vw, 16px);
   color: #94a3b8;
   text-align: center;
@@ -424,17 +869,22 @@ const goStudentAbilities = () => {
   .page-scroll {
     padding-inline: 16px;
   }
-  .gantt-section {
-    grid-template-columns: 90px 1fr;
-    gap: 12px;
+  .gantt-card-outer,
+  .todo-example-wrap {
+    width: 100%;
   }
-  .todo-section {
-    grid-template-columns: 1fr;
+
+  .todo-example-wrap {
+    /* todo-side 在该断点改为静态布局，不再使用 grid */
   }
+
   .todo-side {
-    order: -1;
-    grid-auto-flow: column;
-    justify-content: center;
+    position: static;
+    margin-top: 10px;
+  }
+
+  .todo-list {
+    padding-right: 8px;
   }
 }
 </style>

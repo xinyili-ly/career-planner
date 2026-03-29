@@ -34,41 +34,82 @@
 
       <!-- 岗位卡片网格：统一尺寸 + 悬停/点击交互 -->
       <section class="jobs-grid">
-        <el-row :gutter="24" class="job-row">
-          <el-col
-            v-for="job in jobs"
-            :key="job.id"
-            :xs="24"
-            :sm="12"
-            :md="6"
-            :lg="6"
-            class="job-col"
-          >
-            <div
-              class="job-card"
-              :class="{ 'is-active': activeCardId === job.id }"
-              @click="goToJob(job)"
-              @mouseenter="activeCardId = job.id"
-              @mouseleave="activeCardId = null"
-            >
-              <div class="job-image-placeholder">
-                <span class="placeholder-text">图片</span>
+        <div v-if="loadingJobs" class="jobs-skeleton-wrap">
+          <el-row :gutter="24" class="job-row">
+            <el-col v-for="n in 8" :key="n" :xs="24" :sm="12" :md="6" :lg="6" class="job-col">
+              <div class="job-skeleton-card">
+                <el-skeleton animated :rows="5" />
               </div>
-              <div class="job-info">
-                <h3 class="job-name">{{ job.name }}</h3>
-                <p class="job-subtitle">
-                  一技在身
-                  <span class="highlight">{{ job.field }}</span>
-                </p>
-                <p class="job-company">公司：{{ job.company }}</p>
-                <div class="job-action">
-                  <span class="action-text">查看详情</span>
-                  <span class="action-arrow">→</span>
+            </el-col>
+          </el-row>
+        </div>
+        <template v-else>
+          <div class="jobs-toolbar">
+            <el-input
+              v-model="searchKeyword"
+              class="jobs-search"
+              clearable
+              placeholder="搜索岗位名、公司、领域…"
+            />
+            <el-select v-model="sortBy" class="jobs-sort" placeholder="排序">
+              <el-option label="默认顺序" value="default" />
+              <el-option label="岗位名 A-Z" value="nameAsc" />
+              <el-option label="岗位名 Z-A" value="nameDesc" />
+            </el-select>
+          </div>
+          <el-row :gutter="24" class="job-row">
+            <el-col
+              v-for="job in pagedJobs"
+              :key="job.id"
+              :xs="24"
+              :sm="12"
+              :md="6"
+              :lg="6"
+              class="job-col"
+            >
+              <div
+                class="job-card"
+                :class="{ 'is-active': activeCardId === job.id }"
+                @click="goToJob(job)"
+                @mouseenter="activeCardId = job.id"
+                @mouseleave="activeCardId = null"
+              >
+                <div class="job-image-wrap">
+                  <img
+                    v-if="job.coverUrl"
+                    class="job-cover"
+                    :src="job.coverUrl"
+                    alt=""
+                  />
+                  <div v-else class="job-image-placeholder">
+                    <span class="placeholder-text">图片</span>
+                  </div>
+                </div>
+                <div class="job-info">
+                  <h3 class="job-name">{{ job.name }}</h3>
+                  <p class="job-subtitle">
+                    一技在身
+                    <span class="highlight">{{ job.field }}</span>
+                  </p>
+                  <p class="job-company">公司：{{ job.company }}</p>
+                  <div class="job-action">
+                    <span class="action-text">查看详情</span>
+                    <span class="action-arrow">→</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </el-col>
-        </el-row>
+            </el-col>
+          </el-row>
+          <div v-if="totalFiltered > pageSize" class="jobs-pagination-wrap">
+            <el-pagination
+              v-model:current-page="page"
+              background
+              layout="total, prev, pager, next"
+              :total="totalFiltered"
+              :page-size="pageSize"
+            />
+          </div>
+        </template>
       </section>
 
       <!-- 底部说明：协调版面，避免页面过短 -->
@@ -89,12 +130,17 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
 import { getRecommendJobList } from '../api/jobPortraitApi'
-import { normalizeText, saveJobListCache, unwrapData } from '../utils/jobPortraitNormalize'
+import { formatJobPortraitApiError } from '../api/jobPortraitErrors'
+import {
+  extractJobsArray,
+  normalizeText,
+  saveJobListCache,
+} from '../utils/jobPortraitNormalize'
 
 const { theme } = useTheme()
 const router = useRouter()
@@ -119,6 +165,42 @@ const isUsingMockFallback = ref(false)
 
 const activeCardId = ref(null)
 
+const searchKeyword = ref('')
+const sortBy = ref('default')
+const page = ref(1)
+const pageSize = ref(8)
+
+const filteredJobs = computed(() => {
+  let list = jobs.value
+  const q = searchKeyword.value.trim().toLowerCase()
+  if (q) {
+    list = list.filter(
+      (j) =>
+        j.name.toLowerCase().includes(q) ||
+        j.company.toLowerCase().includes(q) ||
+        j.field.toLowerCase().includes(q),
+    )
+  }
+  const arr = [...list]
+  if (sortBy.value === 'nameAsc') {
+    arr.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'))
+  } else if (sortBy.value === 'nameDesc') {
+    arr.sort((a, b) => b.name.localeCompare(a.name, 'zh-CN'))
+  }
+  return arr
+})
+
+const totalFiltered = computed(() => filteredJobs.value.length)
+
+const pagedJobs = computed(() => {
+  const start = (page.value - 1) * pageSize.value
+  return filteredJobs.value.slice(start, start + pageSize.value)
+})
+
+watch([searchKeyword, sortBy], () => {
+  page.value = 1
+})
+
 function fieldFromTags(tags) {
   if (!Array.isArray(tags) || !tags.length) return '泛行业'
   const t = tags[0]
@@ -131,14 +213,18 @@ async function loadJobsFromApi() {
 
   try {
     const res = await getRecommendJobList()
-    const list = unwrapData(res)
+    const list = extractJobsArray(res)
     if (Array.isArray(list) && list.length) {
       saveJobListCache(list)
       jobs.value = list.map((raw, idx) => ({
         id: raw.id ?? `idx_${idx}`,
         name: normalizeText(raw.title, `岗位${idx + 1}`),
         field: fieldFromTags(raw.field_tags),
-        company: normalizeText(raw.company, '—')
+        company: normalizeText(raw.company, '—'),
+        coverUrl: normalizeText(
+          raw.hero_image || raw.cover_url || raw.image || raw.thumbnail || '',
+          '',
+        ),
       }))
       isUsingMockFallback.value = false
     } else {
@@ -147,7 +233,7 @@ async function loadJobsFromApi() {
       isUsingMockFallback.value = true
     }
   } catch (e) {
-    jobsError.value = normalizeText(e?.message, '列表接口不可用')
+    jobsError.value = normalizeText(formatJobPortraitApiError(e), '列表接口不可用')
     jobs.value = [...baseJobs]
     isUsingMockFallback.value = true
   } finally {
@@ -476,7 +562,59 @@ const goToJob = (job) => {
   border-color: var(--dm-accent);
 }
 
+.jobs-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.jobs-search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 420px;
+}
+
+.jobs-sort {
+  width: 168px;
+}
+
+.job-skeleton-card {
+  min-height: 340px;
+  padding: 16px;
+  border-radius: 18px;
+  border: var(--u-border);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.jobs-view.dark .job-skeleton-card {
+  background: var(--dm-surface-card);
+  border-color: var(--dm-border);
+}
+
+.jobs-pagination-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  padding-bottom: 20px;
+}
+
 /* 图片区：统一高度，稍长 */
+.job-image-wrap {
+  flex-shrink: 0;
+  height: 168px;
+  overflow: hidden;
+  background: var(--u-bg-normal);
+}
+
+.job-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .job-image-placeholder {
   flex-shrink: 0;
   height: 168px;

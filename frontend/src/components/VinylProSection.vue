@@ -8,55 +8,46 @@
   >
     <!-- 左侧：完整唱片居中 + 极简唱臂 -->
     <div class="vinyl-visual">
-      <div class="vinyl-scene">
-        <div class="vinyl-crop" aria-hidden="true">
-          <div class="record" :style="recordStyle">
-            <div class="groove-ring groove-ring--1" />
-            <div class="groove-ring groove-ring--2" />
-            <div class="groove-ring groove-ring--3" />
-            <div class="record-label">
-              <div class="record-label-disc" />
-              <div class="label-text-block">
-                <span class="label-line">Hello World</span>
-                <span class="label-line">We are</span>
+      <div class="vinyl-scene" aria-hidden="true">
+        <div class="turntable">
+          <div class="turntable-screw turntable-screw--tl" />
+          <div class="turntable-screw turntable-screw--tr" />
+          <div class="turntable-screw turntable-screw--bl" />
+          <div class="turntable-screw turntable-screw--br" />
+
+          <div class="platter">
+            <div class="platter-shimmer" :class="{ 'platter-shimmer--on': isActive }" />
+            <div
+              class="platter-shimmer platter-shimmer--alt"
+              :class="{ 'platter-shimmer--on': isActive }"
+            />
+
+            <div class="record" :class="{ 'record--playing': isActive }" :style="recordStyle">
+              <div class="record-groove record-groove--1" />
+              <div class="record-groove record-groove--2" />
+              <div class="record-groove record-groove--3" />
+              <div class="record-groove record-groove--4" />
+              <div class="record-groove record-groove--5" />
+
+              <div class="record-gloss record-gloss--bar" />
+              <div class="record-gloss record-gloss--arc" />
+              <div class="record-gloss record-gloss--rim" />
+
+              <div class="record-label">
+                <div class="record-label-gloss" />
+                <div class="record-label-hole" />
               </div>
             </div>
           </div>
-        </div>
 
-        <div
-          class="tonearm"
-          :class="{ 'tonearm--playing': isActive }"
-          aria-hidden="true"
-        >
-          <svg
-            class="tonearm-svg"
-            viewBox="0 0 200 360"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <!-- 枢轴 -->
-            <circle cx="102" cy="42" r="19" fill="#CCCCCC" />
-            <!-- 配重（右上梯形） -->
-            <path d="M 116 28 L 172 4 L 182 18 L 128 50 Z" fill="#CCCCCC" />
-            <!-- 上臂段：自枢轴向左下 -->
-            <path
-              d="M 96 60 L 82 58 L 64 168 L 74 172 Z"
-              fill="#CCCCCC"
-            />
-            <!-- 肘部折角 -->
-            <path
-              d="M 64 168 L 44 252 L 54 258 L 74 172 Z"
-              fill="#CCCCCC"
-            />
-            <!-- 下臂段：指向盘面 -->
-            <path
-              d="M 44 252 L 18 308 L 26 314 L 54 258 Z"
-              fill="#CCCCCC"
-            />
-            <!-- 唱头 -->
-            <rect x="2" y="300" width="30" height="38" rx="2" fill="#3D3D3D" />
-          </svg>
+          <div class="needle" :class="{ 'needle--on': isActive }">
+            <div class="needle-base" />
+            <div class="needle-arm">
+              <div class="needle-head">
+                <div class="needle-tip" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -70,30 +61,30 @@
       <div class="content-spacer" aria-hidden="true" />
 
       <div class="story-card">
-        <p class="tagline">HOW IT WORKS</p>
-        <h2 class="title">探索你的职场律动</h2>
+        <p class="tagline">初心与使用方法</p>
+        <h2 class="title">从画像到行动的职业探索</h2>
 
         <div class="step">
           <span class="num">01</span>
-          <h3>简历深度解析</h3>
-          <p>基于大模型提取 40+ 维度能力标签，精准还原你的职业底色。</p>
+          <h3>启动与进入流程</h3>
+          <p>运行项目后，从首页进入“就业岗位画像/学生就业能力”；可切换主题（自动本地记忆）。</p>
         </div>
         <div class="step">
           <span class="num">02</span>
-          <h3>动态岗位匹配</h3>
-          <p>实时比对行业画像，发现那些你从未察觉的「高契合」机会。</p>
+          <h3>岗位画像与能力评分</h3>
+          <p>岗位优先请求后端（`/recommend/list`），失败则回退本地兜底；查看岗位维度、晋升与换岗路径，再生成学生能力画像。</p>
         </div>
         <div class="step">
           <span class="num">03</span>
-          <h3>成长路径演化</h3>
-          <p>如同音轨的起伏，为你规划出跨越周期的技能进阶曲线。</p>
+          <h3>匹配报告与训练计划</h3>
+          <p>在“匹配与报告”选定目标岗位生成报告；进入“能力培训计划”查看甘特图与 To Do（增删改查并自动本地保存）。</p>
         </div>
 
         <div class="cta-wrapper">
           <el-button class="u-btn--primary" type="primary" @click="handleAction">
-            开启职业导航
+            开始填写画像
           </el-button>
-          <p class="footer-note">* 数据通过加密传输，仅用于生成你的私人报告</p>
+          <p class="footer-note">* 本地演示版说明：部分解析/生成为示例数据，To Do 会保存到本地。</p>
         </div>
       </div>
 
@@ -192,136 +183,290 @@ onUnmounted(() => {
   min-height: 320px;
 }
 
-/* 整盘居中，略留边距避免贴边 */
-.vinyl-crop {
+/* --- changpian 唱片机视觉（无控制按钮，功能沿用旧逻辑） --- */
+.turntable {
+  position: absolute;
+  inset: clamp(30px, 6vmin, 50px);
+  border-radius: 18px;
+  /* 参考 uiineed 配色：浅黄底（保持整体更统一） */
+  background:rgb(255, 251, 228);
+  border: 4px solid #000;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 1);
+}
+
+.turntable-screw {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #c0c0c0;
+  border: 2px solid #000;
+  border-radius: 999px;
+}
+.turntable-screw--tl {
+  top: 10px;
+  left: 10px;
+}
+.turntable-screw--tr {
+  top: 10px;
+  right: 10px;
+}
+.turntable-screw--bl {
+  bottom: 10px;
+  left: 10px;
+}
+.turntable-screw--br {
+  bottom: 10px;
+  right: 10px;
+}
+
+.platter {
   position: absolute;
   inset: 0;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(6px, 1.5vmin, 16px);
+  display: grid;
+  place-items: center;
+}
+
+.platter::before {
+  content: '';
+  /* 放大约 2 倍（参考 changpian 视觉），必要时允许略溢出容器 */
+  width: min(102vmin, 820px);
+  height: min(102vmin, 820px);
+  /* 参考 uiineed 配色：主按钮底色粉 */
+  background: var(--u-bg-submit);
+  border: 4px solid #000;
+  border-radius: 999px;
   box-sizing: border-box;
+}
+
+.platter-shimmer {
+  position: absolute;
+  width: min(102vmin, 710px);
+  height: min(102vmin, 710px);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    transparent 25%,
+    transparent 75%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+.platter-shimmer--alt {
+  background: radial-gradient(
+    ellipse 40% 20% at 30% 25%,
+    rgba(255, 255, 255, 0.25) 0%,
+    transparent 100%
+  );
+}
+
+.platter-shimmer--on {
+  opacity: 1;
+  animation: shimmer 2s ease-in-out infinite;
 }
 
 .record {
-  /* 约为原先尺寸的 2 倍 */
-  --disc-size: min(64vw, 76vh, 840px);
-  position: relative;
-  width: var(--disc-size);
-  height: var(--disc-size);
-  flex-shrink: 0;
-  margin: 0;
-  background: #000000;
-  border-radius: 50%;
+  position: absolute;
+  width: min(98vmin, 790px);
+  height: min(98vmin, 790px);
+  background: #1a1a1a;
+  border: 4px solid #000;
+  border-radius: 999px;
   box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  z-index: 3;
   will-change: transform;
 }
 
-@supports (width: 1cqmin) {
-  .record {
-    --disc-size: min(176cqmin, min(184cqw, 184cqb), 920px);
-  }
-}
-
-/* 细白同心沟槽（2～3 道） */
-.groove-ring {
+.record-groove {
   position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  border: 2px solid rgba(148, 163, 184, 0.35);
   pointer-events: none;
   box-sizing: border-box;
 }
-
-.groove-ring--1 {
-  inset: 14%;
+.record-groove--1 {
+  inset: 10%;
 }
-
-.groove-ring--2 {
+.record-groove--2 {
+  inset: 16%;
+}
+.record-groove--3 {
   inset: 22%;
 }
-
-.groove-ring--3 {
-  inset: 30%;
+.record-groove--4 {
+  inset: 28%;
+}
+.record-groove--5 {
+  inset: 34%;
 }
 
-/* 白标 + 黑字，竖排（与参考站一致） */
-.record-label {
+.record-gloss {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
+  border-radius: 999px;
   pointer-events: none;
 }
-
-.record-label-disc {
-  position: absolute;
-  width: 42%;
-  height: 42%;
-  max-width: 360px;
-  max-height: 360px;
-  background: #ffffff;
-  border-radius: 50%;
+.record-gloss--bar {
+  background: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 70%
+  );
+  opacity: 0.9;
+}
+.record-gloss--arc {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.1) 30deg,
+    transparent 60deg,
+    transparent 180deg,
+    rgba(255, 255, 255, 0.08) 210deg,
+    transparent 240deg
+  );
+  opacity: 0.85;
+}
+.record-gloss--rim {
+  inset: 0;
+  padding: 4px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  border: 4px solid transparent;
+  box-sizing: border-box;
 }
 
-.label-text-block {
+.record-label {
+  width: min(33vmin, 160px);
+  height: min(33vmin, 160px);
+  /* 参考 uiineed 配色：暖黄标签 */
+  background: #fff9e6;
+  border: 4px solid #000;
+  border-radius: 999px;
+  box-sizing: border-box;
   position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(6px, 1.2vmin, 12px);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  color: #000000;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-weight: 600;
-  font-size: clamp(8px, 1.25vmin, 11px);
-  letter-spacing: 0.06em;
-  line-height: 1.2;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
 }
 
-.label-line {
-  display: block;
-  white-space: nowrap;
-}
-
-/* 极简几何唱臂：枢轴在左上白区，整组绕枢轴旋转 */
-.tonearm {
+.record-label-gloss {
   position: absolute;
-  top: 4%;
-  /* 略靠右（相对左栏右缘内移） */
-  right: -3%;
-  width: min(42%, 200px);
-  height: auto;
-  aspect-ratio: 200 / 360;
-  z-index: 10;
-  transform-origin: 51% 12%;
-  /* 抬起角更大，与播放态差更大 → 摆动幅度更明显 */
-  transform: translateX(6px) rotate(-24deg);
-  transition: transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  inset: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
 }
 
-.tonearm--playing {
-  transform: translateX(6px) rotate(16deg);
+.record-label-hole {
+  width: min(5.6vmin, 30px);
+  height: min(5.6vmin, 30px);
+  background: #000;
+  border-radius: 999px;
+  z-index: 1;
 }
 
-.tonearm-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.06));
+.needle {
+  position: absolute;
+  top: 18px;
+  /* 让唱针整体向左偏一点 */
+  right: 50px;
+  transform-origin: 16px 16px;
+  /* 往左摆动幅度减小（从 -15deg -> -10deg） */
+  transform: rotate(-0deg);
+  transition: transform 0.5s ease-in-out;
+  z-index: 6;
+}
+
+.needle--on {
+  /* 向右摆动幅度减小（从 25deg -> 18deg） */
+  transform: rotate(40deg);
+}
+
+.needle-base {
+  width: 30px;
+  height: 30px;
+  background: #c0c0c0;
+  border: 4px solid #000;
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 1);
+  box-sizing: border-box;
+}
+
+.needle-arm {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  /* 让唱针臂更长，前端更明显 */
+  height: min(34vmin, 300px);
+  background: #c0c0c0;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 1);
+  box-sizing: border-box;
+  transform-origin: top;
+}
+
+.needle-head {
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 40px;
+  /* 参考 uiineed 配色：薄荷绿（不影响黑胶黑色） */
+  background: var(--u-bg-completed);
+  /* 更鲜亮一点：向白色提亮 */
+  background: color-mix(in srgb, var(--u-bg-completed) 78%, #ffffff 22%);
+  border: 4px solid #000;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 1);
+  box-sizing: border-box;
+}
+
+.needle-tip {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 12px solid #000;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* --- 右侧内容区（叠在放大的唱片之上，保证可点可读） --- */
@@ -479,20 +624,8 @@ onUnmounted(() => {
     padding: 24px 0;
   }
 
-  .record {
-    /* 窄屏约为原先 2 倍 */
-    --disc-size: min(86vw, min(56vh, 640px));
-  }
-
-  .tonearm {
-    top: 2%;
-    right: -5%;
-    width: min(48%, 160px);
-    transform: translateX(4px) rotate(-24deg);
-  }
-
-  .tonearm--playing {
-    transform: translateX(4px) rotate(16deg);
+  .turntable {
+    inset: 14px;
   }
 
   .vinyl-content {
