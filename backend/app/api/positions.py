@@ -61,6 +61,19 @@ class SalaryInfo(BaseModel):
     salary_level: str
     city_average_salary: CityAverageSalary
 
+class SocialDemandAnalysis(BaseModel):
+    market_demand: str
+    demand_description: str
+    geographic_distribution: str
+    skill_evolution: str
+    salary_trend: str
+
+class IndustryTrendAnalysis(BaseModel):
+    tech_innovation: str
+    policy_direction: str
+    industry_evolution: str
+    talent_structure: str
+
 class JobDetailResponseData(BaseModel):
     id: str
     title: str
@@ -72,6 +85,16 @@ class JobDetailResponseData(BaseModel):
     transfers: List[TransferItem]
     path_graph: PathGraph
     salary_info: Optional[SalaryInfo]
+    social_demand_analysis: Optional[SocialDemandAnalysis] = None
+    industry_trend_analysis: Optional[IndustryTrendAnalysis] = None
+    skill_requirements: List[str] = []
+    skills_html: str = ""
+    application_conditions: List[str] = []
+    education_requirement: str = ""
+    major_requirement: str = ""
+    internship_requirement: str = ""
+    certificate_requirement: str = ""
+    other_requirements: str = ""
 
 class JobDetailResponse(BaseModel):
     code: int = 0
@@ -118,23 +141,47 @@ class BaseResponse(BaseModel):
     data: Any
 
 # 依赖注入函数
-async def get_job_profiles() -> List[Dict]:
-    """加载岗位画像数据"""
+import os
+
+# 获取当前文件所在目录
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(CURRENT_DIR, '..', '..', 'data')
+
+def load_json_file(filename: str) -> any:
+    """加载JSON文件"""
+    filepath = os.path.join(DATA_DIR, filename)
     try:
-        with open('../data/jobs.json', 'r', encoding='utf-8') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
-        # 如果找不到文件，返回空列表
-        return []
+        print(f"加载文件失败 {filepath}: {e}")
+        return None
+
+async def get_job_profiles() -> List[Dict]:
+    """加载岗位画像数据"""
+    data = load_json_file('jobs.json')
+    if data is None:
+        # 尝试从项目根目录加载
+        root_dir = os.path.join(CURRENT_DIR, '..', '..', '..')
+        try:
+            with open(os.path.join(root_dir, 'job_profiles_enhanced.json'), 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            return []
+    return data
 
 async def get_job_graph() -> Dict:
     """加载岗位图谱数据"""
-    try:
-        with open('../../job_graph.json', 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception as e:
-        # 如果找不到文件，返回空字典
-        return {"vertical_paths": {}, "horizontal_paths": {}}
+    data = load_json_file('job_graph.json')
+    if data is None:
+        # 尝试从项目根目录加载
+        root_dir = os.path.join(CURRENT_DIR, '..', '..', '..')
+        try:
+            with open(os.path.join(root_dir, 'job_graph.json'), 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            return {"vertical_paths": {}, "horizontal_paths": {}}
+    return data
 
 # 辅助函数
 async def find_job_by_title(job_profiles: List[Dict], title: str) -> Optional[Dict]:
@@ -496,6 +543,103 @@ async def get_job_detail(
     elif any(keyword in title_lower for keyword in ["物联网", "iot"]):
         category_code = "iot"
     
+    # 构建社会需求分析
+    social_demand = job.get('social_demand_analysis')
+    social_demand_obj = None
+    if social_demand:
+        social_demand_obj = SocialDemandAnalysis(
+            market_demand=social_demand.get('market_demand', ''),
+            demand_description=social_demand.get('demand_description', ''),
+            geographic_distribution=social_demand.get('geographic_distribution', ''),
+            skill_evolution=social_demand.get('skill_evolution', ''),
+            salary_trend=social_demand.get('salary_trend', '')
+        )
+    
+    # 构建行业趋势分析
+    industry_trend = job.get('industry_trend_analysis')
+    industry_trend_obj = None
+    if industry_trend:
+        industry_trend_obj = IndustryTrendAnalysis(
+            tech_innovation=industry_trend.get('tech_innovation', ''),
+            policy_direction=industry_trend.get('policy_direction', ''),
+            industry_evolution=industry_trend.get('industry_evolution', ''),
+            talent_structure=industry_trend.get('talent_structure', '')
+        )
+    
+    # 构建技能要求
+    skill_requirements = []
+    professional_skills = job.get('professional_skills', {})
+    if professional_skills:
+        keywords = professional_skills.get('keywords', [])
+        description = professional_skills.get('description', '')
+        if keywords:
+            skill_requirements.append(f"掌握 {', '.join(keywords[:3])} 等技能")
+        if description:
+            skill_requirements.append(description)
+    
+    # 构建申请条件
+    application_conditions = []
+    education = job.get('min_education', '')
+    if education:
+        application_conditions.append(f"学历：{education}")
+    
+    majors = job.get('target_majors', [])
+    if majors:
+        application_conditions.append(f"专业：{'/'.join(majors[:3])} 等相关专业")
+    
+    certificates = job.get('certificate_requirements', {})
+    if certificates:
+        cert_keywords = certificates.get('keywords', [])
+        if cert_keywords:
+            application_conditions.append(f"证书：{cert_keywords[0]} 等相关证书加分")
+    
+    internship = job.get('internship_experience', {})
+    if internship:
+        internship_desc = internship.get('description', '')
+        if internship_desc:
+            application_conditions.append(f"实习：{internship_desc[:30]}...")
+    
+    # 构建结构化字段
+    education_requirement = job.get('min_education', '')
+    major_requirement = '/'.join(job.get('target_majors', [])[:2]) if job.get('target_majors') else ''
+    internship_requirement = job.get('internship_experience', {}).get('description', '')[:50] if job.get('internship_experience') else ''
+    
+    # 构建独特的证书要求文案
+    cert_keywords = job.get('certificate_requirements', {}).get('keywords', [])
+    job_title = job.get('title', '')
+    if cert_keywords:
+        cert_name = cert_keywords[0]
+        if 'Java' in job_title:
+            certificate_requirement = f"持有{cert_name}等Java生态认证，云厂商认证(AWS/Azure)加分"
+        elif '测试' in job_title or 'QA' in job_title:
+            certificate_requirement = f"具备{cert_name}等测试领域认证，敏捷测试认证优先"
+        elif 'C/C++' in job_title or '嵌入式' in job_title:
+            certificate_requirement = f"持有{cert_name}等系统开发认证，嵌入式/芯片相关证书加分"
+        elif '前端' in job_title or 'Frontend' in job_title:
+            certificate_requirement = f"具备{cert_name}等前端技术认证，Google/Microsoft认证优先"
+        elif '实施' in job_title or '运维' in job_title:
+            certificate_requirement = f"持有{cert_name}等项目管理/IT服务认证，PMP/ITIL加分"
+        elif '硬件' in job_title:
+            certificate_requirement = f"具备{cert_name}等硬件测试认证，电子工程师证书优先"
+        elif '技术支持' in job_title:
+            certificate_requirement = f"持有{cert_name}等技术支持认证，云厂商基础认证加分"
+        elif '科研' in job_title or '研究员' in job_title:
+            certificate_requirement = f"具备博士学位或{cert_name}等高级学术资质，专利成果优先"
+        else:
+            certificate_requirement = f"持有{cert_name}等相关领域认证，行业权威证书加分"
+    else:
+        certificate_requirement = "具备相关领域专业认证者优先考虑"
+    
+    # 其他要求
+    soft_skills = []
+    communication = job.get('communication_skills', {}).get('description', '')
+    if communication:
+        soft_skills.append(communication)
+    stress = job.get('stress_resistance', {}).get('description', '')
+    if stress:
+        soft_skills.append(stress)
+    other_requirements = '; '.join(soft_skills) if soft_skills else ''
+    
     return JobDetailResponse(
         code=0,
         message="ok",
@@ -509,6 +653,16 @@ async def get_job_detail(
             vertical=vertical_items,
             transfers=transfer_items,
             path_graph=PathGraph(nodes=nodes, links=links),
-            salary_info=job.get('salary_info')
+            salary_info=job.get('salary_info'),
+            social_demand_analysis=social_demand_obj,
+            industry_trend_analysis=industry_trend_obj,
+            skill_requirements=skill_requirements,
+            skills_html="",
+            application_conditions=application_conditions,
+            education_requirement=education_requirement,
+            major_requirement=major_requirement,
+            internship_requirement=internship_requirement,
+            certificate_requirement=certificate_requirement,
+            other_requirements=other_requirements
         )
     )
