@@ -3,17 +3,18 @@
 模块三：学习与实践行动计划
 
 重构后的版本：
-1. 使用 skill_path_generator 生成技能学习路径库
-2. 使用 gap_analyzer 分析差距
-3. 使用 action_plan_generator 生成行动计划
-4. 保留原有的 plan_mode 和人机协同功能
+1. 使用 action_plan_generator.generate_action_plan_llm 生成技能学习路径
+2. 基于阶段一/人岗匹配分析、阶段二/职业路径分析，以及画像与岗位的具体差距，
+   由 LLM 直接规划行动计划（不再依赖 skill_learning_paths.json 预定义库）
+3. 保留原有的 plan_mode 和人机协同功能
+4. 最终生成的表格内容结构保持不变
 """
 import logging
 from typing import Any, Dict, List, Optional
 
 from app.models.student_profile import StudentProfile
 from app.utils.llm_client import generate_study_plan_for_gap
-from app.utils.action_plan_generator import generate_action_plan
+from app.utils.action_plan_generator import generate_action_plan_llm
 
 
 _GAP_DIM_LABELS = {
@@ -161,16 +162,26 @@ async def generate_module_3(
     """
     生成模块三：学习与实践行动计划
 
-    重构后的流程：
-    1. 使用 action_plan_generator 生成基础行动计划
-    2. 整合原有的人机协同功能
-    3. 生成 plan_mode 和 task_adjustments
+    核心变化：
+    1. 使用 generate_action_plan_llm（异步）替代 generate_action_plan（同步）
+    2. LLM 基于阶段一/二人岗匹配分析和职业路径规划，直接生成行动计划，
+       不再依赖预定义技能库（skill_learning_paths.json）
+    3. 最终计划表格（plan_table）结构保持不变，包含：
+       stage / time_range / dimension / gap_score / reasoning /
+       learning_content / acceptance / skills_detail
     """
     logger = logging.getLogger("CareerAgent")
     prefs = plan_preferences or {}
 
-    # 1. 生成基础行动计划
-    action_plan = generate_action_plan(student, target_job, match_detail)
+    # 1. 使用 LLM 驱动的行动计划生成器（替代规则库查表）
+    action_plan = await generate_action_plan_llm(
+        student=student,
+        target_job=target_job,
+        match_detail=match_detail,
+        module_1=module_1,
+        module_2=module_2,
+        plan_preferences=prefs,
+    )
 
     # 2. 获取配置
     content_tier = _tier_or_default(prefs.get("content_tier"))

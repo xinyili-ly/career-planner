@@ -3,6 +3,10 @@
 行动计划生成器
 
 整合差距分析、技能匹配、表格生成
+
+支持两种模式：
+- 规则模式（generate_action_plan）：使用预定义技能库查表生成路径
+- LLM 模式（generate_action_plan_llm）：调用大模型基于阶段一/二分析及画像差距生成路径
 """
 import json
 import os
@@ -19,6 +23,7 @@ from app.utils.gap_analyzer import (
     QUADRANT_INFO,
     _calculate_remaining_months,
     _calculate_timeline,
+    _classify_quadrant,
     _match_dims,
     _extract_gap_skills,
     _select_tier_by_gap,
@@ -410,5 +415,279 @@ def generate_action_plan(
             "short_term_plan": short_term_plan,
             "mid_term_plan": mid_term_plan,
         },
+        "plan_table": plan_table,
+    }
+
+
+# ===========================================================
+# LLM 驱动的行动计划生成（替代技能库查表）
+# ===========================================================
+
+
+async def generate_action_plan_llm(
+    student: StudentProfile,
+    target_job: Dict[str, Any],
+    match_detail: Dict[str, Any],
+    module_1: Optional[Dict[str, Any]] = None,
+    module_2: Optional[Dict[str, Any]] = None,
+    plan_preferences: Optional[Dict[str, str]] = None,
+) -> Dict[str, Any]:
+    """
+    基于阶段一/人岗匹配分析和阶段二/职业路径规划，
+    调用大模型生成完整的行动计划（短期 + 中期）。
+
+    此函数不使用预定义技能库，而是根据学生画像与岗位画像的差距
+    由 LLM 直接规划学习路径，最终输出结构与 generate_action_plan 保持一致。
+
+    参数：
+        student: 学生画像
+        target_job: 目标岗位画像
+        match_detail: 四维匹配详情（含 dimensions）
+        module_1: 模块一人岗匹配分析结果（strengths/gaps）
+        module_2: 模块二职业路径结果（可选）
+        plan_preferences: 用户偏好（如 effort_short / effort_mid）
+
+    返回：
+        包含 gap_analysis、timeline、skills_plan、plan_table 的字典，
+        结构与 generate_action_plan 一致。
+    """
+    from app.utils.llm_client import generate_action_plan_for_gaps
+
+    llm_result = await generate_action_plan_for_gaps(
+        student=student,
+        target_job=target_job,
+        match_detail=match_detail,
+        module_1=module_1,
+        module_2=module_2,
+        plan_preferences=plan_preferences,
+    )
+
+    short = llm_result.get("short_term") or {}
+    mid = llm_result.get("mid_term") or {}
+    short_months = llm_result.get("short_term_months", 0)
+    mid_months = llm_result.get("mid_term_months", 0)
+    remaining_months = llm_result.get("remaining_months", 0)
+    grad_year = student.basic_info.graduation_year or 0
+
+    short_skills = short.get("skills") or []
+    mid_skills = mid.get("skills") or []
+    short_dim_keys = short.get("dimension_keys") or []
+    mid_dim_keys = mid.get("dimension_keys") or []
+
+    # 提取四维差距列表（从 match_detail 构造，兼容 plan_table）
+    dims = _match_dims(match_detail)
+    job_required = target_job.get("required_dimensions") or {}
+    job_weights = target_job.get("weights") or {}
+
+    # 直接用 LLM 输出的维度标签，兜底用 GAP_DIM_LABELS
+    def _safe_dim_label(keys: List[str]) -> List[str]:
+        out = short.get("dimension_labels") or []
+        if out:
+            return out
+        return [GAP_DIM_LABELS.get(k, k) for k in keys]
+
+    short_dim_labels = short.get("dimension_labels") or _safe_dim_label(short_dim_keys)
+    mid_dim_labels = mid.get("dimension_labels") or _safe_dim_label(mid_dim_keys)
+
+    # 计算差距分析（四象限，简化版，直接用 LLM 输出维度）
+    gap_list = []
+    all_dim_keys = list(set(short_dim_keys + mid_dim_keys))
+    for dk in all_dim_keys:
+        student_score = dims.get(dk, 0.0)
+        target_score = job_required.get(dk, 0.0)
+        gap = max(0.0, target_score - student_score)
+        fit_percent = min(100.0, round(student_score / target_score * 100, 1)) \
+            if target_score > 0 else 100.0
+        gap_list.append({
+            "dimension_key": dk,
+            "dimension_label": GAP_DIM_LABELS.get(dk, dk),
+            "student_score": round(student_score, 1),
+            "target_score": round(target_score, 1),
+            "gap": round(gap, 1),
+            "fit_percent": fit_percent,
+            "urgency": round(gap / target_score, 4) if target_score > 0 else 0.0,
+            "weight": job_weights.get(dk, 0.0),
+            "importance": "high" if job_weights.get(dk, 0) >= 0.25 else "medium",
+            "quadrant_key": _classify_quadrant(gap, job_weights.get(dk, 0)),
+            "quadrant_label": QUADRANT_INFO[_classify_quadrant(gap, job_weights.get(dk, 0))]["label"],
+            "priority_score": round((gap / target_score if target_score > 0 else 0) * job_weights.get(dk, 0), 6),
+            "strategy": QUADRANT_INFO[_classify_quadrant(gap, job_weights.get(dk, 0))]["strategy"],
+        })
+
+    quadrant_groups = group_by_quadrant(gap_list)
+    quadrant_summary = _format_quadrant_summary(quadrant_groups)
+
+    # 行动序列
+    action_sequence = []
+    for i, item in enumerate(gap_list, 1):
+        action_sequence.append({
+            "step": i,
+            "dimension_label": item["dimension_label"],
+            "quadrant_label": item["quadrant_label"],
+            "gap": item["gap"],
+            "priority_score": item["priority_score"],
+            "strategy": item["strategy"],
+        })
+
+    # gap_analysis
+    gap_analysis = {
+        "dimensions": gap_list,
+        "quadrants": quadrant_summary,
+        "action_sequence": action_sequence,
+        "short_term": {
+            "dimension_keys": short_dim_keys,
+            "dimension_labels": short_dim_labels,
+            "total_gap": short.get("total_gap", 0) or 0,
+        },
+        "mid_term": {
+            "dimension_keys": mid_dim_keys,
+            "dimension_labels": mid_dim_labels,
+            "total_gap": mid.get("total_gap", 0) or 0,
+        },
+    }
+
+    # timeline
+    timeline = {
+        "graduation_year": grad_year,
+        "remaining_months": remaining_months,
+        "short_term_months": short_months,
+        "mid_term_months": mid_months,
+    }
+
+    # skills_plan
+    def _build_skill_plan_from_llm(skills: List[Dict], dim_keys: List[str]) -> List[Dict]:
+        """将 LLM 返回的 skills 规范化为内部结构"""
+        plan = []
+        for item in skills:
+            if not isinstance(item, dict):
+                continue
+            lp = item.get("learning_path") or {}
+            proj = item.get("project") or {}
+            if isinstance(proj, dict):
+                proj_name = proj.get("name", "")
+                proj_desc = proj.get("description", "")
+                proj_features = proj.get("features", [])
+            else:
+                proj_name, proj_desc, proj_features = "", "", []
+
+            plan.append({
+                "skill": item.get("skill", ""),
+                "tier": item.get("tier", "entry"),
+                "tier_label": item.get("tier_label", "入门"),
+                "learning_path": {
+                    "duration_weeks": item.get("duration_weeks", 4),
+                    "goal": item.get("goal", ""),
+                    "acceptance": {
+                        "project": {
+                            "name": proj_name,
+                            "description": proj_desc,
+                            "features": proj_features,
+                        },
+                        "resume": item.get("resume", ""),
+                    },
+                },
+                "gap_dimension": dim_keys[0] if dim_keys else "",
+                "duration_weeks": item.get("duration_weeks", 4),
+            })
+        return plan
+
+    skills_plan = {
+        "short_term_skills": [s.get("skill", "") for s in short_skills if isinstance(s, dict)],
+        "mid_term_skills": [s.get("skill", "") for s in mid_skills if isinstance(s, dict)],
+        "short_term_plan": _build_skill_plan_from_llm(short_skills, short_dim_keys),
+        "mid_term_plan": _build_skill_plan_from_llm(mid_skills, mid_dim_keys),
+    }
+
+    # plan_table（保持原有格式）
+    rows = []
+
+    if short_months > 0 and short_dim_keys:
+        short_dim_str = "、".join(short_dim_labels)
+        short_gap = short.get("total_gap", 0) or 0
+        acceptance_parts = []
+        learning_content_parts = []
+        for item in short_skills:
+            if not isinstance(item, dict):
+                continue
+            skill_name = item.get("skill", "")
+            tier_label = item.get("tier_label", "入门")
+            learning_content_parts.append(f"{skill_name}（{tier_label}）")
+
+            proj = item.get("project") or {}
+            if isinstance(proj, dict) and proj.get("name"):
+                acceptance_parts.append(f"{proj['name']}：{proj.get('description', '')}")
+
+        rows.append({
+            "stage": "短期",
+            "time_range": f"第1-{short_months}个月" if short_months > 1 else "第1个月",
+            "dimension": short_dim_str,
+            "gap_score": short_gap,
+            "reasoning": f"【{gap_analysis['short_term']['dimension_labels'][0] if gap_analysis['short_term']['dimension_labels'] else '行动'}】优先攻克高优先级差距维度",
+            "learning_content": "、".join(learning_content_parts),
+            "acceptance": "；".join(acceptance_parts) if acceptance_parts else "完成相关技能学习并产出可展示成果",
+            "skills_detail": [
+                {
+                    "skill": item.get("skill", ""),
+                    "tier": item.get("tier", "entry"),
+                    "tier_label": item.get("tier_label", "入门"),
+                    "duration_weeks": item.get("duration_weeks", 4),
+                    "goal": item.get("goal", ""),
+                    "project": item.get("project") or {},
+                    "resume": item.get("resume", ""),
+                }
+                for item in short_skills
+                if isinstance(item, dict)
+            ],
+        })
+
+    if mid_months > 0 and mid_dim_keys:
+        mid_dim_str = "、".join(mid_dim_labels)
+        mid_gap = mid.get("total_gap", 0) or 0
+        start_month = short_months + 1
+        acceptance_parts = []
+        learning_content_parts = []
+        for item in mid_skills:
+            if not isinstance(item, dict):
+                continue
+            skill_name = item.get("skill", "")
+            tier_label = item.get("tier_label", "进阶")
+            learning_content_parts.append(f"{skill_name}（{tier_label}）")
+
+            proj = item.get("project") or {}
+            if isinstance(proj, dict) and proj.get("name"):
+                acceptance_parts.append(f"{proj['name']}：{proj.get('description', '')}")
+
+        rows.append({
+            "stage": "中期",
+            "time_range": f"第{start_month}-{start_month + mid_months - 1}个月",
+            "dimension": mid_dim_str,
+            "gap_score": mid_gap,
+            "reasoning": f"【{gap_analysis['mid_term']['dimension_labels'][0] if gap_analysis['mid_term']['dimension_labels'] else '行动'}】深化提升竞争力",
+            "learning_content": "、".join(learning_content_parts),
+            "acceptance": "；".join(acceptance_parts) if acceptance_parts else "完成进阶技能学习并积累项目成果",
+            "skills_detail": [
+                {
+                    "skill": item.get("skill", ""),
+                    "tier": item.get("tier", "intermediate"),
+                    "tier_label": item.get("tier_label", "进阶"),
+                    "duration_weeks": item.get("duration_weeks", 4),
+                    "goal": item.get("goal", ""),
+                    "project": item.get("project") or {},
+                    "resume": item.get("resume", ""),
+                }
+                for item in mid_skills
+                if isinstance(item, dict)
+            ],
+        })
+
+    plan_table = {
+        "headers": ["阶段", "学习时间", "核心维度", "差距分数", "行动策略", "学习内容", "成果验收指标"],
+        "rows": rows,
+    }
+
+    return {
+        "gap_analysis": gap_analysis,
+        "timeline": timeline,
+        "skills_plan": skills_plan,
         "plan_table": plan_table,
     }

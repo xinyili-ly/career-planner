@@ -2,7 +2,7 @@ import os
 import re
 import json
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
@@ -923,3 +923,305 @@ async def build_student_profile_from_intake(intake_data: Dict[str, Any]) -> Stud
 
     profile = StudentProfile(**data)
     return profile
+
+
+# ===========================================================
+# 行动计划生成（替代技能库查表，改为 LLM 规划）
+# ===========================================================
+
+
+async def generate_action_plan_for_gaps(
+    student: StudentProfile,
+    target_job: Dict[str, Any],
+    match_detail: Dict[str, Any],
+    module_1: Dict[str, Any],
+    module_2: Optional[Dict[str, Any]],
+    plan_preferences: Optional[Dict[str, str]] = None,
+) -> Dict[str, Any]:
+    """
+    基于阶段一（人岗匹配分析）、阶段二（职业路径）以及个人画像与岗位画像之间的差距，
+    调用大模型生成完整的短期/中期行动计划。
+
+    输入信息包括：
+    - 学生画像（StudentProfile）
+    - 目标岗位画像（target_job）
+    - 四维匹配详情（match_detail）
+    - 模块一：人岗匹配分析摘要（module_1）
+    - 模块二：职业路径建议（module_2，可选）
+    - 用户偏好 plan_preferences（如每周可投入时间）
+
+    输出结构与原 action_plan_generator 保持一致，保证计划表格内容不变。
+    """
+    prefs = plan_preferences or {}
+
+    # --- 拼装学生背景 ---
+    student_name = student.basic_info.name or "学生"
+    major = student.basic_info.major or ""
+    edu = student.basic_info.education_level or ""
+    grad_year = student.basic_info.graduation_year or 0
+    job_title = str(target_job.get("title", "")).strip()
+
+    # --- 提取四维分数 ---
+    dims = (match_detail.get("details", {}) or {}).get("dimensions", {}) or {}
+
+    def _f(k: str) -> float:
+        try:
+            return float(dims.get(k, 0.0) or 0.0)
+        except Exception:
+            return 0.0
+
+    base_score = _f("base")
+    skill_score = _f("skill")
+    soft_score = _f("soft")
+    potential_score = _f("potential")
+
+    # --- 计算剩余时间 ---
+    from datetime import datetime
+    now = datetime.now()
+    cur_yr = now.year
+    cur_mo = now.month
+    grad_month = 7
+    remaining_months = (grad_year - cur_yr) * 12 + (grad_month - cur_mo)
+    remaining_months = max(0, remaining_months - 1)  # 保留 1 个月缓冲
+
+    short_months = max(3, remaining_months // 2) if remaining_months > 6 else remaining_months
+    mid_months = max(0, remaining_months - short_months)
+
+    effort_short = prefs.get("effort_short", "10-12 小时/周")
+    effort_mid = prefs.get("effort_mid", "10-12 小时/周")
+
+    # --- 提取模块一关键信息 ---
+    m1 = module_1 or {}
+    strengths = m1.get("strengths", [])
+    gaps = m1.get("gaps", [])
+    strengths_text = ", ".join([s.get("dimension_label", "") for s in strengths]) or "暂无"
+    gaps_text = ", ".join([g.get("dimension_label", "") for g in gaps]) or "暂无"
+
+    strengths_detail = []
+    for s in strengths:
+        dim = s.get("dimension_label", "")
+        student_s = s.get("student_score", 0)
+        target_s = s.get("target_score", 0)
+        evidence = s.get("evidence", "暂无具体证据")
+        strengths_detail.append(f"  - {dim}（学生 {student_s} / 目标 {target_s}）：{evidence}")
+
+    gaps_detail = []
+    for g in gaps:
+        dim = g.get("dimension_label", "")
+        student_s = g.get("student_score", 0)
+        target_s = g.get("target_score", 0)
+        evidence = g.get("evidence", "暂无具体证据")
+        gaps_detail.append(f"  - {dim}（学生 {student_s} / 目标 {target_s}）：{evidence}")
+
+    # --- 提取模块二职业路径 ---
+    m2 = module_2 or {}
+    career_paths = m2.get("career_paths") or {}
+    recommended_path = career_paths.get("recommended_path") or {}
+    path_type = recommended_path.get("type", "未明确")
+    path_title = recommended_path.get("title", "未明确")
+
+    # --- 学生技能关键词 ---
+    student_skills = student.competencies.professional_skills.keywords or []
+    skills_text = "、".join(student_skills) if student_skills else "暂无"
+
+    # --- 岗位技能要求 ---
+    job_prof = target_job.get("professional_skills") or {}
+    job_skill_list = job_prof.get("keywords", []) if isinstance(job_prof, dict) else []
+    if isinstance(job_skill_list, str):
+        job_skill_list = [job_skill_list]
+    job_skills_text = "、".join(job_skill_list) if job_skill_list else "暂无"
+
+    user_prompt = f"""
+你是资深职业规划教练，擅长基于人岗匹配分析（阶段一）和职业路径规划（阶段二），
+为学生制定有针对性、可落地的短期/中期行动计划。
+
+【学生基本信息】
+- 姓名：{student_name}
+- 专业/学历：{major} / {edu}
+- 毕业年份：{grad_year} 年
+- 目标岗位：{job_title}
+- 当前掌握技能：{skills_text}
+
+【目标岗位关键要求】
+- 岗位名称：{job_title}
+- 核心技能要求：{job_skills_text}
+- 推荐职业路径：{path_title}（类型：{path_type}）
+
+【人岗四维匹配得分】（0-100，100 为岗位要求满分）
+- 基础要求：{base_score} 分
+- 职业技能：{skill_score} 分
+- 职业素养：{soft_score} 分
+- 发展潜力：{potential_score} 分
+
+【阶段一分析结果】
+优势维度：
+{chr(10).join(strengths_detail) if strengths_detail else "  暂无明显优势"}
+
+差距维度：
+{chr(10).join(gaps_detail) if gaps_detail else "  暂无明显差距"}
+
+【阶段二职业路径】
+- 推荐路径：{path_title}
+- 路径类型：{path_type}
+
+【时间规划】
+- 距离毕业约 {remaining_months} 个月
+- 短期计划：前 {short_months} 个月（每周投入 {effort_short}）
+- 中期计划：后 {mid_months} 个月（每周投入 {effort_mid}）
+  （若 mid_months = 0，则只规划短期）
+
+【你的任务】
+请基于以上信息，为学生制定：
+1. **短期行动计划**（前 {short_months} 个月）：针对最紧急的 1-2 个差距维度，具体学什么、用什么资源、做什么项目
+2. **中期行动计划**（{'后 ' + str(mid_months) + ' 个月' if mid_months > 0 else '无中期计划（剩余时间不足）'}）：在短期基础上深化或拓展
+
+要求：
+- 短期计划：专注 1-2 个高优先级差距维度（如"必须达标"或"优先攻克"象限），要具体到技能名称
+- 中期计划：在已有基础上进一步提升，可涉及职业路径上的下一个节点能力
+- 每个阶段必须包含：学习主题、对应维度、理由（为什么选这个维度）、学习内容（具体技能/知识点）、成果验收指标
+- 学习内容必须紧密围绕学生已有技能和岗位要求的差距来设计，禁止引入岗位要求之外的全新技能方向
+- 成果验收指标要可量化（如：能独立完成 XX 操作、在 GitHub 上线 XX 项目、通过 XX 认证）
+
+【输出格式（严格 JSON，禁止 Markdown 代码块）】
+请严格返回以下 JSON 结构：
+{{
+  "short_term": {{
+    "dimension_keys": ["维度key"],
+    "dimension_labels": ["维度中文名"],
+    "total_gap": 数值,
+    "goals": ["目标1", "目标2"],
+    "skills": [
+      {{
+        "skill": "具体技能名",
+        "tier": "entry | intermediate | advanced",
+        "tier_label": "入门 | 进阶 | 精进",
+        "duration_weeks": 数字,
+        "goal": "学习目标描述",
+        "project": {{"name": "项目名", "description": "项目简介", "features": ["功能1", "功能2"]}},
+        "resume": "可写进简历的一句话"
+      }}
+    ]
+  }},
+  "mid_term": {{
+    "dimension_keys": ["维度key"],
+    "dimension_labels": ["维度中文名"],
+    "total_gap": 数值,
+    "goals": ["目标1", "目标2"],
+    "skills": [
+      {{
+        "skill": "具体技能名",
+        "tier": "entry | intermediate | advanced",
+        "tier_label": "入门 | 进阶 | 精进",
+        "duration_weeks": 数字,
+        "goal": "学习目标描述",
+        "project": {{"name": "项目名", "description": "项目简介", "features": ["功能1", "功能2"]}},
+        "resume": "可写进简历的一句话"
+      }}
+    ]
+  }}
+}}
+"""
+
+    try:
+        logger.info(
+            "调用 LLM 生成行动计划: student=%s, job=%s, remaining=%d months",
+            student_name,
+            job_title,
+            remaining_months,
+        )
+
+        response = await client.chat.completions.create(
+            model="deepseek-ai/DeepSeek-V3",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "你是一个严格按照 JSON Schema 输出行动计划的职业规划助手。输出必须是合法 JSON，不含 Markdown 代码块。",
+                },
+                {"role": "user", "content": user_prompt},
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.4,
+        )
+
+        raw = (response.choices[0].message.content or "").strip()
+        raw = raw.replace("```json", "").replace("```", "").strip()
+
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            m = re.search(r"(\{.*\})", raw, re.DOTALL)
+            if not m:
+                raise ValueError("LLM 返回格式无法解析为 JSON")
+            data = json.loads(m.group(1))
+
+        if not isinstance(data, dict):
+            raise ValueError("LLM 返回根节点不是对象")
+
+        # 兜底字段
+        def _ensure_keys(obj, short_or_mid):
+            if not isinstance(obj, dict):
+                return {
+                    "dimension_keys": [],
+                    "dimension_labels": [],
+                    "total_gap": 0,
+                    "goals": [],
+                    "skills": [],
+                }
+            skills = obj.get("skills") or []
+            if not isinstance(skills, list):
+                obj["skills"] = []
+            for s in obj["skills"]:
+                if not isinstance(s, dict):
+                    continue
+                s.setdefault("tier", "entry")
+                s.setdefault("tier_label", "入门")
+                s.setdefault("duration_weeks", 4)
+                s.setdefault("goal", "")
+                s.setdefault("resume", "")
+                proj = s.get("project")
+                if isinstance(proj, dict):
+                    proj.setdefault("name", "")
+                    proj.setdefault("description", "")
+                    proj.setdefault("features", [])
+                else:
+                    s["project"] = {"name": "", "description": "", "features": []}
+            obj.setdefault("dimension_keys", [])
+            obj.setdefault("dimension_labels", [])
+            obj.setdefault("total_gap", 0)
+            obj.setdefault("goals", [])
+            return obj
+
+        short_data = _ensure_keys(data.get("short_term"), "short")
+        mid_data = _ensure_keys(data.get("mid_term"), "mid")
+
+        return {
+            "short_term": short_data,
+            "mid_term": mid_data,
+            "remaining_months": remaining_months,
+            "short_term_months": short_months,
+            "mid_term_months": mid_months,
+        }
+
+    except Exception as e:
+        logger.error("行动计划 LLM 生成异常: %s", str(e), exc_info=True)
+        # 失败时返回空结构，上层可兜底
+        return {
+            "short_term": {
+                "dimension_keys": [],
+                "dimension_labels": [],
+                "total_gap": 0,
+                "goals": [],
+                "skills": [],
+            },
+            "mid_term": {
+                "dimension_keys": [],
+                "dimension_labels": [],
+                "total_gap": 0,
+                "goals": [],
+                "skills": [],
+            },
+            "remaining_months": remaining_months,
+            "short_term_months": short_months,
+            "mid_term_months": mid_months,
+            "error": str(e),
+        }

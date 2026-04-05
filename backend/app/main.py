@@ -1555,7 +1555,7 @@ async def generate_match_report(request: MatchReportRequest):
     target_job = next((job for job in all_jobs if str(job["job_id"]) == str(request.job_id)), None)
     if not target_job:
         raise HTTPException(status_code=404, detail="岗位不存在")
-
+        
     # 3. 计算匹配 & 生成四个模块报告
     match_detail = calculate_match(student_profile, target_job)
 
@@ -1606,7 +1606,7 @@ async def generate_match_report(request: MatchReportRequest):
             "potential": match_dims.get("potential"),
         },
     }
-
+    
     return {
         "summary": {
             "student_name": student_name,
