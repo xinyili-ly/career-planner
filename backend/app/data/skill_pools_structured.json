@@ -1,0 +1,5496 @@
+{
+  "skill_library": [
+    {
+      "seq": 1,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "性能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 2,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 3,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Linux",
+      "skill_tags": "工具/运维",
+      "related_job_count": 2,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003; JOB_004"
+    },
+    {
+      "seq": 4,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "项目管理",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "enhance_level": 5,
+      "related_jobs": "JOB_004; JOB_009"
+    },
+    {
+      "seq": 5,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "技术支持",
+      "skill_tags": "行业业务",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 6,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "故障排查",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 7,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Java",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 8,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Spring",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 9,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Spring Boot",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 10,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Spring Cloud",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 11,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "MyBatis",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 12,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "MySQL",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 13,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Oracle",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 14,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Redis",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 15,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Kafka",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 16,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "微服务",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 17,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "软件测试理论",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 18,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "测试用例设计",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 19,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "功能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 20,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Selenium",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 21,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Jmeter",
+      "skill_tags": "工具/运维",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 22,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "LoadRunner",
+      "skill_tags": "工具/运维",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 23,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "TestNG",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 24,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "JUnit",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 25,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "C++",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 26,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "STL",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 27,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "多线程",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 28,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "网络编程",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 29,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Qt",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 30,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "MFC",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 31,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "OpenGL",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 32,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "设计模式",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 33,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "系统部署",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 34,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "数据库配置",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 35,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "网络配置",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 36,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Windows",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 37,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "客户沟通",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 38,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "文档编写",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 39,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "电子电路",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 40,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "数字电路",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 41,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "模拟电路",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 42,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "示波器",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 43,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "万用表",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 44,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "信号发生器",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 45,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "硬件测试方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 46,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "PCB设计",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 47,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "原理图分析",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 48,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 49,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "HTML5",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 50,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "CSS3",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 51,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "JavaScript",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 52,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "TypeScript",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 53,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Vue",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 54,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "React",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 55,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Angular",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 56,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Node.js",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 57,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Webpack",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 58,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "Vite",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 59,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "客户服务",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 60,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "产品知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 61,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "网络知识",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 62,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "数据库知识",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 63,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "操作系统",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 64,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "沟通技巧",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 65,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "问题分析",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 66,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "软件测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 67,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "安全测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 68,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "测试工具",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 69,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "测试流程",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 70,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "质量保证",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 71,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "缺陷管理",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 72,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "测试策略",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 73,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "科研方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 74,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "实验设计",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 75,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "数据分析",
+      "skill_tags": "数据/AI",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 76,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "文献调研",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 77,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "技术研发",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 78,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "学术写作",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 79,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "专利申请",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 80,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "内容审核标准",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 81,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "风险识别",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 82,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "政策法规",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 83,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "信息安全",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 84,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "审核工具",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 85,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "质量控制",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 86,
+      "dimension": "专业技能",
+      "is_optional": "是",
+      "skill_name": "数据统计",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 87,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "新技术",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 5,
+      "related_jobs": "JOB_004; JOB_009; JOB_010"
+    },
+    {
+      "seq": 88,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "行业知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 3,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004; JOB_007; JOB_010"
+    },
+    {
+      "seq": 89,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "测试工具",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 90,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 91,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "性能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 92,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "安全测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 93,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "测试框架",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 94,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "性能优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 5,
+      "related_jobs": "JOB_003; JOB_006"
+    },
+    {
+      "seq": 95,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "Java框架",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 96,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "云原生",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 97,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "DevOps",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 98,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "持续集成",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 99,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "新技术栈",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 100,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "系统编程",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 101,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "嵌入式开发",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 102,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "网络编程",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 103,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "底层库",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 104,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "业务流程",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 105,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "系统配置",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 106,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "客户需求",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 107,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "硬件技术",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 108,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "测试设备",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 109,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "测试标准",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 110,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 111,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 112,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "前端框架",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 113,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "新特性",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 114,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "工具链",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 115,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "设计模式",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 116,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "产品知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 117,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "技术更新",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 118,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "问题分析",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 119,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "解决方案",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 120,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "学术前沿",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 121,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "科研方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 122,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "文献调研",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 123,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "跨领域知识",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 124,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "政策法规",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 125,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "审核标准",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 126,
+      "dimension": "学习能力",
+      "is_optional": "是",
+      "skill_name": "风险识别",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 127,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "项目压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001; JOB_003; JOB_004"
+    },
+    {
+      "seq": 128,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "上线压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_006; JOB_008"
+    },
+    {
+      "seq": 129,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "测试周期",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_005; JOB_008"
+    },
+    {
+      "seq": 130,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "上线周期",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001; JOB_003"
+    },
+    {
+      "seq": 131,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "技术挑战",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001; JOB_003"
+    },
+    {
+      "seq": 132,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "缺陷修复",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 133,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "紧急测试",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 134,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "性能优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003; JOB_006"
+    },
+    {
+      "seq": 135,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "时间压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 136,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "多任务处理",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 137,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "质量要求",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005; JOB_008"
+    },
+    {
+      "seq": 138,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "迭代开发",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 139,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "加班应对",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 140,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "质量保障",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 141,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "调试困难",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 142,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "客户现场",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 143,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "问题解决",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 144,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 145,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "压力测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 146,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "项目进度",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 147,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "需求变更",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 148,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "快速迭代",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 149,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "跨浏览器兼容性",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 150,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "客户压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 151,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "紧急问题",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 152,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "问题复杂度",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 153,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "科研压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 154,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "实验挑战",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 155,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "论文发表",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 156,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "项目周期",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 157,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "竞争压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 158,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "工作压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 159,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "内容负荷",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 160,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "时间要求",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 161,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "责任压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 162,
+      "dimension": "抗压能力",
+      "is_optional": "是",
+      "skill_name": "情绪管理",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 163,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "团队协作",
+      "skill_tags": "软技能",
+      "related_job_count": 10,
+      "enhance_level": 5,
+      "related_jobs": "JOB_001; JOB_002; JOB_003; JOB_004; JOB_005; JOB_006; JOB_007; JOB_008; JOB_009; JOB_010"
+    },
+    {
+      "seq": 164,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "文档编写",
+      "skill_tags": "软技能",
+      "related_job_count": 5,
+      "enhance_level": 5,
+      "related_jobs": "JOB_001; JOB_003; JOB_004; JOB_005; JOB_007"
+    },
+    {
+      "seq": 165,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "代码评审",
+      "skill_tags": "软技能",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001; JOB_003; JOB_006"
+    },
+    {
+      "seq": 166,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "问题分析",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_003; JOB_008"
+    },
+    {
+      "seq": 167,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "技术沟通",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001; JOB_003"
+    },
+    {
+      "seq": 168,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "需求分析",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001; JOB_006"
+    },
+    {
+      "seq": 169,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "缺陷报告",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 170,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "需求沟通",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 171,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "测试文档",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 172,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "客户沟通",
+      "skill_tags": "行业业务",
+      "related_job_count": 2,
+      "enhance_level": 5,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 173,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "问题沟通",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005; JOB_010"
+    },
+    {
+      "seq": 174,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "需求收集",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 175,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "问题协调",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 176,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "测试报告",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 177,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "技术交流",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 178,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "UI/UX沟通",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 179,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "技术文档",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 180,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "问题描述",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 181,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "技术解释",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 182,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "学术交流",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 183,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "论文写作",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 184,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "项目汇报",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 185,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "成果展示",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 186,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "报告编写",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 187,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "标准解释",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 188,
+      "dimension": "沟通协作能力",
+      "is_optional": "是",
+      "skill_name": "反馈传递",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 189,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "ISTQB认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_005; JOB_008"
+    },
+    {
+      "seq": 190,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "AWS开发者认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001; JOB_006"
+    },
+    {
+      "seq": 191,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "Azure开发者认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001; JOB_006"
+    },
+    {
+      "seq": 192,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "CSTE认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 193,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "CAT认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 194,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "ITIL基础认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 195,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "CompTIA A+认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005; JOB_007"
+    },
+    {
+      "seq": 196,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "OCJP认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 197,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "Spring认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 198,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "Selenium认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 199,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "MCP认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 200,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "C++协会认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 201,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "嵌入式认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 202,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "PMP认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 203,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "Oracle DBA认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 204,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "MCSA认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 205,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "CET认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 206,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "Google Web开发者认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 207,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "Azure基础认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 208,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "PhD学位",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 209,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "专业领域认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 210,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "行业会员资格",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 211,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "内容审核认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 212,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "信息安全认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 213,
+      "dimension": "证书要求",
+      "is_optional": "是",
+      "skill_name": "合规认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 214,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "性能优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001; JOB_003; JOB_006"
+    },
+    {
+      "seq": 215,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "测试方法",
+      "skill_tags": "测试/质量",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_005; JOB_008"
+    },
+    {
+      "seq": 216,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "流程优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007; JOB_010"
+    },
+    {
+      "seq": 217,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 218,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "测试工具",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 219,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "测试策略",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 220,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "质量保证",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 221,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "问题解决",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 222,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "微服务",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 223,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "高并发",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 224,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "技术创新",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 225,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "架构设计",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 226,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "系统编程",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 227,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "内存管理",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 228,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "并发编程",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 229,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "底层技术",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 230,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "实施方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 231,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "客户需求",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 232,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "系统部署",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 233,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "测试设备",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 234,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 235,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 236,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "测试流程",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 237,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "UI/UX设计",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 238,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "前端架构",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 239,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "交互设计",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 240,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "用户体验",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 241,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "支持方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 242,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "客户服务",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 243,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "技术方案",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 244,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "科研创新",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 245,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "技术突破",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 246,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "实验设计",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 247,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "学术研究",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 248,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "专利申请",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 5,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 249,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "审核方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 250,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "风险识别",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 251,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "质量控制",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 252,
+      "dimension": "创新能力",
+      "is_optional": "否",
+      "skill_name": "技术应用",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 253,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 254,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "测试用例",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 255,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "缺陷管理",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 256,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "性能优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003; JOB_006"
+    },
+    {
+      "seq": 257,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "问题解决",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 258,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "技术支持",
+      "skill_tags": "行业业务",
+      "related_job_count": 2,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 259,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "Java",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 260,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "企业级应用开发",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 261,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "数据库设计",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 262,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "Web开发",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 263,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "团队协作",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 264,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "软件测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 265,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "功能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 266,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "C/C++开发",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 267,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "系统编程",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 268,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "嵌入式开发",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 269,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "网络编程",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 270,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "项目实施",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 271,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "系统部署",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 272,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "客户沟通",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 273,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "硬件测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 274,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 275,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "测试设备",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 276,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 277,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "测试文档",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 278,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "前端开发",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 279,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "UI/UX设计",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 280,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "响应式布局",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 281,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "前端框架",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 282,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "客户服务",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 283,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "产品知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 284,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "技术文档",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 285,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "测试工程师",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 286,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "性能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 3,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 287,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "科研项目",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 288,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "实验设计",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 289,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "数据分析",
+      "skill_tags": "数据/AI",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 290,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "文献调研",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 291,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "学术写作",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "enhance_level": 4,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 292,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "内容审核",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 293,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "风险识别",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 294,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "标准执行",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 295,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "质量控制",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 296,
+      "dimension": "实习经历",
+      "is_optional": "否",
+      "skill_name": "报告编写",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "enhance_level": 2,
+      "related_jobs": "JOB_010"
+    }
+  ],
+  "skill_dimension": [
+    {
+      "seq": 1,
+      "dimension": "专业技能",
+      "skill_name": "Linux",
+      "skill_tags": "工具/运维",
+      "related_job_count": 2,
+      "demand_level": 5,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_003; JOB_004"
+    },
+    {
+      "seq": 2,
+      "dimension": "专业技能",
+      "skill_name": "项目管理",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "demand_level": 5,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004; JOB_009"
+    },
+    {
+      "seq": 3,
+      "dimension": "专业技能",
+      "skill_name": "性能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 4,
+      "dimension": "专业技能",
+      "skill_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 5,
+      "dimension": "专业技能",
+      "skill_name": "技术支持",
+      "skill_tags": "行业业务",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 6,
+      "dimension": "专业技能",
+      "skill_name": "故障排查",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 7,
+      "dimension": "专业技能",
+      "skill_name": "C++",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 8,
+      "dimension": "专业技能",
+      "skill_name": "STL",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 9,
+      "dimension": "专业技能",
+      "skill_name": "多线程",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 10,
+      "dimension": "专业技能",
+      "skill_name": "网络编程",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 11,
+      "dimension": "专业技能",
+      "skill_name": "Qt",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 12,
+      "dimension": "专业技能",
+      "skill_name": "MFC",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 13,
+      "dimension": "专业技能",
+      "skill_name": "OpenGL",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 14,
+      "dimension": "专业技能",
+      "skill_name": "设计模式",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 15,
+      "dimension": "专业技能",
+      "skill_name": "科研方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 16,
+      "dimension": "专业技能",
+      "skill_name": "实验设计",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 17,
+      "dimension": "专业技能",
+      "skill_name": "数据分析",
+      "skill_tags": "数据/AI",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 18,
+      "dimension": "专业技能",
+      "skill_name": "文献调研",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 19,
+      "dimension": "专业技能",
+      "skill_name": "技术研发",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 20,
+      "dimension": "专业技能",
+      "skill_name": "学术写作",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 21,
+      "dimension": "专业技能",
+      "skill_name": "专利申请",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 22,
+      "dimension": "专业技能",
+      "skill_name": "Java",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 23,
+      "dimension": "专业技能",
+      "skill_name": "Spring",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 24,
+      "dimension": "专业技能",
+      "skill_name": "Spring Boot",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 25,
+      "dimension": "专业技能",
+      "skill_name": "Spring Cloud",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 26,
+      "dimension": "专业技能",
+      "skill_name": "MyBatis",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 27,
+      "dimension": "专业技能",
+      "skill_name": "MySQL",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 28,
+      "dimension": "专业技能",
+      "skill_name": "Oracle",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 29,
+      "dimension": "专业技能",
+      "skill_name": "Redis",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 30,
+      "dimension": "专业技能",
+      "skill_name": "Kafka",
+      "skill_tags": "数据库/中间件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 31,
+      "dimension": "专业技能",
+      "skill_name": "微服务",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 32,
+      "dimension": "专业技能",
+      "skill_name": "电子电路",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 33,
+      "dimension": "专业技能",
+      "skill_name": "数字电路",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 34,
+      "dimension": "专业技能",
+      "skill_name": "模拟电路",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 35,
+      "dimension": "专业技能",
+      "skill_name": "示波器",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 36,
+      "dimension": "专业技能",
+      "skill_name": "万用表",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 37,
+      "dimension": "专业技能",
+      "skill_name": "信号发生器",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 38,
+      "dimension": "专业技能",
+      "skill_name": "硬件测试方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 39,
+      "dimension": "专业技能",
+      "skill_name": "PCB设计",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 40,
+      "dimension": "专业技能",
+      "skill_name": "原理图分析",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 41,
+      "dimension": "专业技能",
+      "skill_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 42,
+      "dimension": "专业技能",
+      "skill_name": "HTML5",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 43,
+      "dimension": "专业技能",
+      "skill_name": "CSS3",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 44,
+      "dimension": "专业技能",
+      "skill_name": "JavaScript",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 45,
+      "dimension": "专业技能",
+      "skill_name": "TypeScript",
+      "skill_tags": "编程语言",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 46,
+      "dimension": "专业技能",
+      "skill_name": "Vue",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 47,
+      "dimension": "专业技能",
+      "skill_name": "React",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 48,
+      "dimension": "专业技能",
+      "skill_name": "Angular",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 49,
+      "dimension": "专业技能",
+      "skill_name": "Node.js",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 50,
+      "dimension": "专业技能",
+      "skill_name": "Webpack",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 51,
+      "dimension": "专业技能",
+      "skill_name": "Vite",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 52,
+      "dimension": "专业技能",
+      "skill_name": "软件测试理论",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 53,
+      "dimension": "专业技能",
+      "skill_name": "测试用例设计",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 54,
+      "dimension": "专业技能",
+      "skill_name": "功能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 55,
+      "dimension": "专业技能",
+      "skill_name": "Selenium",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 56,
+      "dimension": "专业技能",
+      "skill_name": "Jmeter",
+      "skill_tags": "工具/运维",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 57,
+      "dimension": "专业技能",
+      "skill_name": "LoadRunner",
+      "skill_tags": "工具/运维",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 58,
+      "dimension": "专业技能",
+      "skill_name": "TestNG",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 59,
+      "dimension": "专业技能",
+      "skill_name": "JUnit",
+      "skill_tags": "开发框架",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 60,
+      "dimension": "专业技能",
+      "skill_name": "系统部署",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 61,
+      "dimension": "专业技能",
+      "skill_name": "数据库配置",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 62,
+      "dimension": "专业技能",
+      "skill_name": "网络配置",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 63,
+      "dimension": "专业技能",
+      "skill_name": "Windows",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 64,
+      "dimension": "专业技能",
+      "skill_name": "客户沟通",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 65,
+      "dimension": "专业技能",
+      "skill_name": "文档编写",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 66,
+      "dimension": "专业技能",
+      "skill_name": "客户服务",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 67,
+      "dimension": "专业技能",
+      "skill_name": "产品知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 68,
+      "dimension": "专业技能",
+      "skill_name": "网络知识",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 69,
+      "dimension": "专业技能",
+      "skill_name": "数据库知识",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 70,
+      "dimension": "专业技能",
+      "skill_name": "操作系统",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 71,
+      "dimension": "专业技能",
+      "skill_name": "沟通技巧",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 72,
+      "dimension": "专业技能",
+      "skill_name": "问题分析",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 73,
+      "dimension": "专业技能",
+      "skill_name": "软件测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 74,
+      "dimension": "专业技能",
+      "skill_name": "安全测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 75,
+      "dimension": "专业技能",
+      "skill_name": "测试工具",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 76,
+      "dimension": "专业技能",
+      "skill_name": "测试流程",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 77,
+      "dimension": "专业技能",
+      "skill_name": "质量保证",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 78,
+      "dimension": "专业技能",
+      "skill_name": "缺陷管理",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 79,
+      "dimension": "专业技能",
+      "skill_name": "测试策略",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_008"
+    },
+    {
+      "seq": 80,
+      "dimension": "专业技能",
+      "skill_name": "内容审核标准",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 81,
+      "dimension": "专业技能",
+      "skill_name": "风险识别",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 82,
+      "dimension": "专业技能",
+      "skill_name": "政策法规",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 83,
+      "dimension": "专业技能",
+      "skill_name": "信息安全",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 84,
+      "dimension": "专业技能",
+      "skill_name": "审核工具",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 85,
+      "dimension": "专业技能",
+      "skill_name": "质量控制",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 86,
+      "dimension": "专业技能",
+      "skill_name": "数据统计",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 87,
+      "dimension": "学习能力",
+      "skill_name": "新技术",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "demand_level": 5,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004; JOB_009; JOB_010"
+    },
+    {
+      "seq": 88,
+      "dimension": "学习能力",
+      "skill_name": "行业知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 3,
+      "demand_level": 4,
+      "avg_demand_level": 3.67,
+      "related_jobs": "JOB_004; JOB_007; JOB_010"
+    },
+    {
+      "seq": 89,
+      "dimension": "学习能力",
+      "skill_name": "性能优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 5,
+      "avg_demand_level": 4.5,
+      "related_jobs": "JOB_003; JOB_006"
+    },
+    {
+      "seq": 90,
+      "dimension": "学习能力",
+      "skill_name": "测试工具",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 91,
+      "dimension": "学习能力",
+      "skill_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 92,
+      "dimension": "学习能力",
+      "skill_name": "性能测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 93,
+      "dimension": "学习能力",
+      "skill_name": "安全测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 94,
+      "dimension": "学习能力",
+      "skill_name": "测试框架",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 95,
+      "dimension": "学习能力",
+      "skill_name": "前端框架",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 96,
+      "dimension": "学习能力",
+      "skill_name": "新特性",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 97,
+      "dimension": "学习能力",
+      "skill_name": "工具链",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 98,
+      "dimension": "学习能力",
+      "skill_name": "设计模式",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 99,
+      "dimension": "学习能力",
+      "skill_name": "学术前沿",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 100,
+      "dimension": "学习能力",
+      "skill_name": "科研方法",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 101,
+      "dimension": "学习能力",
+      "skill_name": "文献调研",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 102,
+      "dimension": "学习能力",
+      "skill_name": "跨领域知识",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 103,
+      "dimension": "学习能力",
+      "skill_name": "Java框架",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 104,
+      "dimension": "学习能力",
+      "skill_name": "云原生",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 105,
+      "dimension": "学习能力",
+      "skill_name": "DevOps",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 106,
+      "dimension": "学习能力",
+      "skill_name": "持续集成",
+      "skill_tags": "架构/工程",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 107,
+      "dimension": "学习能力",
+      "skill_name": "新技术栈",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 108,
+      "dimension": "学习能力",
+      "skill_name": "系统编程",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 109,
+      "dimension": "学习能力",
+      "skill_name": "嵌入式开发",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 110,
+      "dimension": "学习能力",
+      "skill_name": "网络编程",
+      "skill_tags": "网络/协议",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 111,
+      "dimension": "学习能力",
+      "skill_name": "底层库",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 112,
+      "dimension": "学习能力",
+      "skill_name": "业务流程",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 113,
+      "dimension": "学习能力",
+      "skill_name": "系统配置",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 114,
+      "dimension": "学习能力",
+      "skill_name": "客户需求",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 115,
+      "dimension": "学习能力",
+      "skill_name": "产品知识",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 116,
+      "dimension": "学习能力",
+      "skill_name": "技术更新",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 117,
+      "dimension": "学习能力",
+      "skill_name": "问题分析",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 118,
+      "dimension": "学习能力",
+      "skill_name": "解决方案",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 119,
+      "dimension": "学习能力",
+      "skill_name": "硬件技术",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 120,
+      "dimension": "学习能力",
+      "skill_name": "测试设备",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 121,
+      "dimension": "学习能力",
+      "skill_name": "测试标准",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 122,
+      "dimension": "学习能力",
+      "skill_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 123,
+      "dimension": "学习能力",
+      "skill_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 124,
+      "dimension": "学习能力",
+      "skill_name": "政策法规",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 125,
+      "dimension": "学习能力",
+      "skill_name": "审核标准",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 126,
+      "dimension": "学习能力",
+      "skill_name": "风险识别",
+      "skill_tags": "行业业务",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 127,
+      "dimension": "抗压能力",
+      "skill_name": "项目压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001; JOB_003; JOB_004"
+    },
+    {
+      "seq": 128,
+      "dimension": "抗压能力",
+      "skill_name": "上线压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_006; JOB_008"
+    },
+    {
+      "seq": 129,
+      "dimension": "抗压能力",
+      "skill_name": "测试周期",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_005; JOB_008"
+    },
+    {
+      "seq": 130,
+      "dimension": "抗压能力",
+      "skill_name": "上线周期",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001; JOB_003"
+    },
+    {
+      "seq": 131,
+      "dimension": "抗压能力",
+      "skill_name": "技术挑战",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001; JOB_003"
+    },
+    {
+      "seq": 132,
+      "dimension": "抗压能力",
+      "skill_name": "性能优化",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 3.5,
+      "related_jobs": "JOB_003; JOB_006"
+    },
+    {
+      "seq": 133,
+      "dimension": "抗压能力",
+      "skill_name": "时间压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 3.5,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 134,
+      "dimension": "抗压能力",
+      "skill_name": "多任务处理",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 4,
+      "avg_demand_level": 3.5,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 135,
+      "dimension": "抗压能力",
+      "skill_name": "缺陷修复",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 136,
+      "dimension": "抗压能力",
+      "skill_name": "紧急测试",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 137,
+      "dimension": "抗压能力",
+      "skill_name": "质量要求",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005; JOB_008"
+    },
+    {
+      "seq": 138,
+      "dimension": "抗压能力",
+      "skill_name": "迭代开发",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 139,
+      "dimension": "抗压能力",
+      "skill_name": "加班应对",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 140,
+      "dimension": "抗压能力",
+      "skill_name": "调试困难",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 141,
+      "dimension": "抗压能力",
+      "skill_name": "客户现场",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 142,
+      "dimension": "抗压能力",
+      "skill_name": "问题解决",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 143,
+      "dimension": "抗压能力",
+      "skill_name": "科研压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 144,
+      "dimension": "抗压能力",
+      "skill_name": "实验挑战",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 145,
+      "dimension": "抗压能力",
+      "skill_name": "论文发表",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 146,
+      "dimension": "抗压能力",
+      "skill_name": "项目周期",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 147,
+      "dimension": "抗压能力",
+      "skill_name": "竞争压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 148,
+      "dimension": "抗压能力",
+      "skill_name": "质量保障",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 149,
+      "dimension": "抗压能力",
+      "skill_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 150,
+      "dimension": "抗压能力",
+      "skill_name": "压力测试",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 151,
+      "dimension": "抗压能力",
+      "skill_name": "项目进度",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 152,
+      "dimension": "抗压能力",
+      "skill_name": "需求变更",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 153,
+      "dimension": "抗压能力",
+      "skill_name": "快速迭代",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 154,
+      "dimension": "抗压能力",
+      "skill_name": "跨浏览器兼容性",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 155,
+      "dimension": "抗压能力",
+      "skill_name": "客户压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 156,
+      "dimension": "抗压能力",
+      "skill_name": "紧急问题",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 157,
+      "dimension": "抗压能力",
+      "skill_name": "问题复杂度",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 158,
+      "dimension": "抗压能力",
+      "skill_name": "工作压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 159,
+      "dimension": "抗压能力",
+      "skill_name": "内容负荷",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 160,
+      "dimension": "抗压能力",
+      "skill_name": "时间要求",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 161,
+      "dimension": "抗压能力",
+      "skill_name": "责任压力",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 162,
+      "dimension": "抗压能力",
+      "skill_name": "情绪管理",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 163,
+      "dimension": "沟通协作能力",
+      "skill_name": "团队协作",
+      "skill_tags": "软技能",
+      "related_job_count": 10,
+      "demand_level": 5,
+      "avg_demand_level": 3.4,
+      "related_jobs": "JOB_001; JOB_002; JOB_003; JOB_004; JOB_005; JOB_006; JOB_007; JOB_008; JOB_009; JOB_010"
+    },
+    {
+      "seq": 164,
+      "dimension": "沟通协作能力",
+      "skill_name": "文档编写",
+      "skill_tags": "软技能",
+      "related_job_count": 5,
+      "demand_level": 5,
+      "avg_demand_level": 3.8,
+      "related_jobs": "JOB_001; JOB_003; JOB_004; JOB_005; JOB_007"
+    },
+    {
+      "seq": 165,
+      "dimension": "沟通协作能力",
+      "skill_name": "代码评审",
+      "skill_tags": "软技能",
+      "related_job_count": 3,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001; JOB_003; JOB_006"
+    },
+    {
+      "seq": 166,
+      "dimension": "沟通协作能力",
+      "skill_name": "问题分析",
+      "skill_tags": "通用技能",
+      "related_job_count": 3,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_003; JOB_008"
+    },
+    {
+      "seq": 167,
+      "dimension": "沟通协作能力",
+      "skill_name": "客户沟通",
+      "skill_tags": "行业业务",
+      "related_job_count": 2,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 168,
+      "dimension": "沟通协作能力",
+      "skill_name": "技术沟通",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001; JOB_003"
+    },
+    {
+      "seq": 169,
+      "dimension": "沟通协作能力",
+      "skill_name": "需求分析",
+      "skill_tags": "软技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001; JOB_006"
+    },
+    {
+      "seq": 170,
+      "dimension": "沟通协作能力",
+      "skill_name": "缺陷报告",
+      "skill_tags": "测试/质量",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 171,
+      "dimension": "沟通协作能力",
+      "skill_name": "需求沟通",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 172,
+      "dimension": "沟通协作能力",
+      "skill_name": "测试文档",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 173,
+      "dimension": "沟通协作能力",
+      "skill_name": "问题沟通",
+      "skill_tags": "通用技能",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005; JOB_010"
+    },
+    {
+      "seq": 174,
+      "dimension": "沟通协作能力",
+      "skill_name": "需求收集",
+      "skill_tags": "项目/工程经验",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 175,
+      "dimension": "沟通协作能力",
+      "skill_name": "问题协调",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 176,
+      "dimension": "沟通协作能力",
+      "skill_name": "问题描述",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 177,
+      "dimension": "沟通协作能力",
+      "skill_name": "技术解释",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 5,
+      "avg_demand_level": 5.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 178,
+      "dimension": "沟通协作能力",
+      "skill_name": "测试报告",
+      "skill_tags": "测试/质量",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 179,
+      "dimension": "沟通协作能力",
+      "skill_name": "技术交流",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 180,
+      "dimension": "沟通协作能力",
+      "skill_name": "UI/UX沟通",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 181,
+      "dimension": "沟通协作能力",
+      "skill_name": "技术文档",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 182,
+      "dimension": "沟通协作能力",
+      "skill_name": "学术交流",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 183,
+      "dimension": "沟通协作能力",
+      "skill_name": "论文写作",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 184,
+      "dimension": "沟通协作能力",
+      "skill_name": "项目汇报",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 185,
+      "dimension": "沟通协作能力",
+      "skill_name": "成果展示",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 186,
+      "dimension": "沟通协作能力",
+      "skill_name": "报告编写",
+      "skill_tags": "通用技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 187,
+      "dimension": "沟通协作能力",
+      "skill_name": "标准解释",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 188,
+      "dimension": "沟通协作能力",
+      "skill_name": "反馈传递",
+      "skill_tags": "软技能",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 189,
+      "dimension": "证书要求",
+      "skill_name": "ISTQB认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 3,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_005; JOB_008"
+    },
+    {
+      "seq": 190,
+      "dimension": "证书要求",
+      "skill_name": "AWS开发者认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001; JOB_006"
+    },
+    {
+      "seq": 191,
+      "dimension": "证书要求",
+      "skill_name": "Azure开发者认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001; JOB_006"
+    },
+    {
+      "seq": 192,
+      "dimension": "证书要求",
+      "skill_name": "CSTE认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 193,
+      "dimension": "证书要求",
+      "skill_name": "CAT认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002; JOB_008"
+    },
+    {
+      "seq": 194,
+      "dimension": "证书要求",
+      "skill_name": "ITIL基础认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004; JOB_007"
+    },
+    {
+      "seq": 195,
+      "dimension": "证书要求",
+      "skill_name": "CompTIA A+认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 2,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005; JOB_007"
+    },
+    {
+      "seq": 196,
+      "dimension": "证书要求",
+      "skill_name": "PhD学位",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 197,
+      "dimension": "证书要求",
+      "skill_name": "专业领域认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 198,
+      "dimension": "证书要求",
+      "skill_name": "行业会员资格",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 4,
+      "avg_demand_level": 4.0,
+      "related_jobs": "JOB_009"
+    },
+    {
+      "seq": 199,
+      "dimension": "证书要求",
+      "skill_name": "OCJP认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 200,
+      "dimension": "证书要求",
+      "skill_name": "Spring认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_001"
+    },
+    {
+      "seq": 201,
+      "dimension": "证书要求",
+      "skill_name": "Selenium认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_002"
+    },
+    {
+      "seq": 202,
+      "dimension": "证书要求",
+      "skill_name": "MCP认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 203,
+      "dimension": "证书要求",
+      "skill_name": "C++协会认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 204,
+      "dimension": "证书要求",
+      "skill_name": "嵌入式认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_003"
+    },
+    {
+      "seq": 205,
+      "dimension": "证书要求",
+      "skill_name": "PMP认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 206,
+      "dimension": "证书要求",
+      "skill_name": "Oracle DBA认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 207,
+      "dimension": "证书要求",
+      "skill_name": "MCSA认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_004"
+    },
+    {
+      "seq": 208,
+      "dimension": "证书要求",
+      "skill_name": "CET认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_005"
+    },
+    {
+      "seq": 209,
+      "dimension": "证书要求",
+      "skill_name": "Google Web开发者认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_006"
+    },
+    {
+      "seq": 210,
+      "dimension": "证书要求",
+      "skill_name": "Azure基础认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 3,
+      "avg_demand_level": 3.0,
+      "related_jobs": "JOB_007"
+    },
+    {
+      "seq": 211,
+      "dimension": "证书要求",
+      "skill_name": "内容审核认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 212,
+      "dimension": "证书要求",
+      "skill_name": "信息安全认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    },
+    {
+      "seq": 213,
+      "dimension": "证书要求",
+      "skill_name": "合规认证",
+      "skill_tags": "证书/认证",
+      "related_job_count": 1,
+      "demand_level": 2,
+      "avg_demand_level": 2.0,
+      "related_jobs": "JOB_010"
+    }
+  ],
+  "internship_library": [
+    {
+      "seq": 1,
+      "experience_name": "学术写作",
+      "skill_tags": "软技能",
+      "demand_level": 4
+    },
+    {
+      "seq": 2,
+      "experience_name": "实验设计",
+      "skill_tags": "通用技能",
+      "demand_level": 4
+    },
+    {
+      "seq": 3,
+      "experience_name": "数据分析",
+      "skill_tags": "数据/AI",
+      "demand_level": 4
+    },
+    {
+      "seq": 4,
+      "experience_name": "文献调研",
+      "skill_tags": "通用技能",
+      "demand_level": 4
+    },
+    {
+      "seq": 5,
+      "experience_name": "科研项目",
+      "skill_tags": "通用技能",
+      "demand_level": 4
+    },
+    {
+      "seq": 6,
+      "experience_name": "C/C++开发",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 7,
+      "experience_name": "Java",
+      "skill_tags": "编程语言",
+      "demand_level": 3
+    },
+    {
+      "seq": 8,
+      "experience_name": "产品知识",
+      "skill_tags": "行业业务",
+      "demand_level": 3
+    },
+    {
+      "seq": 9,
+      "experience_name": "前端开发",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 10,
+      "experience_name": "功能测试",
+      "skill_tags": "测试/质量",
+      "demand_level": 3
+    },
+    {
+      "seq": 11,
+      "experience_name": "可靠性测试",
+      "skill_tags": "嵌入式/硬件",
+      "demand_level": 3
+    },
+    {
+      "seq": 12,
+      "experience_name": "团队协作",
+      "skill_tags": "软技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 13,
+      "experience_name": "客户服务",
+      "skill_tags": "行业业务",
+      "demand_level": 3
+    },
+    {
+      "seq": 14,
+      "experience_name": "客户沟通",
+      "skill_tags": "行业业务",
+      "demand_level": 3
+    },
+    {
+      "seq": 15,
+      "experience_name": "性能优化",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 16,
+      "experience_name": "性能测试",
+      "skill_tags": "测试/质量",
+      "demand_level": 3
+    },
+    {
+      "seq": 17,
+      "experience_name": "技术支持",
+      "skill_tags": "行业业务",
+      "demand_level": 3
+    },
+    {
+      "seq": 18,
+      "experience_name": "技术文档",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 19,
+      "experience_name": "测试工程师",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 20,
+      "experience_name": "测试文档",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 21,
+      "experience_name": "测试用例",
+      "skill_tags": "测试/质量",
+      "demand_level": 3
+    },
+    {
+      "seq": 22,
+      "experience_name": "测试设备",
+      "skill_tags": "通用技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 23,
+      "experience_name": "硬件测试",
+      "skill_tags": "嵌入式/硬件",
+      "demand_level": 3
+    },
+    {
+      "seq": 24,
+      "experience_name": "缺陷管理",
+      "skill_tags": "测试/质量",
+      "demand_level": 3
+    },
+    {
+      "seq": 25,
+      "experience_name": "自动化测试",
+      "skill_tags": "测试/质量",
+      "demand_level": 3
+    },
+    {
+      "seq": 26,
+      "experience_name": "软件测试",
+      "skill_tags": "测试/质量",
+      "demand_level": 3
+    },
+    {
+      "seq": 27,
+      "experience_name": "问题解决",
+      "skill_tags": "软技能",
+      "demand_level": 3
+    },
+    {
+      "seq": 28,
+      "experience_name": "内容审核",
+      "skill_tags": "行业业务",
+      "demand_level": 2
+    },
+    {
+      "seq": 29,
+      "experience_name": "报告编写",
+      "skill_tags": "通用技能",
+      "demand_level": 2
+    },
+    {
+      "seq": 30,
+      "experience_name": "标准执行",
+      "skill_tags": "通用技能",
+      "demand_level": 2
+    },
+    {
+      "seq": 31,
+      "experience_name": "质量控制",
+      "skill_tags": "测试/质量",
+      "demand_level": 2
+    },
+    {
+      "seq": 32,
+      "experience_name": "风险识别",
+      "skill_tags": "行业业务",
+      "demand_level": 2
+    }
+  ],
+  "project_library": [
+    {
+      "seq": 1,
+      "project_name": "UI/UX设计",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 2,
+      "project_name": "Web开发",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 3,
+      "project_name": "企业级应用开发",
+      "skill_tags": "行业业务",
+      "demand_level": 3
+    },
+    {
+      "seq": 4,
+      "project_name": "前端框架",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 5,
+      "project_name": "响应式布局",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 6,
+      "project_name": "嵌入式开发",
+      "skill_tags": "嵌入式/硬件",
+      "demand_level": 3
+    },
+    {
+      "seq": 7,
+      "project_name": "故障分析",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 8,
+      "project_name": "数据库设计",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 9,
+      "project_name": "系统编程",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 10,
+      "project_name": "系统部署",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    },
+    {
+      "seq": 11,
+      "project_name": "网络编程",
+      "skill_tags": "网络/协议",
+      "demand_level": 3
+    },
+    {
+      "seq": 12,
+      "project_name": "项目实施",
+      "skill_tags": "项目/工程经验",
+      "demand_level": 3
+    }
+  ],
+  "job_skills": [
+    {
+      "job_id": "JOB_001",
+      "job_title": "Java",
+      "skill_count": 10,
+      "certificate_required": 4,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 2,
+      "project_count": 3,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_002",
+      "job_title": "软件测试",
+      "skill_count": 10,
+      "certificate_required": 4,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 5,
+      "project_count": 0,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_003",
+      "job_title": "C/C++",
+      "skill_count": 9,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 2,
+      "project_count": 3,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_004",
+      "job_title": "实施工程师",
+      "skill_count": 10,
+      "certificate_required": 4,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 3,
+      "project_count": 2,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_005",
+      "job_title": "硬件测试",
+      "skill_count": 10,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 4,
+      "project_count": 1,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_006",
+      "job_title": "前端开发",
+      "skill_count": 10,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 2,
+      "project_count": 3,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_007",
+      "job_title": "技术支持工程师",
+      "skill_count": 9,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 5,
+      "project_count": 0,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_008",
+      "job_title": "测试工程师",
+      "skill_count": 9,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 5,
+      "project_count": 0,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_009",
+      "job_title": "科研人员",
+      "skill_count": 8,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 5,
+      "project_count": 0,
+      "communication_required": 5
+    },
+    {
+      "job_id": "JOB_010",
+      "job_title": "内容审核",
+      "skill_count": 7,
+      "certificate_required": 3,
+      "learning_required": 5,
+      "pressure_required": 5,
+      "collab_required": 5,
+      "internship_required": 5,
+      "internship_level": 5,
+      "project_count": 0,
+      "communication_required": 5
+    }
+  ]
+}
