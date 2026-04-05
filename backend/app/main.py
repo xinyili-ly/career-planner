@@ -18,6 +18,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 添加版本信息中间件
+@app.middleware("http")
+async def add_version_header(request, call_next):
+    response = await call_next(request)
+    response.headers["X-API-Version"] = "1"
+    return response
+
 # 注册路由
 app.include_router(positions.router)
 
