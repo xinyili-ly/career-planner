@@ -98,27 +98,34 @@ html.dark {
   font-weight: normal;
 }
 
-/* 职途智引：全局字体比例（基准 20px，约 1.2 倍率，常见网页大字号配比） */
+/* -------------------------------------------------------------------------- */
+/* 全局字体系统（统一字号 + 字重）                                             */
+/* -------------------------------------------------------------------------- */
 :root {
-  /* 全站字号整体上调一档 */
-  --font-base: 22px;
-  --font-sm: 20px;
-  --font-xs: 18px;
-  --font-lg: 24px;
-  --font-xl: 28px;
-  --font-2xl: 34px;
-  --font-3xl: 42px;
+  /* 字号（按页面层级统一） */
+  --fs-display: clamp(48px, 5.5vw, 84px); /* 超大 */
+  --fs-h1: clamp(32px, 2.6vw, 42px);
+  --fs-h2: clamp(24px, 1.8vw, 30px);
+  --fs-h3: clamp(18px, 1.2vw, 22px);
+  --fs-body: clamp(15px, 1.05vw, 18px);
+  --fs-small: clamp(13px, 0.95vw, 15px);
+  --fs-tiny: 12px;
+
+  /* 字重：Uiineed 风格（标题更硬朗，正文更克制） */
+  --fw-heading: 850;
+  --fw-body: 500;
+
   --line-tight: 1.35;
   --line-normal: 1.6;
 }
 
 /* Element Plus：同步全局字号（否则组件会保持偏小的 14px 基准） */
 :root {
-  --el-font-size-base: var(--font-base);
-  --el-font-size-small: var(--font-sm);
-  --el-font-size-extra-small: var(--font-xs);
-  --el-font-size-medium: var(--font-lg);
-  --el-font-size-large: var(--font-xl);
+  --el-font-size-base: var(--fs-body);
+  --el-font-size-small: var(--fs-small);
+  --el-font-size-extra-small: var(--fs-tiny);
+  --el-font-size-medium: var(--fs-h3);
+  --el-font-size-large: var(--fs-h2);
 }
 
 body {
@@ -142,8 +149,21 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: var(--font-base);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 全局标题字重：页面不写也能统一 */
+h1,
+h2,
+h3,
+.page-title,
+.section-title,
+.subheading,
+.hero-title,
+.guide-title {
+  font-weight: var(--fw-heading);
 }

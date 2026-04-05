@@ -263,8 +263,8 @@ const goStudentAbilities = () => {
 }
 
 .logo-main {
-  font-size: clamp(20px, 1.5vw, 28px);
-  font-weight: 700;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-heading);
   letter-spacing: 2px;
 }
 
@@ -274,7 +274,8 @@ const goStudentAbilities = () => {
 }
 
 .nav-item {
-  font-size: clamp(16px, 1.05vw, 19px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
   color: var(--u-black);
   text-decoration: none;
   position: relative;
@@ -314,7 +315,8 @@ const goStudentAbilities = () => {
 }
 
 .nav-back {
-  font-size: clamp(15px, 0.95vw, 17px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
 }
 
 .theme-toggle {
@@ -325,7 +327,7 @@ const goStudentAbilities = () => {
   border: var(--u-border);
   box-shadow: 2px 2px 0px var(--u-black);
   padding: 4px;
-  font-size: 12px;
+  font-size: var(--fs-small);
 }
 
 .ability-plan-view.dark .theme-toggle {
@@ -383,23 +385,35 @@ const goStudentAbilities = () => {
 
 .guide-top {
   margin-top: 6px;
-  /* 让标题/说明更贴近左侧（不改变整体居中容器） */
-  margin-left: clamp(-28px, -2vw, -12px);
+  /* 标题+说明收窄并居中（约占页面 2/3 宽度） */
+  width: min(86%, 1360px);
+  margin-inline: auto;
 }
 
 .guide-title {
-  font-size: clamp(36px, 3vw, 52px);
+  font-size: var(--fs-h1);
   letter-spacing: 2px;
   margin: 0 0 12px;
-  color: rgba(51, 50, 46, 0.78);
-  font-weight: 800;
+  color: #000000;
+  font-weight: var(--fw-heading);
+}
+
+.ability-plan-view.dark .guide-title {
+  color: var(--dm-text);
 }
 
 .guide-desc {
   margin: 0;
   line-height: 1.75;
-  font-size: clamp(15px, 1.05vw, 18px);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
   color: rgba(51, 50, 46, 0.78);
+}
+
+@media (max-width: 900px) {
+  .guide-top {
+    width: 100%;
+  }
 }
 
 .gantt-section {
@@ -414,7 +428,7 @@ const goStudentAbilities = () => {
   place-items: center;
   color: rgba(51, 50, 46, 0.65);
   font-weight: 700;
-  font-size: clamp(20px, 1.8vw, 28px);
+  font-size: var(--fs-h2);
   line-height: 1.2;
   writing-mode: vertical-rl;
   text-orientation: upright;
@@ -437,13 +451,8 @@ const goStudentAbilities = () => {
 
 .gantt-card-outer {
   position: relative;
-  /* 甘特图示例卡片：改为渐变黄色（更像学习进度的“热度”） */
-  background: linear-gradient(
-    135deg,
-    rgba(255, 254, 246, 0.98) 0%,
-    rgba(255, 248, 222, 0.88) 50%,
-    rgba(254, 236, 154, 0.78) 100%
-  );
+  /* 与 To Do 示例外层一致 */
+  background: rgba(255, 255, 255, 0.98);
   border: 3px solid var(--u-black); /* 3px 黑边 */
   border-radius: 16px;
   padding: 8px;
@@ -453,12 +462,7 @@ const goStudentAbilities = () => {
 }
 
 .ability-plan-view.dark .gantt-card-outer {
-  background: linear-gradient(
-    135deg,
-    rgba(212, 165, 116, 0.20) 0%,
-    rgba(180, 83, 9, 0.16) 45%,
-    rgba(212, 165, 116, 0.11) 100%
-  );
+  background: rgba(28, 33, 40, 0.88);
 }
 
 .gantt-sticker-tag {
@@ -468,56 +472,46 @@ const goStudentAbilities = () => {
   z-index: 3;
   pointer-events: none;
   padding: 8px 12px;
-  /* 贴纸样式 Tag：亮红色背景 + 白字 + 黑边 */
-  background: #ff2d2d;
-  color: #ffffff;
+  /* 贴纸：白底黑字 + 黑边 */
+  background: #ffffff;
+  color: #000000;
   border: 2px solid #000000;
   border-radius: 10px;
   font-weight: 900;
   letter-spacing: 1px;
-  font-size: clamp(13px, 1vw, 16px);
+  font-size: var(--fs-small);
   transform: rotate(-2deg);
 }
 
 .ability-plan-view.dark .gantt-sticker-tag {
-  /* 深色模式下保持同样的红色贴纸 */
-  background: #ff2d2d;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
 }
 
 .gantt {
   height: 100%;
   border-radius: 16px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 254, 246, 0.95) 0%,
-    rgba(255, 248, 222, 0.84) 55%,
-    rgba(254, 236, 154, 0.74) 100%
-  );
-  border: 1px solid var(--u-border);
+  /* 与 .todo-card 同色带，渐变方向对角相反（todo 为 135deg） */
+  background: linear-gradient(315deg, var(--u-bg-normal), var(--u-gradient-fade));
+  border: none;
   overflow: hidden;
 }
 
 .ability-plan-view.dark .gantt {
-  background: linear-gradient(
-    135deg,
-    rgba(212, 165, 116, 0.18) 0%,
-    rgba(180, 83, 9, 0.14) 55%,
-    rgba(212, 165, 116, 0.11) 100%
-  );
-  border-color: var(--dm-border);
+  background: var(--dm-surface-card);
+  border: none;
 }
 
 .gantt-head {
   display: grid;
   grid-template-columns: 160px repeat(12, 1fr);
   align-items: center;
-  background: #f8fafc;
+  background: transparent;
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
 }
 
 .ability-plan-view.dark .gantt-head {
-  background: var(--dm-surface-elevated);
+  background: transparent;
   border-bottom-color: var(--dm-border);
 }
 
@@ -531,8 +525,8 @@ const goStudentAbilities = () => {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  color: #1f2937;
-  font-size: 12px;
+  color: var(--u-black);
+  font-size: var(--fs-tiny);
 }
 
 .ability-plan-view.dark .week {
@@ -552,15 +546,17 @@ const goStudentAbilities = () => {
 
 .row-label {
   padding: 14px 12px;
+  font-size: var(--fs-small);
   font-weight: 700;
-  background: #fbfdff;
-  color: #334155;
+  line-height: 1.35;
+  background: transparent;
+  color: var(--u-black);
   display: flex;
   align-items: center;
 }
 
 .ability-plan-view.dark .row-label {
-  background: var(--dm-surface);
+  background: transparent;
   color: var(--dm-text);
 }
 
@@ -577,7 +573,7 @@ const goStudentAbilities = () => {
   border-radius: 14px;
   padding: 10px 12px;
   color: var(--u-black);
-  font-size: 13px;
+  font-size: var(--fs-small);
   line-height: 1.25;
   box-shadow: 2px 2px 0px var(--u-black);
   border: var(--u-border);
@@ -759,7 +755,7 @@ const goStudentAbilities = () => {
 }
 
 .todo-text {
-  font-size: clamp(14px, 1.05vw, 16px);
+  font-size: var(--fs-small);
   line-height: 1.3;
   font-weight: 700;
   color: var(--u-black);
@@ -788,7 +784,7 @@ const goStudentAbilities = () => {
   border-radius: 10px;
   font-weight: 800;
   letter-spacing: 1px;
-  font-size: clamp(13px, 1vw, 16px);
+  font-size: var(--fs-small);
   transform: rotate(-2deg);
 }
 
@@ -804,7 +800,8 @@ const goStudentAbilities = () => {
 .bottom-note {
   margin: 0 auto 14px;
   max-width: 980px;
-  font-size: clamp(13px, 0.95vw, 16px);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
   line-height: 1.75;
   color: rgba(15, 23, 42, 0.45);
 }
@@ -851,7 +848,8 @@ const goStudentAbilities = () => {
   margin-top: auto;
   padding-top: 24px;
   border-top: 1px solid rgba(124, 141, 167, 0.35);
-  font-size: clamp(14px, 0.9vw, 16px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
   color: #94a3b8;
   text-align: center;
   width: 100%;

@@ -8,8 +8,7 @@
         <div class="panel-header">
           <h1 class="page-title">欢迎来到简历智评中心</h1>
           <p class="page-intro">
-            学生就业能力来源支持简历上传或对话录入。通过大模型将数据拆解为多维度能力画像，
-            并对完整度、竞争力进行评分，为后续人岗匹配与生涯报告提供依据。
+            基于大语言模型深度理解你的职业轨迹。无论是静态文档还是实时对话，系统都将通过<strong>7 大维度</strong>精准萃取你的职业基因，量化生成个人就业能力评分，为后续的人岗精准匹配与生涯进化报告夯实底层数据。
           </p>
         </div>
 
@@ -17,19 +16,23 @@
           <button type="button" class="entry-card entry-card--upload" @click="step = 'upload'">
             <div class="entry-card-icon">📄</div>
             <h3 class="entry-card-title">上传解析简历</h3>
-            <p class="entry-card-desc">已有简历文件？上传后由系统智能解析，快速生成能力画像与评分。</p>
+            <p class="entry-card-desc">
+              已有简历文件？点击上传，AI 将秒级实现非结构化文本的深度语义拆解，将你的过往经历转化为标准化的能力坐标与竞争力评分，让潜能即刻可见。
+            </p>
             <span class="entry-card-link">去上传 →</span>
           </button>
           <button type="button" class="entry-card entry-card--chat" @click="goToChat">
             <div class="entry-card-icon">💬</div>
             <h3 class="entry-card-title">AI 对话获取</h3>
-            <p class="entry-card-desc">暂无完整简历？通过多轮对话逐步填写，由 AI 帮你整理成能力画像。</p>
+            <p class="entry-card-desc">
+              暂无完整简历？通过与 AI 进行多轮沉浸式沟通，逐步梳理并补全你的实战细节。由大模型协助你整理出颗粒度更细、更具说服力的能力画像。
+            </p>
             <span class="entry-card-link">开始对话 →</span>
           </button>
         </div>
 
         <section class="trust-panel trust-panel--entry">
-          <h3 class="trust-title">专业可靠 · 深度理解你的简历</h3>
+          <h3 class="trust-title">专业底座 · 深度解码你的职场基因</h3>
           <div class="trust-grid">
             <div
               class="trust-item"
@@ -46,15 +49,16 @@
               </div>
             </div>
           </div>
-          <a href="javascript:void(0)" class="link-text">查看参考文献</a>
         </section>
 
       </section>
 
       <!-- 上传解析简历：仅上传相关 -->
       <section v-else-if="step === 'upload'" class="panel upload-panel">
-        <el-button class="step-back u-btn u-btn--text" text @click="step = 'entry'">← 返回选择</el-button>
-        <h1 class="page-title">上传解析简历</h1>
+        <div class="upload-header">
+          <h1 class="page-title upload-page-title">上传解析简历</h1>
+          <el-button class="step-back u-btn u-btn--ghost" @click="step = 'entry'">返回</el-button>
+        </div>
         <p class="upload-intro">
           上传一份你已有的简历（PDF 或 Word），系统将基于大模型对内容进行多维度解析：
           从专业技能、证书、创新能力、学习与抗压能力、沟通与实习经历等维度生成你的就业能力画像，
@@ -97,9 +101,11 @@
 
       <!-- AI 对话获取：仅对话相关 -->
       <section v-else-if="step === 'chat'" class="panel chat-panel">
-        <el-button class="step-back u-btn u-btn--text" text @click="step = 'entry'">← 返回选择</el-button>
         <header class="chat-header">
-          <h2>AI 对话引导 · 简历录入</h2>
+          <div class="chat-header-top">
+            <h1 class="page-title chat-page-title">AI 对话引导 · 简历录入</h1>
+            <el-button class="step-back u-btn u-btn--ghost" @click="step = 'entry'">返回</el-button>
+          </div>
           <p class="chat-intro">
             通过多轮对话，我们会逐步收集你的教育背景、项目经历、技能与意向，并自动整理成能力画像。
             请按助手提示依次回答即可，完成后可一键生成学生就业能力画像。
@@ -156,7 +162,7 @@
             <el-progress :percentage="progress" :stroke-width="12" />
             <span class="progress-text">{{ progress }}%（示例 3 / 20 项）</span>
           </div>
-          <el-button class="u-btn u-btn--success" type="success" @click="finishChat">
+          <el-button class="u-btn u-btn--success u-btn--lg" type="success" @click="finishChat">
             收集完成，开始构建学生能力画像
           </el-button>
         </div>
@@ -166,19 +172,25 @@
       <!-- 步骤三：学生就业能力画像（对应第三张图） -->
       <section v-else-if="step === 'result'" class="panel result-panel">
         <header class="result-header">
-          <span class="tag">分析完成</span>
+          <div class="result-header-left">
+            <h1 class="page-title result-page-title">学生就业能力画像</h1>
+            <span class="tag">分析完成</span>
+          </div>
+          <el-button class="step-back u-btn u-btn--ghost" @click="step = 'entry'">返回</el-button>
         </header>
 
         <div class="result-grid">
           <aside class="result-left">
             <div class="info-card">
               <p class="info-title">个人信息栏</p>
-              <p class="info-line">
-                {{ profile.name }} · {{ profile.school }} · {{ profile.major }}
-              </p>
-              <p class="info-line">
-                简历完整度：{{ profile.cvCompletion }}%【{{ profile.cvLabel }}】
-              </p>
+              <div class="info-stack">
+                <p class="info-line">姓名：{{ profile.name }}</p>
+                <p class="info-line">学校：{{ profile.school }}</p>
+                <p class="info-line">专业：{{ profile.major }}</p>
+                <p class="info-line">
+                  简历完整度：{{ profile.cvCompletion }}%【{{ profile.cvLabel }}】
+                </p>
+              </div>
             </div>
 
             <div class="radar-card">
@@ -247,7 +259,7 @@
                   :percentage="scoreToPercentage(ability.score)"
                   :stroke-width="10"
                   :show-text="false"
-                  color="#63bfb7"
+                  color="#8cd4cb"
                   class="ability-progress"
                 />
                 <p class="ability-desc">{{ ability.desc }}</p>
@@ -264,11 +276,8 @@
             </div>
 
             <div class="result-actions">
-              <el-button class="u-btn u-btn--primary" type="primary" @click="goToMatch">
+              <el-button class="u-btn u-btn--primary u-btn--lg" type="primary" @click="goToMatch">
                 🔍 查看匹配岗位
-              </el-button>
-              <el-button class="u-btn u-btn--success" type="success" @click="goToMatch">
-                📄 生成报告（需先选岗位）
               </el-button>
             </div>
           </section>
@@ -278,8 +287,11 @@
       <!-- 步骤四：岗位匹配与职业探索（原 职业生涯发展页中的人岗匹配部分） -->
       <section v-else-if="step === 'match'" class="panel match-panel">
         <header class="panel-header match-header">
-          <h1 class="page-title">岗位匹配与职业探索</h1>
-          <p class="student-tag">【当前学生】{{ studentName }}</p>
+          <div>
+            <h1 class="page-title match-page-title">岗位匹配与职业探索</h1>
+            <p class="student-tag">【当前学生】{{ studentName }}</p>
+          </div>
+          <el-button class="step-back u-btn u-btn--ghost" @click="step = 'result'">返回</el-button>
         </header>
 
         <!-- 推荐岗位列表 -->
@@ -384,10 +396,62 @@
             对各维度岗位要求与学生信息对比后打分，再按当前岗位各维度权重加权综合，得出匹配度（关键技能匹配准确率目标 ≥80%）。
           </p>
           <div class="compare-grid">
-            <div class="compare-card">
+            <div class="compare-card compare-card--radar">
               <p class="compare-title">雷达图（学生 vs 岗位）</p>
-              <div class="compare-placeholder">
-                可接入 ECharts 等雷达图，展示四维度及细分能力对比。
+              <div
+                class="compare-radar-chart"
+                role="img"
+                aria-label="学生与岗位四维度雷达对比（示意数据）"
+              >
+                <svg class="compare-radar-svg" viewBox="0 0 240 240" aria-hidden="true">
+                  <g>
+                    <polygon
+                      v-for="(poly, idx) in matchCompareRadarChart.gridPolygons"
+                      :key="'g' + idx"
+                      :points="poly"
+                      class="radar-grid"
+                    />
+                    <line
+                      v-for="(axis, idx) in matchCompareRadarChart.axes"
+                      :key="'a' + idx"
+                      :x1="matchCompareRadarChart.cx"
+                      :y1="matchCompareRadarChart.cy"
+                      :x2="axis.x"
+                      :y2="axis.y"
+                      class="radar-axis"
+                    />
+                    <polygon
+                      :points="matchCompareRadarChart.jobPolygon"
+                      class="match-radar-job"
+                    />
+                    <polygon
+                      :points="matchCompareRadarChart.studentPolygon"
+                      class="match-radar-student"
+                    />
+                    <text
+                      v-for="(label, idx) in matchCompareRadarChart.labels"
+                      :key="'t' + idx"
+                      :x="label.x"
+                      :y="label.y"
+                      text-anchor="middle"
+                      dominant-baseline="middle"
+                      class="radar-label"
+                    >
+                      {{ label.text }}
+                    </text>
+                  </g>
+                </svg>
+                <div class="compare-radar-legend">
+                  <span class="compare-radar-legend-item">
+                    <span class="compare-radar-dot compare-radar-dot--job" aria-hidden="true" />
+                    岗位要求
+                  </span>
+                  <span class="compare-radar-legend-item">
+                    <span class="compare-radar-dot compare-radar-dot--student" aria-hidden="true" />
+                    学生能力
+                  </span>
+                </div>
+                <p class="compare-radar-note">示意数据，可与下方四维度表对照查看。</p>
               </div>
             </div>
             <div class="compare-card">
@@ -436,13 +500,14 @@
         <!-- 报告头部 -->
         <header class="report-header">
           <div>
-            <h1 class="page-title">职业发展规划报告</h1>
+            <h1 class="page-title report-page-title">职业发展规划报告</h1>
             <p class="report-subtitle">
               目标岗位：{{ currentJob?.name || baseInfo.targetJob }}
               · 生成时间：{{ reportDate }}
             </p>
           </div>
           <div class="header-actions">
+            <el-button class="u-btn u-btn--ghost" @click="step = 'match'">返回</el-button>
             <el-button class="u-btn u-btn--ghost" @click="handleEditReport">编辑报告</el-button>
             <el-button class="u-btn u-btn--ghost" @click="handlePolish">智能润色</el-button>
             <el-dropdown @command="exportReport">
@@ -803,18 +868,18 @@ const step = ref('entry')
 const trustPoints = [
   {
     icon: '🧠',
-    title: '深度理解，而不是关键词匹配',
-    desc: '基于大模型深度分析简历与岗位，结合实校招聘场景调试，理解你的经历远不止是扫描关键词。'
+    title: 'NLP 语义深度解析：超越关键词搜索',
+    desc: '依托大模型深度分析简历与岗位的语义关联度。系统模拟资深 HR 筛选逻辑，结合实校招聘场景数据，深度理解经历背后的能力权重，拒绝机械式的词汇扫描。'
   },
   {
     icon: '📈',
-    title: '3800+ 官方数据源，每日更新',
-    desc: '数据来源官方就业网、企业官网等官方渠道，不推荐过期或虚假岗位。'
+    title: '全域动态岗位池：实时对标市场水位',
+    desc: '数据实时同步各大就业网与企业官网等官方渠道。通过 AI 自动剔除过期与虚假信息，确保每一条推荐都指向真实、高价值的现聘岗位，让决策基于最新的市场现实。'
   },
   {
     icon: '🧩',
-    title: '基于职业心理学理论',
-    desc: '匹配结果参考职业兴趣理论等，不是随机推荐，而是根据你本人的特质出发。'
+    title: '职业心理学驱动：科学的人岗契合模型',
+    desc: '匹配引擎内嵌霍兰德职业兴趣等经典测评理论。匹配逻辑不只停留于技能堆砌，而是从你的职业特质与性格潜能出发，寻找能激发长久动力的岗位“最优解”。'
   }
 ]
 
@@ -1006,6 +1071,71 @@ const radarChart = computed(() => {
   return { cx, cy, gridPolygons, axes, labels, dataPolygon }
 })
 
+/** 岗位匹配页：四维度假数据雷达（学生 vs 岗位要求），与下方列表维度一致 */
+const matchCompareRadarChart = computed(() => {
+  const cx = 120
+  const cy = 120
+  const radius = 82
+  const levels = 5
+  const count = 4
+  const dimLabels = ['基础要求', '职业技能', '职业素养', '发展潜力']
+
+  const toPoint = (angleRad, r) => ({
+    x: cx + Math.cos(angleRad) * r,
+    y: cy + Math.sin(angleRad) * r
+  })
+
+  const step = (Math.PI * 2) / count
+  const start = -Math.PI / 2
+  const angles = Array.from({ length: count }, (_, i) => start + step * i)
+
+  // 示例：学生假数据（92/99/87/100 -> 0–10）
+  const studentScores = [9.2, 9.9, 8.7, 10]
+  const dims = matchReport.value?.match_analysis?.details?.dimensions || {}
+  const jobScores = [
+    clamp(Number(dims.base ?? 0) / 10, 0, 10),
+    clamp(Number(dims.skill ?? 0) / 10, 0, 10),
+    clamp(Number(dims.soft ?? 0) / 10, 0, 10),
+    clamp(Number(dims.potential ?? 0) / 10, 0, 10)
+  ]
+
+  const gridPolygons = Array.from({ length: levels }, (_, levelIdx) => {
+    const r = (radius * (levelIdx + 1)) / levels
+    return angles
+      .map((a) => {
+        const p = toPoint(a, r)
+        return `${p.x.toFixed(2)},${p.y.toFixed(2)}`
+      })
+      .join(' ')
+  })
+
+  const axes = angles.map((a) => toPoint(a, radius))
+
+  const labels = angles.map((a, idx) => {
+    const p = toPoint(a, radius + 14)
+    return { x: p.x, y: p.y, text: dimLabels[idx] }
+  })
+
+  const buildPolygon = (scores) =>
+    angles
+      .map((a, idx) => {
+        const r = (radius * clamp(scores[idx] ?? 0, 0, 10)) / 10
+        const p = toPoint(a, r)
+        return `${p.x.toFixed(2)},${p.y.toFixed(2)}`
+      })
+      .join(' ')
+
+  return {
+    cx,
+    cy,
+    gridPolygons,
+    axes,
+    labels,
+    studentPolygon: buildPolygon(studentScores),
+    jobPolygon: buildPolygon(jobScores)
+  }
+})
+
 const suggestions = computed(() => {
   if (!analysisSummary.value) return []
   const comment = analysisSummary.value.overall_comment || ''
@@ -1107,11 +1237,12 @@ const fetchMatchReport = async () => {
 
     // 更新匹配详情展示
     const dims = data.match_analysis?.details?.dimensions || {}
+    const fakeStudentCompare = { base: 92, skill: 99, soft: 87, potential: 100 }
     compareDimensions.value = [
-      { name: '基础要求', student: dims.base ?? '-', job: '-' },
-      { name: '职业技能', student: dims.skill ?? '-', job: '-' },
-      { name: '职业素养', student: dims.soft ?? '-', job: '-' },
-      { name: '发展潜力', student: dims.potential ?? '-', job: '-' }
+      { name: '基础要求', student: fakeStudentCompare.base, job: dims.base ?? '-' },
+      { name: '职业技能', student: fakeStudentCompare.skill, job: dims.skill ?? '-' },
+      { name: '职业素养', student: fakeStudentCompare.soft, job: dims.soft ?? '-' },
+      { name: '发展潜力', student: fakeStudentCompare.potential, job: dims.potential ?? '-' }
     ]
 
     gapDetails.value = data.match_analysis?.details?.reasons || []
@@ -1121,7 +1252,7 @@ const fetchMatchReport = async () => {
   }
 }
 
-// 查看匹配岗位 / 生成报告 -> 切换到「岗位匹配与职业探索」步骤
+// 查看匹配岗位 -> 切换到「岗位匹配与职业探索」步骤
 const goToMatch = async () => {
   step.value = 'match'
   await fetchMatchReport()
@@ -1299,12 +1430,22 @@ const exportReport = (format) => {
 <style scoped>
 .abilities-view {
   --u-border-radius: 12px;
+  /* 与 uiineed 示意图一致：标签贴纸蓝 */
+  --u-uiineed-sticker: #7eb8d4;
+  /* 主色仍为 #e8f6ff 系；略掺奶黄，与 Uiineed 马卡龙协调 */
+  --u-panel: #f5f4f0;
+  --u-bg-normal: #f9f3e5;
+  --u-gradient-fade: rgba(249, 243, 229, 0.58);
+  --u-gradient-fade-soft: rgba(240, 249, 255, 0.78);
+  --u-gradient-fade-mid: rgba(232, 246, 255, 0.5);
+  /* 与主界面一致：纯色浅蓝，无渐变 */
+  --abilities-page-bg: var(--u-body-bg);
 
   width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--u-body-bg);
+  background: var(--abilities-page-bg);
   color: var(--u-black);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     sans-serif;
@@ -1313,6 +1454,14 @@ const exportReport = (format) => {
 .abilities-view.dark {
   background: var(--dm-bg);
   color: var(--dm-text);
+}
+
+.abilities-view.dark .page-scroll {
+  background: var(--dm-bg);
+}
+
+.abilities-view.dark .match-panel {
+  background: var(--dm-bg);
 }
 
 .abilities-view.dark .panel {
@@ -1410,7 +1559,8 @@ const exportReport = (format) => {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  background: #f0f2f8;
+  background: rgba(186, 212, 238, 0.55);
+  border: 1px solid rgba(51, 50, 46, 0.12);
   padding: 4px;
   font-size: 12px;
 }
@@ -1427,8 +1577,8 @@ const exportReport = (format) => {
 }
 
 .theme-option.active {
-  background: #111827;
-  color: #fff;
+  background: var(--u-black);
+  color: #fdf8ef;
 }
 
 .page-scroll {
@@ -1437,6 +1587,8 @@ const exportReport = (format) => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  background: var(--abilities-page-bg);
+  min-height: 100%;
 }
 
 .site-footer {
@@ -1459,7 +1611,7 @@ const exportReport = (format) => {
 .page-extra-intro {
   margin-top: 32px;
   padding: 24px 20px 28px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(186, 230, 253, 0.45);
   border-radius: 14px;
   /* 去掉细线框 */
   border: none;
@@ -1473,7 +1625,7 @@ const exportReport = (format) => {
 .resume-bottom-explain {
   margin-top: 24px;
   padding: 16px 20px 20px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(186, 230, 253, 0.4);
   border-radius: 16px;
 }
 
@@ -1596,17 +1748,59 @@ const exportReport = (format) => {
   margin-top: 24px;
 }
 
+/* 本页按钮交互强化：确保 hover 有明显“上浮+阴影拉长” */
+.abilities-view .u-btn:not(.u-btn--text):not(.is-disabled):hover,
+.abilities-view .u-btn.el-button:not(.u-btn--text):not(.is-disabled):hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 7px 7px 0 var(--u-black) !important;
+}
+
+.abilities-view.dark .u-btn:not(.u-btn--text):not(.is-disabled):hover,
+.abilities-view.dark .u-btn.el-button:not(.u-btn--text):not(.is-disabled):hover {
+  box-shadow: 7px 7px 0 #000000 !important;
+}
+
 .panel-header {
   margin-bottom: 16px;
 }
 
+.match-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.result-header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.result-page-title {
+  margin-bottom: 0;
+}
+
 .page-title {
-  font-size: clamp(28px, 2.2vw, 38px);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-heading);
   margin-bottom: 10px;
 }
 
+.upload-page-title,
+.chat-page-title,
+.result-page-title,
+.match-page-title,
+.report-page-title {
+  /* 小一点：比欢迎来到简历智评中心的 --fs-h1 再小一档 */
+  font-size: var(--fs-h2);
+}
+
 .page-intro {
-  font-size: clamp(17px, 1.1vw, 20px);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
   line-height: 1.6;
   margin-bottom: 14px;
   color: rgba(51, 50, 46, 0.78);
@@ -1628,12 +1822,12 @@ const exportReport = (format) => {
 .trust-panel {
   margin-top: 20px;
   /* 同样移除厚重波点，让卡片悬浮但不“糊住”底色 */
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(186, 230, 253, 0.38);
   border-radius: 16px;
   padding: 16px 18px 18px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+  border: 1px solid rgba(125, 211, 252, 0.45);
+  box-shadow: 0 18px 40px rgba(14, 116, 188, 0.06);
 }
 
 .abilities-view.dark .trust-panel {
@@ -1644,12 +1838,12 @@ const exportReport = (format) => {
 
 .trust-panel--entry {
   /* 入口页：该区域本身也作为卡片展示（黑色边框） */
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(186, 230, 253, 0.38);
   border-radius: 16px;
   padding: 16px 18px 35px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-  box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
+  border: 1px solid rgba(125, 211, 252, 0.45);
+  box-shadow: 0 18px 40px rgba(14, 116, 188, 0.06);
   margin-top: 60px;
 }
 
@@ -1661,10 +1855,6 @@ const exportReport = (format) => {
 
 .abilities-view.dark .trust-item-desc {
   color: var(--dm-text-secondary);
-}
-
-.abilities-view.dark .link-text {
-  color: var(--dm-accent);
 }
 
 .trust-panel--upload-explain {
@@ -1689,6 +1879,15 @@ const exportReport = (format) => {
   gap: 14px 18px;
   align-items: stretch;
   margin-top: 50px;
+}
+
+/* 入口页：主标题与三张说明卡更紧凑 */
+.trust-panel--entry .trust-title {
+  margin-bottom: 6px;
+}
+
+.trust-panel--entry .trust-grid {
+  margin-top: 18px;
 }
 
 .trust-item--0 {
@@ -1748,25 +1947,14 @@ const exportReport = (format) => {
 .trust-item-title {
   font-size: clamp(17px, 1.1vw, 19px);
   font-weight: 600;
+  margin: 0 0 12px;
 }
 
 .trust-item-desc {
   font-size: clamp(16px, 1.05vw, 18px);
   color: rgba(51, 50, 46, 0.78);
   line-height: 1.5;
-}
-
-.link-text {
-  display: inline-block;
-  /* 让“查看参考文献”与上下内容保持一致垂直间距 */
-  margin-top: 30px;
-  font-size: clamp(15px, 0.95vw, 17px);
-  color: var(--u-black);
-  background: var(--u-bg-submit);
-  border: var(--u-border);
-  box-shadow: 2px 2px 0px var(--u-black);
-  padding: 4px 10px;
-  border-radius: 999px;
+  margin: 0;
 }
 
 /* 入口：两个卡片 */
@@ -1868,8 +2056,26 @@ const exportReport = (format) => {
 }
 
 /* 上传页 */
-.upload-panel .page-title {
+.upload-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
   margin-bottom: 12px;
+}
+
+.upload-header .page-title {
+  margin-bottom: 0;
+}
+
+.upload-header .step-back {
+  margin-bottom: 0;
+}
+
+.upload-panel .page-title {
+  /* 标题已由 .upload-header 控制间距 */
+  margin-bottom: 0;
 }
 
 .upload-intro {
@@ -1923,7 +2129,7 @@ const exportReport = (format) => {
   width: 100%;
   border: 2px dashed rgba(51, 50, 46, 0.35);
   border-radius: 16px;
-  background: linear-gradient(180deg, #fdf8ef 0%, #fff7f5 100%);
+  background: rgba(203, 230, 253, 0.72);
   padding: 22px 18px;
   transition:
     border-color 0.2s ease,
@@ -1933,7 +2139,7 @@ const exportReport = (format) => {
 
 .upload-area-wrap :deep(.el-upload-dragger:hover) {
   border-color: rgba(51, 50, 46, 0.62);
-  background: linear-gradient(180deg, #fff9f1 0%, #fff4f0 100%);
+  background: rgba(186, 218, 254, 0.82);
   transform: translateY(-1px);
 }
 
@@ -1998,9 +2204,19 @@ const exportReport = (format) => {
   margin-bottom: 4px;
 }
 
-.chat-header h2 {
-  font-size: clamp(20px, 1.4vw, 26px);
+.chat-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chat-header .chat-page-title {
+  font-size: var(--fs-h2);
   margin-bottom: 10px;
+  margin-right: auto;
+  font-weight: var(--fw-heading);
 }
 
 .chat-intro {
@@ -2067,12 +2283,15 @@ const exportReport = (format) => {
 .abilities-view.dark .info-card,
 .abilities-view.dark .radar-card {
   background: var(--dm-surface);
-  border: 1px solid var(--dm-border);
+  border: 2px solid var(--u-black);
+  box-shadow: 4px 4px 0 var(--u-black);
   color: var(--dm-text);
 }
 
 .abilities-view.dark .info-title,
-.abilities-view.dark .radar-title {
+.abilities-view.dark .radar-title,
+.abilities-view.dark .score-label,
+.abilities-view.dark .ability-title {
   color: var(--dm-text);
 }
 
@@ -2099,7 +2318,7 @@ const exportReport = (format) => {
 }
 
 .abilities-view.dark .radar-data {
-  fill: rgba(99, 191, 183, 0.26);
+  fill: rgba(140, 212, 203, 0.32);
 }
 
 .abilities-view.dark .radar-data-outline {
@@ -2111,13 +2330,37 @@ const exportReport = (format) => {
 }
 
 .abilities-view.dark .tag {
-  background: var(--dm-warm-soft);
-  color: var(--dm-warm);
-  border: 1px solid rgba(251, 191, 36, 0.3);
+  background: #4a7a8f;
+  color: #fdf8ef;
+  border: 2px solid var(--u-black);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+.abilities-view.dark .score-card,
+.abilities-view.dark .ability-card,
+.abilities-view.dark .suggest-card {
+  border: 2px solid var(--u-black);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.abilities-view.dark .result-right > .score-card {
+  background: var(--dm-surface);
+}
+
+.abilities-view.dark .result-right > .ability-card {
+  background: var(--dm-surface-elevated);
+}
+
+.abilities-view.dark .result-right > .suggest-card {
+  background: var(--dm-surface);
+}
+
+.abilities-view.dark .ability-desc {
+  color: var(--dm-text-secondary);
 }
 
 .chat-window {
-  background: #ffffff;
+  background: #e6f0fa;
   border-radius: 12px;
   padding: 12px 14px;
   min-height: 380px;
@@ -2153,11 +2396,13 @@ const exportReport = (format) => {
   padding: 10px 12px;
   border-radius: 10px;
   font-size: clamp(16px, 1.1vw, 18px);
-  background: #f3f4ff;
+  background: #e4e9fb;
+  border: 1px solid rgba(51, 50, 46, 0.1);
 }
 
 .chat-message.user .bubble {
-  background: #e0f7fa;
+  background: #d4eef5;
+  border: 1px solid rgba(51, 50, 46, 0.1);
 }
 
 .chat-placeholder {
@@ -2165,8 +2410,9 @@ const exportReport = (format) => {
   padding: 8px 10px;
   border-radius: 8px;
   font-size: 12px;
-  background: #f9fafb;
-  color: #666;
+  background: var(--u-bg-normal);
+  color: var(--u-placeholder);
+  border: 1px dashed rgba(51, 50, 46, 0.2);
 }
 
 .chat-input-bar {
@@ -2198,22 +2444,36 @@ const exportReport = (format) => {
   color: #555;
 }
 
-/* 结果面板 */
+/* 结果面板（学生能力画像）：与整页统一蓝底 */
 .result-panel {
-  background: #f0fbff;
+  background: var(--abilities-page-bg);
+  position: relative;
+  padding-bottom: 80px; /* 为右下角按钮留出空间，避免内容被遮挡 */
 }
 
 .result-header {
   margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.result-header .step-back {
+  margin-bottom: 0;
+  align-self: flex-start;
 }
 
 .tag {
   display: inline-block;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
-  background: #00bfa5;
-  color: #fff;
+  background: var(--u-uiineed-sticker);
+  color: #fdf8ef;
   font-size: clamp(13px, 0.95vw, 15px);
+  font-weight: 800;
+  border: 2px solid var(--u-black);
+  box-shadow: 2px 2px 0 var(--u-black);
 }
 
 .result-grid {
@@ -2230,21 +2490,36 @@ const exportReport = (format) => {
   gap: 12px;
 }
 
-.info-card,
-.radar-card {
-  background: #ffffff;
-  border-radius: 12px;
+.info-card {
+  background: var(--u-bg-normal);
+  border-radius: var(--u-border-radius);
   padding: clamp(14px, 1.2vw, 20px);
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+  border: var(--u-border);
+  box-shadow: var(--u-box-shadow);
+}
+
+.radar-card {
+  background: var(--u-panel);
+  border-radius: var(--u-border-radius);
+  padding: clamp(14px, 1.2vw, 20px);
+  border: var(--u-border);
+  box-shadow: var(--u-box-shadow);
 }
 
 .info-title {
   font-size: clamp(16px, 1.05vw, 18px);
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 
+.info-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .info-line {
+  margin: 0;
   font-size: clamp(15px, 0.95vw, 17px);
   line-height: 1.55;
 }
@@ -2257,8 +2532,9 @@ const exportReport = (format) => {
 
 .radar-chart {
   height: clamp(500px, 62vh, 600px);
-  border-radius: 12px;
-  background: #f5f7fb;
+  border-radius: var(--u-border-radius);
+  background: var(--u-body-bg);
+  border: 2px solid rgba(51, 50, 46, 0.12);
   display: grid;
   place-items: center;
   padding: 12px;
@@ -2274,39 +2550,40 @@ const exportReport = (format) => {
 
 .radar-grid {
   fill: transparent;
-  stroke: rgba(15, 23, 42, 0.12);
+  stroke: rgba(51, 50, 46, 0.14);
   stroke-width: 1;
 }
 
 .radar-axis {
-  stroke: rgba(15, 23, 42, 0.1);
+  stroke: rgba(51, 50, 46, 0.12);
   stroke-width: 1;
 }
 
 .radar-data {
-  fill: rgba(99, 191, 183, 0.32);
+  fill: rgba(140, 212, 203, 0.42);
 }
 
 .radar-data-outline {
   fill: transparent;
-  stroke: rgba(15, 23, 42, 0.6);
+  stroke: var(--u-black);
   stroke-width: 1.5;
 }
 
 .radar-label {
   font-size: 11px;
-  fill: rgba(15, 23, 42, 0.78);
+  fill: rgba(51, 50, 46, 0.82);
 }
 
 .radar-placeholder {
   height: clamp(240px, 26vh, 340px);
-  border-radius: 12px;
-  background: #f5f7fb;
+  border-radius: var(--u-border-radius);
+  background: rgba(232, 246, 255, 0.55);
+  border: 2px dashed rgba(51, 50, 46, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: clamp(14px, 0.95vw, 16px);
-  color: #777;
+  color: var(--u-placeholder);
   padding: 12px;
   text-align: center;
 }
@@ -2320,25 +2597,38 @@ const exportReport = (format) => {
 .score-card,
 .ability-card,
 .suggest-card {
-  /* 移除波点底纹：保留线性渐变的轻盈卡片背景 */
-  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
-  border-radius: 12px;
+  border-radius: var(--u-border-radius);
   padding: clamp(14px, 1.2vw, 20px);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
+  border: var(--u-border);
+  box-shadow: var(--u-box-shadow);
 }
 
-/* 混搭：结果区三张卡片交替底色 */
-.result-right > :nth-child(2) {
-  background: linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
+/* 左栏奶黄系信息 / 右栏浅珊瑚能力条 / 薄荷建议 */
+.result-right > .score-card {
+  background: var(--u-bg-discard);
 }
 
-.result-right > :nth-child(3) {
-  background: linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
+.result-right > .ability-card {
+  background: var(--u-bg-normal);
+}
+
+.result-right > .suggest-card {
+  background: var(--u-bg-completed);
+}
+
+.score-card :deep(.el-progress-bar__inner) {
+  background-color: var(--u-bg-submit) !important;
+}
+
+.score-card :deep(.el-progress-bar__outer) {
+  background-color: rgba(51, 50, 46, 0.1);
+  border: 1px solid rgba(51, 50, 46, 0.2);
 }
 
 .score-label {
-  font-size: clamp(15px, 1vw, 17px);
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 8px;
 }
 
 .score-number {
@@ -2352,8 +2642,9 @@ const exportReport = (format) => {
 }
 
 .ability-title {
-  font-size: clamp(17px, 1.1vw, 19px);
-  margin-bottom: 8px;
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 10px;
 }
 
 .ability-item + .ability-item {
@@ -2374,7 +2665,8 @@ const exportReport = (format) => {
 }
 
 :deep(.ability-progress .el-progress-bar__outer) {
-  background-color: rgba(51, 50, 46, 0.12);
+  background-color: rgba(51, 50, 46, 0.1);
+  border: 1px solid rgba(51, 50, 46, 0.18);
 }
 
 .suggest-title {
@@ -2389,10 +2681,13 @@ const exportReport = (format) => {
 }
 
 .result-actions {
+  position: absolute;
+  right: clamp(16px, 2vw, 32px);
+  bottom: clamp(16px, 1.5vw, 24px);
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 4px;
+  justify-content: flex-end;
 }
 
 @media (min-width: 1200px) {
@@ -2409,28 +2704,123 @@ const exportReport = (format) => {
 
 /* ---------------- 岗位匹配与职业规划报告样式（从 CareerReportView 合并） ---------------- */
 .match-panel {
-  background: #f5fbff;
+  background: var(--abilities-page-bg);
 }
 
 .match-header {
   margin-bottom: 12px;
 }
 
+/* 岗位匹配页：标题与个人信息栏同级字重 */
+.match-panel .section-title {
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: var(--u-black);
+}
+
 .student-tag {
-  font-size: clamp(17px, 1.1vw, 19px);
-  color: #555;
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 14px;
+  font-size: clamp(15px, 1vw, 17px);
+  font-weight: 700;
+  color: var(--u-black);
+  /* 粉轴：标签条 */
+  background: color-mix(in srgb, var(--u-bg-submit) 78%, var(--u-panel));
+  border: var(--u-border);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--u-black);
 }
 
 .recommend-section {
-  margin-top: 8px;
+  margin-top: 10px;
+  padding: 14px 16px 18px;
+  /* 蓝轴：页面主色 body-bg */
+  background: color-mix(in srgb, var(--u-body-bg) 70%, var(--u-panel));
+  border: var(--u-border);
+  border-radius: var(--u-border-radius);
+  box-shadow: var(--u-box-shadow);
 }
 
 .job-table {
-  margin-top: 8px;
+  margin-top: 10px;
+  /* 蓝区表格：与推荐卡片同系 */
+  --el-table-border-color: rgba(51, 50, 46, 0.42);
+  --el-table-bg-color: color-mix(in srgb, var(--u-body-bg) 48%, var(--u-bg-normal));
+  --el-table-tr-bg-color: color-mix(in srgb, var(--u-body-bg) 48%, var(--u-bg-normal));
+  --el-table-row-hover-bg-color: rgba(140, 212, 203, 0.32);
+}
+
+.match-panel .job-table :deep(.el-table) {
+  border-radius: calc(var(--u-border-radius) - 4px);
+  overflow: hidden;
+  border: 2px solid rgba(51, 50, 46, 0.25);
+  box-shadow: 3px 3px 0 rgba(51, 50, 46, 0.10);
+}
+
+.match-panel .job-table :deep(th.el-table__cell) {
+  background: color-mix(in srgb, var(--u-body-bg) 58%, var(--u-panel)) !important;
+  color: var(--u-black);
+  font-weight: 800;
+  border-color: rgba(51, 50, 46, 0.55) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.55) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.match-panel .job-table :deep(td.el-table__cell) {
+  border-color: rgba(51, 50, 46, 0.38) !important;
+  background: color-mix(in srgb, var(--u-body-bg) 58%, var(--u-panel)) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.38) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.match-panel .job-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-body-bg) 38%, var(--u-bg-normal)) !important;
+}
+
+.match-panel .job-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(140, 212, 203, 0.34) !important;
+}
+
+.other-jobs-collapse {
+  margin-top: 14px;
+  border: none;
+  --el-collapse-border-color: transparent;
+}
+
+.match-panel .other-jobs-collapse :deep(.el-collapse-item__header) {
+  margin-top: 4px;
+  padding: 10px 14px;
+  min-height: 48px;
+  font-size: clamp(15px, 1vw, 17px);
+  font-weight: 800;
+  color: var(--u-black);
+  /* 绿轴：薄荷 completed */
+  background: color-mix(in srgb, var(--u-bg-completed) 74%, var(--u-panel));
+  border: var(--u-border);
+  border-radius: var(--u-border-radius);
+  box-shadow: var(--u-box-shadow-sm);
+}
+
+.match-panel .other-jobs-collapse :deep(.el-collapse-item__arrow) {
+  font-weight: 800;
+}
+
+.match-panel .other-jobs-collapse :deep(.el-collapse-item__wrap) {
+  border: none;
+}
+
+.match-panel .other-jobs-collapse :deep(.el-collapse-item__content) {
+  padding: 12px 0 4px;
 }
 
 .current-job-section {
-  margin-top: 18px;
+  margin-top: 22px;
 }
 
 .match-summary {
@@ -2439,21 +2829,35 @@ const exportReport = (format) => {
   gap: 8px;
   margin: 8px 0 12px;
   font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+}
+
+.match-summary :deep(.el-progress-bar__inner) {
+  background-color: var(--u-completed) !important;
+}
+
+.match-summary :deep(.el-progress-bar__outer) {
+  background-color: rgba(51, 50, 46, 0.1);
+  border: 1px solid rgba(51, 50, 46, 0.2);
+  border-radius: 999px;
 }
 
 .match-hint {
-  font-size: clamp(16px, 1.05vw, 18px);
-  color: #555;
+  font-size: clamp(15px, 1vw, 17px);
+  color: var(--u-black);
   line-height: 1.6;
   margin-bottom: 14px;
-  padding: 10px 12px;
-  background: #f0f9ff;
-  border-radius: 10px;
+  padding: 12px 14px;
+  /* 粉轴：说明卡 */
+  background: color-mix(in srgb, var(--u-bg-submit) 72%, var(--u-panel));
+  border: var(--u-border);
+  border-radius: var(--u-border-radius);
+  box-shadow: var(--u-box-shadow-sm);
 }
 
 .weight-hint {
   font-size: clamp(15px, 0.95vw, 17px);
-  color: #666;
+  color: rgba(51, 50, 46, 0.72);
   margin-top: 8px;
 }
 
@@ -2464,31 +2868,104 @@ const exportReport = (format) => {
 }
 
 .compare-card {
-  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
-  border-radius: 12px;
+  border-radius: var(--u-border-radius);
   padding: 12px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
+  border: var(--u-border);
+  box-shadow: var(--u-box-shadow);
 }
 
+/* 黄轴：雷达卡 */
+.compare-card--radar {
+  background: color-mix(in srgb, var(--u-bg-normal) 76%, var(--u-panel));
+}
+
+/* 绿轴：四维度列表卡 */
 .compare-grid .compare-card:nth-child(2) {
-  background: linear-gradient(135deg, var(--u-body-bg), var(--u-gradient-fade));
+  background: color-mix(in srgb, var(--u-bg-completed) 72%, var(--u-panel));
 }
 
 .compare-title {
-  font-size: clamp(17px, 1.1vw, 19px);
+  font-size: clamp(15px, 1vw, 17px);
+  font-weight: 600;
   margin-bottom: 8px;
+  color: var(--u-black);
 }
 
 .compare-placeholder {
   height: 180px;
-  border-radius: 10px;
-  background: #f5f7fb;
+  border-radius: var(--u-border-radius);
+  background: var(--u-body-bg);
+  border: 2px dashed rgba(51, 50, 46, 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  color: #777;
+  color: var(--u-placeholder);
+  text-align: center;
+  padding: 10px;
+}
+
+.compare-card--radar .compare-radar-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-radar-svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.match-radar-job {
+  fill: rgba(255, 214, 233, 0.55);
+  stroke: var(--u-black);
+  stroke-width: 1.25;
+}
+
+.match-radar-student {
+  fill: rgba(140, 212, 203, 0.42);
+  stroke: var(--u-black);
+  stroke-width: 1.25;
+}
+
+.compare-radar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  justify-content: center;
+  font-size: clamp(13px, 0.9vw, 15px);
+  font-weight: 600;
+  color: var(--u-black);
+}
+
+.compare-radar-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-radar-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid var(--u-black);
+}
+
+.compare-radar-dot--job {
+  background: rgba(255, 214, 233, 0.85);
+}
+
+.compare-radar-dot--student {
+  background: rgba(140, 212, 203, 0.85);
+}
+
+.compare-radar-note {
+  margin: 0;
+  font-size: clamp(12px, 0.85vw, 13px);
+  color: var(--u-placeholder);
   text-align: center;
 }
 
@@ -2513,15 +2990,22 @@ const exportReport = (format) => {
 }
 
 .detail-analysis {
-  margin-top: 14px;
+  margin-top: 16px;
+  padding: 12px 14px;
   font-size: clamp(16px, 1.05vw, 18px);
   line-height: 1.5;
+  /* 蓝轴：与推荐区呼应 */
+  background: color-mix(in srgb, var(--u-body-bg) 48%, var(--u-panel));
+  border: var(--u-border);
+  border-radius: var(--u-border-radius);
+  box-shadow: var(--u-box-shadow-sm);
 }
 
 .section-subtitle {
   font-weight: 600;
-  font-size: clamp(17px, 1.1vw, 19px);
+  font-size: clamp(16px, 1.05vw, 18px);
   margin: 8px 0 6px;
+  color: var(--u-black);
 }
 
 .action-row {
@@ -2535,17 +3019,41 @@ const exportReport = (format) => {
   justify-content: center;
 }
 
-/* 报告样式 */
+/* 报告样式：字号与首页 section-title / section-desc、能力页正文对齐 */
 .report-panel {
-  background: #f0fbff;
+  background: var(--abilities-page-bg);
+}
+
+.report-panel .page-title {
+  font-size: clamp(28px, 2.2vw, 38px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.2;
+  color: var(--u-black);
+}
+
+.report-panel .report-subtitle {
+  font-size: clamp(17px, 1.1vw, 20px);
+  line-height: 1.6;
+  color: var(--u-placeholder);
+  margin: 0;
+}
+
+/* 卡片内节标题：与个人信息栏 / 对比卡标题同级，避免压过正文 */
+.report-panel .section-title {
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 8px;
+  line-height: 1.35;
+  color: var(--u-black);
 }
 
 .report-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .header-actions {
@@ -2554,67 +3062,165 @@ const exportReport = (format) => {
   flex-wrap: wrap;
 }
 
-.report-subtitle {
-  font-size: clamp(16px, 1.05vw, 18px);
-  color: #555;
-  line-height: 1.5;
-}
-
 .report-section {
   margin-top: 14px;
-  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
-  border-radius: 14px;
-  padding: 12px 14px;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 14px 34px rgba(16, 24, 40, 0.08);
+  /* 黄·绿·粉循环，掺白面板略淡 */
+  background: color-mix(in srgb, var(--u-bg-normal) 62%, var(--u-panel));
+  border-radius: var(--u-border-radius);
+  padding: clamp(14px, 1.2vw, 18px) clamp(14px, 1.2vw, 18px);
+  border: var(--u-border);
+  box-shadow: var(--u-box-shadow);
 }
 
-/* 混搭：报告分段卡片交替底色 */
-.report-panel .report-section:nth-of-type(4n + 2) {
-  background: linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
+.report-panel .report-section:nth-of-type(3n + 2) {
+  background: color-mix(in srgb, var(--u-bg-completed) 58%, var(--u-panel));
 }
 
-.report-panel .report-section:nth-of-type(4n + 3) {
-  background: linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
+.report-panel .report-section:nth-of-type(3n) {
+  background: color-mix(in srgb, var(--u-bg-submit) 56%, var(--u-panel));
 }
 
-.report-panel .report-section:nth-of-type(4n) {
-  background: linear-gradient(135deg, var(--u-bg-discard), var(--u-gradient-fade));
-}
-
-.hint-text {
+/* 正文：与 .info-line / 首页段落同级 */
+.report-panel .report-section > p,
+.report-panel .report-section > ul,
+.report-panel .report-section li {
   font-size: clamp(15px, 0.95vw, 17px);
-  color: #666;
-  margin-bottom: 8px;
-  line-height: 1.5;
+  line-height: 1.65;
+  color: var(--u-black);
 }
 
-.path-placeholder {
-  margin-top: 6px;
-  border-radius: 12px;
-  border: 1px dashed #cbd5e1;
-  padding: 16px;
-  font-size: clamp(16px, 1.05vw, 18px);
-  color: #555;
-  background: #f8fafc;
+.report-panel .report-section > p + p {
+  margin-top: 8px;
 }
 
-.two-column {
+.report-panel .report-section ul {
+  margin: 8px 0 0;
+  padding-left: 1.25em;
+}
+
+.report-panel .hint-text {
+  font-size: clamp(15px, 0.95vw, 17px);
+  color: var(--u-placeholder);
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.report-panel .path-placeholder {
+  margin-top: 8px;
+  border-radius: var(--u-border-radius);
+  border: 2px dashed color-mix(in srgb, var(--u-black) 26%, transparent);
+  padding: 14px 16px;
+  font-size: clamp(15px, 0.95vw, 17px);
+  color: var(--u-placeholder);
+  /* 与「粉」轴一致的浅占位底 */
+  background: color-mix(in srgb, var(--u-bg-submit) 22%, var(--u-panel));
+  line-height: 1.6;
+}
+
+.report-panel .two-column {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px 24px;
-  font-size: clamp(16px, 1.05vw, 18px);
-  line-height: 1.5;
+  font-size: clamp(15px, 0.95vw, 17px);
+  line-height: 1.65;
 }
 
-.subheading {
-  font-size: clamp(17px, 1.1vw, 19px);
-  margin-bottom: 6px;
+.report-panel .subheading {
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--u-black);
 }
 
-.plan-table {
-  margin-top: 8px;
-  font-size: clamp(16px, 1.05vw, 18px);
+.report-panel .plan-table {
+  margin-top: 10px;
+  font-size: clamp(14px, 0.92vw, 16px);
+  /* 与岗位匹配页 job-table 同一套 Uiineed 表配色 */
+  --el-table-border-color: rgba(51, 50, 46, 0.42);
+  --el-table-bg-color: color-mix(in srgb, var(--u-bg-normal) 64%, var(--u-panel));
+  --el-table-tr-bg-color: color-mix(in srgb, var(--u-bg-normal) 64%, var(--u-panel));
+  --el-table-row-hover-bg-color: rgba(208, 244, 240, 0.18);
+}
+
+.report-panel .plan-table :deep(.el-table) {
+  border-radius: calc(var(--u-border-radius) - 4px);
+  overflow: hidden;
+  border: 2px solid rgba(51, 50, 46, 0.25);
+  box-shadow: 3px 3px 0 rgba(51, 50, 46, 0.1);
+}
+
+.report-panel .plan-table :deep(.el-table th),
+.report-panel .plan-table :deep(.el-table td) {
+  font-size: inherit;
+}
+
+.report-panel .plan-table :deep(th.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-normal) 64%, var(--u-panel)) !important;
+  color: var(--u-black);
+  font-weight: 800;
+  font-size: clamp(14px, 0.92vw, 16px);
+  border-color: rgba(51, 50, 46, 0.55) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.55) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.report-panel .plan-table :deep(td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-normal) 64%, var(--u-panel)) !important;
+  border-color: rgba(51, 50, 46, 0.38) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.38) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.report-panel .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.12) !important;
+}
+
+.report-panel .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.22) !important;
+}
+
+/* 绿卡片内表格：薄荷底 + 条纹 */
+.report-panel .report-section:nth-of-type(3n + 2) .plan-table {
+  --el-table-bg-color: color-mix(in srgb, var(--u-bg-completed) 60%, var(--u-panel));
+  --el-table-tr-bg-color: color-mix(in srgb, var(--u-bg-completed) 60%, var(--u-panel));
+  --el-table-row-hover-bg-color: rgba(140, 212, 203, 0.16);
+}
+
+.report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(th.el-table__cell),
+.report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-completed) 60%, var(--u-panel)) !important;
+}
+
+.report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-completed) 42%, var(--u-bg-normal)) !important;
+}
+
+.report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(140, 212, 203, 0.2) !important;
+}
+
+/* 粉卡片内表格：浅粉底 + 条纹 */
+.report-panel .report-section:nth-of-type(3n) .plan-table {
+  --el-table-bg-color: color-mix(in srgb, var(--u-bg-submit) 58%, var(--u-panel));
+  --el-table-tr-bg-color: color-mix(in srgb, var(--u-bg-submit) 58%, var(--u-panel));
+  --el-table-row-hover-bg-color: rgba(255, 214, 233, 0.3);
+}
+
+.report-panel .report-section:nth-of-type(3n) .plan-table :deep(th.el-table__cell),
+.report-panel .report-section:nth-of-type(3n) .plan-table :deep(td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-submit) 58%, var(--u-panel)) !important;
+}
+
+.report-panel .report-section:nth-of-type(3n) .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-submit) 36%, var(--u-panel)) !important;
+}
+
+.report-panel .report-section:nth-of-type(3n) .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(255, 214, 233, 0.38) !important;
 }
 
 .metric-cell {
@@ -2630,15 +3236,18 @@ const exportReport = (format) => {
 
 .dialog-label {
   margin: 8px 0 4px;
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: clamp(15px, 0.95vw, 17px);
   font-weight: 600;
 }
 
 .orig-metric {
   padding: 8px 10px;
-  background: #f5f7fb;
+  /* Uiineed completed 薄荷底 */
+  background: color-mix(in srgb, var(--u-bg-completed) 28%, var(--u-panel));
+  border: var(--u-border);
   border-radius: 8px;
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: clamp(15px, 0.95vw, 17px);
+  line-height: 1.55;
 }
 
 .suggest-group {
@@ -2646,10 +3255,10 @@ const exportReport = (format) => {
 }
 
 .suggest-list {
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: clamp(15px, 0.95vw, 17px);
   padding-left: 18px;
   margin: 0 0 8px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .reason-block {
@@ -2657,51 +3266,173 @@ const exportReport = (format) => {
 }
 
 .abilities-view.dark .student-tag,
-.abilities-view.dark .match-hint,
 .abilities-view.dark .weight-hint,
-.abilities-view.dark .report-subtitle,
-.abilities-view.dark .hint-text,
 .abilities-view.dark .dim-score {
   color: var(--dm-text-secondary);
 }
 
+.abilities-view.dark .report-panel .report-subtitle,
+.abilities-view.dark .report-panel .hint-text {
+  color: var(--dm-text-secondary);
+}
+
+.abilities-view.dark .student-tag {
+  color: var(--dm-text);
+  background: color-mix(in srgb, var(--u-bg-submit) 72%, var(--u-panel));
+  border: 2px solid var(--u-black);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+.abilities-view.dark .match-panel .section-title {
+  color: var(--dm-text);
+}
+
 .abilities-view.dark .match-hint {
-  background: var(--dm-accent-soft);
+  color: var(--dm-text-secondary);
+  background: color-mix(in srgb, var(--u-bg-submit) 68%, var(--u-panel));
+  border: 2px solid var(--u-black);
+  box-shadow: 2px 2px 0 #000000;
+}
+
+.abilities-view.dark .recommend-section {
+  background: color-mix(in srgb, var(--u-body-bg) 76%, var(--u-panel));
+  border: 2px solid var(--u-black);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.abilities-view.dark .match-panel .job-table :deep(th.el-table__cell) {
+  background: color-mix(in srgb, var(--u-body-bg) 62%, var(--u-panel)) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.abilities-view.dark .match-panel .job-table :deep(td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-body-bg) 62%, var(--u-panel)) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.abilities-view.dark .match-panel .job-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-body-bg) 42%, var(--u-bg-normal)) !important;
+}
+
+.abilities-view.dark .match-panel .job-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(126, 179, 176, 0.22) !important;
+}
+
+.abilities-view.dark .match-panel .other-jobs-collapse :deep(.el-collapse-item__header) {
+  background: color-mix(in srgb, var(--u-bg-completed) 72%, var(--u-panel));
+  color: var(--dm-text);
+  border: 2px solid var(--u-black);
+  box-shadow: 2px 2px 0 #000000;
 }
 
 .abilities-view.dark .compare-card {
-  background: var(--dm-surface-card);
-  border: 1px solid var(--dm-border);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--u-black);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.abilities-view.dark .compare-card--radar {
+  background: color-mix(in srgb, var(--u-bg-normal) 74%, var(--u-panel));
+}
+
+.abilities-view.dark .compare-grid .compare-card:nth-child(2) {
+  background: color-mix(in srgb, var(--u-bg-completed) 70%, var(--u-panel));
+}
+
+.abilities-view.dark .compare-title {
+  color: var(--dm-text);
 }
 
 .abilities-view.dark .compare-placeholder {
   background: var(--dm-surface);
   color: var(--dm-text-secondary);
+  border-color: var(--dm-border);
+}
+
+.abilities-view.dark .match-radar-job {
+  fill: rgba(236, 72, 153, 0.28);
+  stroke: var(--u-black);
+}
+
+.abilities-view.dark .match-radar-student {
+  fill: rgba(52, 211, 153, 0.28);
+  stroke: var(--u-black);
+}
+
+.abilities-view.dark .compare-radar-legend {
+  color: var(--dm-text);
+}
+
+.abilities-view.dark .compare-radar-dot--job {
+  background: rgba(236, 72, 153, 0.55);
+}
+
+.abilities-view.dark .compare-radar-dot--student {
+  background: rgba(52, 211, 153, 0.55);
+}
+
+.abilities-view.dark .compare-radar-note {
+  color: var(--dm-text-secondary);
+}
+
+.abilities-view.dark .detail-analysis {
+  background: color-mix(in srgb, var(--u-body-bg) 52%, var(--u-panel));
+  border: 2px solid var(--u-black);
+  box-shadow: 4px 4px 0 #000000;
+  color: var(--dm-text-secondary);
+}
+
+.abilities-view.dark .section-subtitle {
+  color: var(--dm-text);
 }
 
 .abilities-view.dark .report-panel {
   background: var(--dm-bg);
 }
 
-.abilities-view.dark .report-section {
-  background: var(--dm-surface-card);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--dm-border);
+.abilities-view.dark .report-panel .page-title,
+.abilities-view.dark .report-panel .section-title {
+  color: var(--dm-text);
 }
 
-.abilities-view.dark .path-placeholder {
-  background: var(--dm-surface);
+.abilities-view.dark .report-section {
+  border: 2px solid var(--u-black);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 1) {
+  background: color-mix(in srgb, var(--u-bg-normal) 66%, var(--u-panel));
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 2) {
+  background: color-mix(in srgb, var(--u-bg-completed) 62%, var(--u-panel));
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n) {
+  background: color-mix(in srgb, var(--u-bg-submit) 60%, var(--u-panel));
+}
+
+.abilities-view.dark .report-panel .report-section > p,
+.abilities-view.dark .report-panel .report-section li {
+  color: var(--dm-text-secondary);
+}
+
+.abilities-view.dark .report-panel .path-placeholder {
+  background: color-mix(in srgb, var(--u-bg-submit) 22%, var(--u-panel));
   border-color: var(--dm-border);
   color: var(--dm-text-secondary);
 }
 
-.abilities-view.dark .subheading {
+.abilities-view.dark .report-panel .subheading {
   color: var(--dm-text);
-}
-
-.abilities-view.dark .detail-analysis {
-  color: var(--dm-text-secondary);
 }
 
 .abilities-view.dark .suggest-list {
@@ -2715,7 +3446,79 @@ const exportReport = (format) => {
 }
 
 .abilities-view.dark .orig-metric {
-  background: var(--dm-surface-elevated);
+  background: color-mix(in srgb, var(--u-bg-completed) 32%, var(--u-panel));
+  border-color: var(--dm-border);
+}
+
+.abilities-view.dark .report-panel .plan-table :deep(th.el-table__cell) {
+  background: var(--dm-surface-elevated) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.abilities-view.dark .report-panel .plan-table :deep(td.el-table__cell) {
+  background: var(--dm-surface) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.abilities-view.dark .report-panel .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.abilities-view.dark .report-panel .plan-table {
+  --el-table-bg-color: var(--dm-surface);
+  --el-table-tr-bg-color: var(--dm-surface);
+  --el-table-row-hover-bg-color: rgba(208, 244, 240, 0.08);
+}
+
+.abilities-view.dark .report-panel .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.07) !important;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 2) .plan-table {
+  --el-table-bg-color: color-mix(in srgb, var(--u-bg-completed) 64%, var(--u-panel));
+  --el-table-tr-bg-color: color-mix(in srgb, var(--u-bg-completed) 64%, var(--u-panel));
+  --el-table-row-hover-bg-color: rgba(126, 179, 176, 0.12);
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(th.el-table__cell),
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-completed) 64%, var(--u-panel)) !important;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-completed) 48%, var(--u-panel)) !important;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n + 2) .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(126, 179, 176, 0.12) !important;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n) .plan-table {
+  --el-table-bg-color: color-mix(in srgb, var(--u-bg-submit) 62%, var(--u-panel));
+  --el-table-tr-bg-color: color-mix(in srgb, var(--u-bg-submit) 62%, var(--u-panel));
+  --el-table-row-hover-bg-color: rgba(192, 132, 184, 0.1);
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n) .plan-table :deep(th.el-table__cell),
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n) .plan-table :deep(td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-submit) 62%, var(--u-panel)) !important;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n) .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: color-mix(in srgb, var(--u-bg-submit) 44%, var(--u-panel)) !important;
+}
+
+.abilities-view.dark .report-panel .report-section:nth-of-type(3n) .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(192, 132, 184, 0.1) !important;
 }
 
 @media (max-width: 900px) {

@@ -243,7 +243,8 @@ const downloadReport = (item) => {
 .profile-card {
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(51, 50, 46, 0.08), 0 2px 8px rgba(51, 50, 46, 0.06);
+  border: var(--u-border);
+  box-shadow: var(--u-box-shadow);
   padding: 24px;
   box-sizing: border-box;
 }

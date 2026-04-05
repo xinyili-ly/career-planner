@@ -137,7 +137,7 @@
               <el-button class="u-btn u-btn--primary" @click="handlePolish">智能润色</el-button>
             </template>
             <template v-else>
-              <el-button class="u-btn u-btn--primary" type="primary" @click="saveReportEdits">保存</el-button>
+              <el-button class="u-btn u-btn--primary" type="primary" @click="saveReportEdits">完成</el-button>
               <el-button class="u-btn u-btn--ghost" @click="cancelReportEdits">取消</el-button>
             </template>
             <el-dropdown @command="exportReport">
@@ -199,9 +199,10 @@
           <p class="hint-text">
             下面的表格示意了 6 个月内的阶段性成长路径，未来你可以用自动生成的图片替换这部分。
           </p>
-          <div v-if="!isEditing" class="path-placeholder">
-            <span>{{ pathNote }}</span>
-          </div>
+          <figure v-if="!isEditing" class="path-figure">
+            <img class="path-img" :src="learningPathPlaceholder" alt="阶段性成长路径（占位示意图）" />
+            <figcaption class="path-caption">{{ pathNote }}</figcaption>
+          </figure>
           <el-input
             v-else
             v-model="draft.pathNote"
@@ -479,6 +480,7 @@ import { useTheme } from '../composables/useTheme'
 import { ElMessage } from 'element-plus'
 import { ArrowDown } from '@element-plus/icons-vue'
 import AppHeader from '../components/AppHeader.vue'
+import learningPathPlaceholder from '../assets/uiineed-carousel-plan.svg'
 
 const router = useRouter()
 const studentName = ref('张同学')
@@ -629,7 +631,7 @@ const saveReportEdits = () => {
   midTermPlan.value = deepClone(draft.value.midTermPlan)
   evaluationSummary.value = draft.value.evaluationSummary
   isEditing.value = false
-  ElMessage.success('已保存报告修改。')
+  ElMessage.success('已完成报告编辑（已保存）。')
 }
 
 const cancelReportEdits = () => {
@@ -1010,9 +1012,12 @@ function downloadWordDoc(payload, filename) {
 .career-report-view.dark .student-tag,
 .career-report-view.dark .match-hint,
 .career-report-view.dark .weight-hint,
-.career-report-view.dark .report-subtitle,
-.career-report-view.dark .hint-text,
 .career-report-view.dark .dim-score {
+  color: var(--dm-text-secondary);
+}
+
+.career-report-view.dark .report-panel .report-subtitle,
+.career-report-view.dark .report-panel .hint-text {
   color: var(--dm-text-secondary);
 }
 
@@ -1035,20 +1040,50 @@ function downloadWordDoc(payload, filename) {
   background: var(--dm-bg);
 }
 
+.career-report-view.dark .report-panel .section-title {
+  color: var(--dm-text);
+}
+
 .career-report-view.dark .report-section {
   background: var(--dm-surface-card);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--dm-border);
 }
 
-.career-report-view.dark .path-placeholder {
+.career-report-view.dark .report-section::before {
+  opacity: 0.35;
+}
+
+.career-report-view.dark .report-panel .report-section > p,
+.career-report-view.dark .report-panel .report-section li {
+  color: var(--dm-text-secondary);
+}
+
+.career-report-view.dark .report-panel .path-placeholder {
   background: var(--dm-surface);
   border-color: var(--dm-border);
   color: var(--dm-text-secondary);
 }
 
+.career-report-view.dark .report-panel .path-img {
+  border-color: var(--dm-border);
+  background: var(--dm-surface);
+}
+
+.career-report-view.dark .report-panel .path-caption {
+  color: var(--dm-text-secondary);
+}
+
+.career-report-view.dark .report-panel .subheading {
+  color: var(--dm-text);
+}
+
 .career-report-view.dark .subheading {
   color: var(--dm-text);
+}
+
+.career-report-view.dark .report-panel .two-column {
+  color: var(--dm-text-secondary);
 }
 
 .career-report-view.dark .detail-analysis {
@@ -1057,7 +1092,6 @@ function downloadWordDoc(payload, filename) {
 
 .career-report-view.dark .detail-analysis ul,
 .career-report-view.dark .compare-list,
-.career-report-view.dark .two-column,
 .career-report-view.dark .suggest-list {
   color: var(--dm-text-secondary);
 }
@@ -1129,7 +1163,7 @@ function downloadWordDoc(payload, filename) {
   --el-table-bg-color: var(--dm-surface);
   --el-table-tr-bg-color: var(--dm-surface);
   --el-table-header-bg-color: var(--dm-surface-elevated);
-  --el-table-row-hover-bg-color: var(--dm-surface-elevated);
+  --el-table-row-hover-bg-color: rgba(208, 244, 240, 0.18);
 }
 
 .career-report-view.dark :deep(.el-table th.el-table__cell),
@@ -1143,8 +1177,77 @@ function downloadWordDoc(payload, filename) {
   background-color: var(--dm-border);
 }
 
+/* 浅色：把内部分隔线底色拉到明显一点 */
+.career-report-view :deep(.el-table .el-table__inner-wrapper::before) {
+  background-color: rgba(51, 50, 46, 0.55) !important;
+}
+
 .career-report-view.dark :deep(.el-table--striped .el-table__body tr.el-table__row--striped td) {
-  background: var(--dm-surface-elevated);
+  background: rgba(208, 244, 240, 0.12);
+}
+
+/* 覆盖亮色表格 !important（确保暗色下不再出现米/粉浅底） */
+.career-report-view.dark .job-table :deep(.el-table) {
+  border: 2px solid var(--dm-border);
+}
+
+.career-report-view.dark .job-table :deep(th.el-table__cell) {
+  background: var(--dm-surface-elevated) !important;
+  color: var(--dm-text) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.career-report-view.dark .job-table :deep(td.el-table__cell) {
+  border-color: var(--dm-border) !important;
+  background: var(--dm-surface) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.career-report-view.dark .job-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.career-report-view.dark .job-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.16) !important;
+}
+
+.career-report-view.dark .report-panel .plan-table {
+  --el-table-bg-color: var(--dm-surface);
+  --el-table-tr-bg-color: var(--dm-surface);
+  --el-table-row-hover-bg-color: rgba(208, 244, 240, 0.18);
+}
+
+.career-report-view.dark .report-panel .plan-table :deep(th.el-table__cell) {
+  background: var(--dm-surface-elevated) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.career-report-view.dark .report-panel .plan-table :deep(td.el-table__cell) {
+  background: var(--dm-surface) !important;
+  border-color: var(--dm-border) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid var(--dm-border) !important;
+  border-bottom: 2px solid var(--dm-border) !important;
+}
+
+.career-report-view.dark .report-panel .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.career-report-view.dark .report-panel .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.16) !important;
 }
 
 .header {
@@ -1230,7 +1333,8 @@ function downloadWordDoc(payload, filename) {
 }
 
 .nav-back {
-  font-size: clamp(15px, 0.95vw, 17px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
 }
 
 .nav-item.active {
@@ -1260,7 +1364,8 @@ function downloadWordDoc(payload, filename) {
   padding-top: 32px;
   padding-bottom: 16px;
   border-top: 1px solid rgba(148, 163, 184, 0.35);
-  font-size: clamp(14px, 0.9vw, 16px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
   color: #94a3b8;
   text-align: center;
   width: 100%;
@@ -1279,12 +1384,14 @@ function downloadWordDoc(payload, filename) {
 }
 
 .page-title {
-  font-size: clamp(22px, 1.8vw, 30px);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-heading);
   margin: 0 0 6px;
 }
 
 .section-title {
-  font-size: clamp(16px, 1.1vw, 21px);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-heading);
   margin-bottom: 10px;
 }
 
@@ -1319,6 +1426,46 @@ function downloadWordDoc(payload, filename) {
 
 .job-table {
   margin-top: 8px;
+  /* Uiineed：统一表格浅底 + 单一强调色，避免与卡片背景“融为一体” */
+  --el-table-border-color: rgba(51, 50, 46, 0.42);
+  --el-table-bg-color: var(--u-bg-normal);
+  --el-table-tr-bg-color: var(--u-bg-normal);
+  --el-table-row-hover-bg-color: rgba(208, 244, 240, 0.40);
+}
+
+.job-table :deep(.el-table) {
+  border-radius: calc(var(--u-border-radius) - 4px);
+  overflow: hidden;
+  border: 2px solid rgba(51, 50, 46, 0.25);
+  box-shadow: 3px 3px 0 rgba(51, 50, 46, 0.10);
+}
+
+.job-table :deep(th.el-table__cell) {
+  background: var(--u-bg-normal) !important;
+  color: var(--u-black);
+  font-weight: 800;
+  border-color: rgba(51, 50, 46, 0.55) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.55) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.job-table :deep(td.el-table__cell) {
+  border-color: rgba(51, 50, 46, 0.38) !important;
+  background: var(--u-bg-normal) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.38) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.job-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.28) !important;
+}
+
+.job-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.44) !important;
 }
 
 .current-job-section {
@@ -1411,17 +1558,39 @@ function downloadWordDoc(payload, filename) {
   text-align: right;
 }
 
-/* 报告样式 */
+/* 报告样式：与全站首页 / 简历智评报告页字号一致 */
 .report-panel {
-  background: #f0fbff;
+  background: var(--u-body-bg);
+}
+
+.report-panel .page-title {
+  font-size: clamp(28px, 2.2vw, 38px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.report-panel .report-subtitle {
+  font-size: clamp(17px, 1.1vw, 20px);
+  line-height: 1.6;
+  color: rgba(51, 50, 46, 0.78);
+  margin: 0;
+}
+
+.report-panel .section-title {
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 8px;
+  line-height: 1.35;
+  color: var(--u-black);
 }
 
 .report-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .header-actions {
@@ -1430,78 +1599,156 @@ function downloadWordDoc(payload, filename) {
   flex-wrap: wrap;
 }
 
-.report-subtitle {
-  font-size: clamp(13px, 0.9vw, 15px);
-  color: #555;
-  line-height: 1.5;
-}
-
 .report-section {
   margin-top: 14px;
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  position: relative;
+  overflow: hidden;
+  --_section-accent: rgba(208, 244, 240, 0.85);
+  background: rgba(249, 243, 229, 0.88);
   border-radius: 14px;
-  padding: 12px 14px;
+  padding: clamp(14px, 1.2vw, 18px);
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04);
+}
+
+/* 左侧细色条：用色更克制，避免大面积配色混乱 */
+.report-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background: var(--_section-accent);
+  z-index: 0;
+}
+
+.report-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.report-panel .report-section > p,
+.report-panel .report-section > ul,
+.report-panel .report-section li {
+  font-size: clamp(15px, 0.95vw, 17px);
+  line-height: 1.65;
+  color: var(--u-black);
+}
+
+.report-panel .report-section > p + p {
+  margin-top: 8px;
+}
+
+.report-panel .report-section ul {
+  margin: 8px 0 0;
+  padding-left: 1.25em;
 }
 
 /* 混搭：报告分段卡片按 Uiineed 色板交替 */
 .report-panel .report-section:nth-of-type(4n + 2) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-submit), var(--u-gradient-fade));
+  --_section-accent: rgba(208, 244, 240, 0.85);
 }
 
 .report-panel .report-section:nth-of-type(4n + 3) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-completed), var(--u-gradient-fade));
+  --_section-accent: rgba(208, 244, 240, 0.85);
 }
 
 .report-panel .report-section:nth-of-type(4n) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.06) 1.4px, transparent 2.1px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-discard), var(--u-gradient-fade));
+  --_section-accent: rgba(208, 244, 240, 0.85);
 }
 
-.hint-text {
-  font-size: clamp(12px, 0.85vw, 14px);
-  color: #666;
-  margin-bottom: 8px;
-  line-height: 1.5;
+.report-panel .hint-text {
+  font-size: clamp(15px, 0.95vw, 17px);
+  color: var(--u-placeholder);
+  margin-bottom: 10px;
+  line-height: 1.6;
 }
 
-.path-placeholder {
-  margin-top: 6px;
+.report-panel .path-placeholder {
+  margin-top: 8px;
   border-radius: 12px;
-  border: 1px dashed #cbd5e1;
-  padding: 16px;
-  font-size: clamp(13px, 0.9vw, 15px);
-  color: #555;
-  background: #f8fafc;
+  border: 2px dashed rgba(51, 50, 46, 0.22);
+  padding: 14px 16px;
+  font-size: clamp(15px, 0.95vw, 17px);
+  color: rgba(51, 50, 46, 0.78);
+  background: rgba(249, 243, 229, 0.55);
+  line-height: 1.6;
 }
 
-.two-column {
+.report-panel .path-figure {
+  margin: 10px 0 0;
+}
+
+.report-panel .path-img {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+  border: 2px solid rgba(51, 50, 46, 0.18);
+  background: #ffffff;
+}
+
+.report-panel .path-caption {
+  margin-top: 10px;
+  font-size: clamp(15px, 0.95vw, 17px);
+  color: rgba(51, 50, 46, 0.78);
+  line-height: 1.6;
+}
+
+.report-panel .two-column {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px 24px;
-  font-size: clamp(13px, 0.9vw, 15px);
-  line-height: 1.5;
+  font-size: clamp(15px, 0.95vw, 17px);
+  line-height: 1.65;
 }
 
-.subheading {
-  font-size: clamp(14px, 0.95vw, 16px);
-  margin-bottom: 6px;
+.report-panel .subheading {
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--u-black);
 }
 
-.plan-table {
-  margin-top: 8px;
-  font-size: clamp(13px, 0.9vw, 15px);
+.report-panel .plan-table {
+  margin-top: 10px;
+  font-size: clamp(14px, 0.92vw, 16px);
+  --el-table-bg-color: var(--u-panel);
+  --el-table-tr-bg-color: var(--u-panel);
+  --el-table-row-hover-bg-color: rgba(208, 244, 240, 0.42);
+}
+
+.report-panel .plan-table :deep(.el-table th),
+.report-panel .plan-table :deep(.el-table td) {
+  font-size: inherit;
+}
+
+.report-panel .plan-table :deep(th.el-table__cell) {
+  font-size: clamp(14px, 0.92vw, 16px);
+  background: var(--u-panel) !important;
+  color: var(--u-black);
+  font-weight: 800;
+  border-color: rgba(51, 50, 46, 0.55) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.55) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.report-panel .plan-table :deep(td.el-table__cell) {
+  background: var(--u-panel) !important;
+  border-color: rgba(51, 50, 46, 0.38) !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+  border-right: 2px solid rgba(51, 50, 46, 0.38) !important;
+  border-bottom: 2px solid rgba(51, 50, 46, 0.7) !important;
+}
+
+.report-panel .plan-table :deep(.el-table__body tr.el-table__row--striped td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.28) !important;
+}
+
+.report-panel .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
+  background: rgba(208, 244, 240, 0.44) !important;
 }
 
 .metric-cell {
@@ -1523,7 +1770,7 @@ function downloadWordDoc(payload, filename) {
 
 .dialog-label {
   margin: 8px 0 4px;
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: clamp(15px, 0.95vw, 17px);
   font-weight: 600;
 }
 
@@ -1531,7 +1778,8 @@ function downloadWordDoc(payload, filename) {
   padding: 8px 10px;
   background: #f5f7fb;
   border-radius: 8px;
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: clamp(15px, 0.95vw, 17px);
+  line-height: 1.55;
 }
 
 .suggest-group {
@@ -1539,10 +1787,10 @@ function downloadWordDoc(payload, filename) {
 }
 
 .suggest-list {
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: clamp(15px, 0.95vw, 17px);
   padding-left: 18px;
   margin: 0 0 8px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .reason-block {

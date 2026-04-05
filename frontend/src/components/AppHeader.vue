@@ -66,6 +66,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { User } from '@element-plus/icons-vue'
 import { useTheme } from '../composables/useTheme'
+import { popBackTarget, setSkipNextRecord } from '../utils/navigationHistory'
 
 const props = defineProps({
   logoSrc: {
@@ -103,11 +104,36 @@ const isActive = (basePath) => {
 }
 
 const goBack = () => {
+  const currentPath = path.value
+
+  // 主页面点击返回：固定回首页（互不串联）
+  if (
+    currentPath === '/jobs' ||
+    currentPath === '/student-abilities' ||
+    currentPath === '/ability-training-plan'
+  ) {
+    router.push('/')
+    return
+  }
+
+  // 首页点击返回：不跳转
+  if (currentPath === '/') return
+
+  // 子页面：溯源返回到进入当前页之前的确切页面
+  const target = popBackTarget()
+  if (target) {
+    setSkipNextRecord()
+    router.replace(target)
+    return
+  }
+
+  // 兜底：栈为空时，退化到显式 backTo 或首页
   if (props.backTo) {
     router.push(props.backTo)
     return
   }
-  router.back()
+
+  router.push('/')
 }
 
 const handleProfileClick = () => {
@@ -167,7 +193,7 @@ const handleProfileClick = () => {
 
 .logo-main {
   font-size: clamp(20px, 1.5vw, 28px);
-  font-weight: 700;
+  font-weight: var(--fw-heading);
   letter-spacing: 2px;
 }
 
@@ -250,6 +276,7 @@ const handleProfileClick = () => {
 
 .nav-back {
   font-size: clamp(15px, 0.95vw, 17px);
+  font-weight: var(--fw-body);
 }
 
 .header:not(.dark) .nav-back {
