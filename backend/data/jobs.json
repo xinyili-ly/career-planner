@@ -1,0 +1,1238 @@
+[
+  {
+    "job_id": "JOB_001",
+    "title": "Java",
+    "description": "Java是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "信息工程"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "Java语言",
+        "Spring框架",
+        "Spring Boot",
+        "Spring Cloud",
+        "MyBatis",
+        "MySQL",
+        "Oracle",
+        "Redis",
+        "Kafka",
+        "微服务"
+      ],
+      "description": "熟练掌握Java相关技能，具备相关领域工作经验。",
+      "level": 4
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "Oracle Certified Java Programmer (OCJP)",
+        "Spring Professional Certification",
+        "AWS Certified Developer",
+        "Azure Developer Certification"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "微服务架构",
+        "高并发处理",
+        "性能优化",
+        "技术创新",
+        "架构设计"
+      ],
+      "description": "能够在Java后端开发中进行技术创新，如微服务架构设计、高并发系统优化等，提出创新性的技术解决方案。",
+      "level": 4
+    },
+    "learning_capability": {
+      "keywords": [
+        "Java框架",
+        "云原生",
+        "DevOps",
+        "持续集成",
+        "新技术栈"
+      ],
+      "description": "能够快速学习新的Java框架和技术，如Spring Boot 3.0、云原生技术、DevOps工具等，保持技术先进性。",
+      "level": 4
+    },
+    "stress_resistance": {
+      "keywords": [
+        "项目压力",
+        "迭代开发",
+        "上线周期",
+        "技术挑战",
+        "加班应对"
+      ],
+      "description": "能够应对紧张的项目开发周期和技术挑战，在压力下保持高效工作，确保项目按时交付。",
+      "level": 4
+    },
+    "communication_skills": {
+      "keywords": [
+        "团队协作",
+        "技术沟通",
+        "需求分析",
+        "文档编写",
+        "代码评审"
+      ],
+      "description": "能够与团队成员、产品经理和其他 stakeholders 有效沟通，清晰表达技术方案和需求分析。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "Java开发",
+        "企业级应用",
+        "数据库设计",
+        "Web开发",
+        "团队协作"
+      ],
+      "description": "有Java后端开发相关实习经验，参与过企业级应用开发、数据库设计或Web服务开发等项目。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.195,
+      "skill": 0.219,
+      "soft": 0.255,
+      "potential": 0.331
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 13382,
+        "max": 24734,
+        "avg": 19058
+      },
+      "city_level": "新一线",
+      "salary_level": "高于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "高需求",
+      "demand_description": "Java作为企业级应用开发的主流语言，市场需求持续旺盛。金融、电商、政务等领域对Java开发人才需求量大，尤其是具备微服务架构和云原生经验的开发者。",
+      "geographic_distribution": "主要集中在一线城市（北京、上海、深圳、杭州）和新一线城市（成都、武汉、西安）。互联网企业、金融科技公司和传统企业的数字化转型部门是主要雇主。",
+      "skill_evolution": "从传统的SSH/SSM框架向Spring Boot、Spring Cloud微服务架构转型；云原生技术（Docker、Kubernetes）成为必备技能；对高并发、分布式系统设计能力要求提升。",
+      "salary_trend": "初级开发者8-15K，中级15-25K，高级25-40K，架构师40K+。薪资呈稳步上升趋势，具备云原生和微服务经验者薪资溢价明显。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "云原生技术普及，Serverless架构兴起，AI辅助编程工具（如GitHub Copilot）提升开发效率，低代码平台对传统开发模式产生冲击。",
+      "policy_direction": "国家大力发展数字经济，推动企业数字化转型；信创产业推动国产替代，对掌握国产中间件和数据库的Java开发者需求增加。",
+      "industry_evolution": "从传统单体应用向微服务架构演进；金融行业核心系统国产化替代加速；电商、物流、制造业数字化转型带来大量岗位需求。",
+      "talent_structure": "初级岗位竞争激烈，中高级人才稀缺；复合型人才（Java+云原生+大数据）更受欢迎；对业务理解能力和架构设计能力要求提高。"
+    }
+  },
+  {
+    "job_id": "JOB_002",
+    "title": "软件测试",
+    "description": "软件测试是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "信息工程"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "软件测试理论",
+        "测试用例设计",
+        "功能测试",
+        "性能测试",
+        "自动化测试",
+        "Selenium",
+        "Jmeter",
+        "LoadRunner",
+        "TestNG",
+        "JUnit"
+      ],
+      "description": "熟练掌握软件测试相关技能，具备相关领域工作经验。",
+      "level": 3
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "ISTQB Certified Tester",
+        "Certified Software Tester (CSTE)",
+        "Certified Agile Tester (CAT)",
+        "Selenium Certification"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "测试方法",
+        "自动化测试",
+        "测试工具",
+        "测试策略",
+        "质量保证"
+      ],
+      "description": "能够创新测试方法和策略，开发自动化测试工具，提高测试效率和覆盖率。",
+      "level": 3
+    },
+    "learning_capability": {
+      "keywords": [
+        "测试工具",
+        "自动化测试",
+        "性能测试",
+        "安全测试",
+        "测试框架"
+      ],
+      "description": "能够快速学习新的测试工具和技术，如Selenium、Jmeter、LoadRunner等，掌握不同类型的测试方法。",
+      "level": 4
+    },
+    "stress_resistance": {
+      "keywords": [
+        "上线压力",
+        "测试周期",
+        "缺陷修复",
+        "紧急测试",
+        "质量保障"
+      ],
+      "description": "能够在项目上线前的紧张测试周期中保持高效工作，应对紧急测试需求和缺陷修复压力。",
+      "level": 3
+    },
+    "communication_skills": {
+      "keywords": [
+        "缺陷报告",
+        "团队协作",
+        "需求沟通",
+        "测试文档",
+        "问题分析"
+      ],
+      "description": "能够清晰地编写缺陷报告，与开发团队和产品团队有效沟通测试结果和问题分析。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "软件测试",
+        "功能测试",
+        "自动化测试",
+        "测试用例",
+        "缺陷管理"
+      ],
+      "description": "有软件测试相关实习经验，参与过功能测试、自动化测试或测试用例设计等工作。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.195,
+      "skill": 0.227,
+      "soft": 0.241,
+      "potential": 0.336
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 7786,
+        "max": 11824,
+        "avg": 9805
+      },
+      "city_level": "新一线",
+      "salary_level": "低于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "中高需求",
+      "demand_description": "随着软件质量意识提升和敏捷开发普及，软件测试岗位需求稳定增长。自动化测试、性能测试、安全测试等专项测试人才尤为紧缺。",
+      "geographic_distribution": "主要分布在互联网产业集中的城市（北京、上海、深圳、杭州、广州）。互联网大厂、金融科技公司、软件外包企业是主要雇主。",
+      "skill_evolution": "从手工测试向自动化测试转型；测试开发（SDET）成为主流；AI测试、混沌工程等新技术逐渐应用；对编程能力（Python/Java）要求提高。",
+      "salary_trend": "初级测试工程师6-10K，中级10-18K，高级18-30K，测试架构师30K+。自动化测试和性能测试专家薪资水平明显高于功能测试。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "AI辅助测试用例生成，智能缺陷预测，自动化测试框架持续演进，测试左移和测试右移理念普及，DevOps文化推动测试与开发融合。",
+      "policy_direction": "软件质量监管趋严，金融、医疗等行业对软件合规性要求提高；国家推动软件产业高质量发展，测试环节重要性凸显。",
+      "industry_evolution": "测试从成本中心向价值中心转变；持续集成/持续交付（CI/CD）成为标配；质量保障体系从传统模式向敏捷模式转型。",
+      "talent_structure": "纯手工测试岗位减少，测试开发岗位增加；具备编程能力和业务理解能力的复合型人才更受欢迎；专项测试（安全、性能）人才稀缺。"
+    }
+  },
+  {
+    "job_id": "JOB_003",
+    "title": "C/C++",
+    "description": "C/C++是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "电子工程"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "C语言",
+        "C++",
+        "STL",
+        "多线程",
+        "网络编程",
+        "Linux开发",
+        "Qt",
+        "MFC",
+        "OpenGL",
+        "设计模式"
+      ],
+      "description": "熟练掌握C/C++相关技能，具备相关领域工作经验。",
+      "level": 5
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "Microsoft Certified Professional (MCP)",
+        "C++ Institute Certification",
+        "Embedded Systems Certification"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "系统编程",
+        "性能优化",
+        "内存管理",
+        "并发编程",
+        "底层技术"
+      ],
+      "description": "能够在C/C++底层开发中进行技术创新，如系统性能优化、内存管理策略改进、并发编程模型设计等。",
+      "level": 4
+    },
+    "learning_capability": {
+      "keywords": [
+        "系统编程",
+        "性能优化",
+        "嵌入式开发",
+        "网络编程",
+        "底层库"
+      ],
+      "description": "能够深入学习系统编程、性能优化、嵌入式开发等底层技术，掌握C/C++最新特性和工具链。",
+      "level": 4
+    },
+    "stress_resistance": {
+      "keywords": [
+        "项目压力",
+        "技术挑战",
+        "调试困难",
+        "性能优化",
+        "上线周期"
+      ],
+      "description": "能够应对复杂的技术挑战和调试困难，在压力下保持专注，解决底层系统问题。",
+      "level": 4
+    },
+    "communication_skills": {
+      "keywords": [
+        "技术沟通",
+        "代码评审",
+        "文档编写",
+        "团队协作",
+        "问题分析"
+      ],
+      "description": "能够与团队成员有效沟通技术方案和问题分析，编写清晰的技术文档和代码注释。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "C/C++开发",
+        "系统编程",
+        "嵌入式开发",
+        "性能优化",
+        "网络编程"
+      ],
+      "description": "有C/C++开发相关实习经验，参与过系统编程、嵌入式开发或性能优化等项目。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.205,
+      "skill": 0.222,
+      "soft": 0.236,
+      "potential": 0.337
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 13432,
+        "max": 24706,
+        "avg": 19069
+      },
+      "city_level": "新一线",
+      "salary_level": "高于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "高需求",
+      "demand_description": "C/C++在系统级开发、嵌入式、游戏引擎、高性能计算等领域不可替代。国产操作系统、数据库、中间件等基础软件发展带来大量人才需求。",
+      "geographic_distribution": "主要分布在一线城市（北京、上海、深圳）和制造业发达城市（苏州、东莞、成都）。芯片公司、游戏公司、基础软件厂商是主要雇主。",
+      "skill_evolution": "现代C++（C++11/14/17/20）特性普及；对并发编程、内存管理、性能优化能力要求提高；跨平台开发能力（Windows/Linux/嵌入式）成为加分项。",
+      "salary_trend": "初级开发者10-18K，中级18-30K，高级30-50K，专家级50K+。系统架构师和底层开发专家薪资水平较高，游戏引擎开发者薪资溢价明显。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "Rust等新兴系统语言对C/C++形成一定替代，但C/C++在性能关键场景仍占主导；AI芯片、自动驾驶等新兴领域对高性能计算需求激增。",
+      "policy_direction": "国家大力发展信创产业，推动国产操作系统、数据库、芯片发展；对掌握底层技术的C/C++人才需求旺盛；开源软件生态建设加速。",
+      "industry_evolution": "从传统软件开发向基础软件、工业软件转型；游戏产业持续发展；物联网和嵌入式系统应用广泛；高性能计算领域需求增长。",
+      "talent_structure": "底层开发人才稀缺，培养周期长；具备系统架构设计能力的高级人才供不应求；跨领域人才（C+++图形学/C+++嵌入式）更受欢迎。"
+    }
+  },
+  {
+    "job_id": "JOB_004",
+    "title": "实施工程师",
+    "description": "实施工程师是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "信息管理"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "系统部署",
+        "数据库配置",
+        "网络配置",
+        "Linux系统",
+        "Windows系统",
+        "项目管理",
+        "客户沟通",
+        "技术支持",
+        "故障排查",
+        "文档编写"
+      ],
+      "description": "熟练掌握实施工程师相关技能，具备相关领域工作经验。",
+      "level": 3
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "PMP (Project Management Professional)",
+        "ITIL Foundation",
+        "Oracle Database Administrator",
+        "Microsoft Certified Solutions Associate"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "实施方法",
+        "流程优化",
+        "客户需求",
+        "系统部署",
+        "问题解决"
+      ],
+      "description": "能够创新实施方法和流程，根据客户需求定制解决方案，提高实施效率和客户满意度。",
+      "level": 3
+    },
+    "learning_capability": {
+      "keywords": [
+        "业务流程",
+        "系统配置",
+        "客户需求",
+        "新技术",
+        "行业知识"
+      ],
+      "description": "能够快速学习不同客户的业务流程和系统配置，掌握新的技术和行业知识。",
+      "level": 4
+    },
+    "stress_resistance": {
+      "keywords": [
+        "客户现场",
+        "项目压力",
+        "问题解决",
+        "时间压力",
+        "多任务处理"
+      ],
+      "description": "能够在客户现场应对各种挑战和压力，快速解决问题，确保项目按时完成。",
+      "level": 4
+    },
+    "communication_skills": {
+      "keywords": [
+        "客户沟通",
+        "需求收集",
+        "问题协调",
+        "文档编写",
+        "团队协作"
+      ],
+      "description": "能够与客户和内部团队有效沟通，清晰表达需求和解决方案，协调各方资源。",
+      "level": 5
+    },
+    "internship_experience": {
+      "keywords": [
+        "项目实施",
+        "系统部署",
+        "客户沟通",
+        "问题解决",
+        "技术支持"
+      ],
+      "description": "有项目实施相关实习经验，参与过系统部署、客户沟通或技术支持等工作。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.185,
+      "skill": 0.237,
+      "soft": 0.25,
+      "potential": 0.328
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 6534,
+        "max": 11270,
+        "avg": 8902
+      },
+      "city_level": "新一线",
+      "salary_level": "低于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "中需求",
+      "demand_description": "企业数字化转型推动ERP、CRM、OA等系统实施需求。SaaS模式普及降低实施门槛，但对实施工程师的业务理解能力和项目管理能力要求提高。",
+      "geographic_distribution": "分布较为广泛，一线城市和新一线城市需求集中，二三线城市随着企业数字化下沉也有增长。软件厂商、系统集成商、咨询公司为主要雇主。",
+      "skill_evolution": "从纯技术实施向业务咨询转型；对行业业务知识（财务、供应链、人力资源）要求提高；云计算和SaaS产品实施技能成为必备；项目管理能力重要性提升。",
+      "salary_trend": "初级实施工程师6-10K，中级10-18K，高级18-28K，实施总监28K+。具备行业经验和PMP认证者薪资水平较高。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "低代码/无代码平台降低实施技术门槛；AI辅助实施工具提升效率；远程实施和云部署成为主流；RPA技术简化业务流程实施。",
+      "policy_direction": "国家推动企业数字化转型，中小企业上云政策利好；工业互联网发展推动制造业信息化；电子政务建设持续投入。",
+      "industry_evolution": "从传统软件实施向云服务和SaaS转型；行业解决方案专业化程度提高；实施服务与运维服务融合；客户成功理念普及。",
+      "talent_structure": "纯技术实施人员需求减少，具备业务咨询能力的复合型人才需求增加；行业专家型实施工程师稀缺；项目管理和客户沟通能力重要性提升。"
+    }
+  },
+  {
+    "job_id": "JOB_005",
+    "title": "硬件测试",
+    "description": "硬件测试是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "电子工程",
+      "计算机科学与技术",
+      "自动化"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "电子电路",
+        "数字电路",
+        "模拟电路",
+        "示波器",
+        "万用表",
+        "信号发生器",
+        "硬件测试方法",
+        "PCB设计",
+        "原理图分析",
+        "可靠性测试"
+      ],
+      "description": "熟练掌握硬件测试相关技能，具备相关领域工作经验。",
+      "level": 4
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "Certified Electronics Technician (CET)",
+        "ISTQB Certified Tester",
+        "CompTIA A+"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "测试方法",
+        "测试设备",
+        "故障分析",
+        "可靠性测试",
+        "测试流程"
+      ],
+      "description": "能够创新硬件测试方法和流程，开发测试设备和工具，提高测试效率和准确性。",
+      "level": 3
+    },
+    "learning_capability": {
+      "keywords": [
+        "硬件技术",
+        "测试设备",
+        "测试标准",
+        "故障分析",
+        "可靠性测试"
+      ],
+      "description": "能够快速学习新的硬件技术和测试设备，掌握不同类型的硬件测试方法和标准。",
+      "level": 3
+    },
+    "stress_resistance": {
+      "keywords": [
+        "测试周期",
+        "故障分析",
+        "压力测试",
+        "项目进度",
+        "质量要求"
+      ],
+      "description": "能够在紧张的测试周期中保持高效工作，应对复杂的故障分析和压力测试需求。",
+      "level": 3
+    },
+    "communication_skills": {
+      "keywords": [
+        "测试报告",
+        "团队协作",
+        "问题沟通",
+        "文档编写",
+        "技术交流"
+      ],
+      "description": "能够清晰地编写测试报告，与硬件开发团队有效沟通测试结果和问题分析。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "硬件测试",
+        "故障分析",
+        "测试设备",
+        "可靠性测试",
+        "测试文档"
+      ],
+      "description": "有硬件测试相关实习经验，参与过故障分析、可靠性测试或测试文档编写等工作。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.208,
+      "skill": 0.253,
+      "soft": 0.238,
+      "potential": 0.301
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 6551,
+        "max": 9916,
+        "avg": 8233
+      },
+      "city_level": "新一线",
+      "salary_level": "低于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "中需求",
+      "demand_description": "消费电子、通信设备、汽车电子、物联网等产业发展带动硬件测试需求。5G、新能源汽车、智能家居等新兴领域对硬件测试人才需求增长。",
+      "geographic_distribution": "主要分布在制造业发达城市（深圳、东莞、苏州、上海、成都）。消费电子厂商、通信设备商、汽车电子企业、芯片公司是主要雇主。",
+      "skill_evolution": "从传统功能测试向自动化测试转型；可靠性测试、EMC测试、安规测试等专项测试技能需求增加；对测试设备操作和数据分析能力要求提高。",
+      "salary_trend": "初级硬件测试工程师6-10K，中级10-16K，高级16-25K，测试专家25K+。具备射频测试、芯片测试等专项技能者薪资较高。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "自动化测试设备普及；AI辅助故障诊断；虚拟仿真测试减少物理测试成本；5G、WiFi6/7等新技术带来新测试需求；车规级测试标准提高。",
+      "policy_direction": "国家推动制造业高质量发展，对产品质量要求提高；新能源汽车产业政策利好；半导体产业国产化加速，对芯片测试人才需求激增。",
+      "industry_evolution": "从代工测试向自主研发测试转型；测试标准国际化程度提高；第三方检测认证行业发展；测试与研发协同更加紧密。",
+      "talent_structure": "基础测试岗位需求稳定，高级测试工程师和测试专家稀缺；具备专项测试技能（射频、芯片、汽车电子）的人才供不应求；跨学科背景（电子+软件）人才更受欢迎。"
+    }
+  },
+  {
+    "job_id": "JOB_006",
+    "title": "前端开发",
+    "description": "前端开发是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "数字媒体"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "TypeScript",
+        "Vue",
+        "React",
+        "Angular",
+        "Node.js",
+        "Webpack",
+        "Vite"
+      ],
+      "description": "熟练掌握前端开发相关技能，具备相关领域工作经验。",
+      "level": 4
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "Google Professional Web Developer",
+        "Microsoft Certified: Azure Developer Associate",
+        "AWS Certified Developer"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "UI/UX设计",
+        "前端架构",
+        "性能优化",
+        "交互设计",
+        "用户体验"
+      ],
+      "description": "能够创新前端架构和交互设计，优化用户体验和页面性能，提出创新性的前端解决方案。",
+      "level": 4
+    },
+    "learning_capability": {
+      "keywords": [
+        "前端框架",
+        "新特性",
+        "性能优化",
+        "工具链",
+        "设计模式"
+      ],
+      "description": "能够快速学习新的前端框架和技术，如React、Vue、Angular的最新版本，掌握前端性能优化和工具链。",
+      "level": 5
+    },
+    "stress_resistance": {
+      "keywords": [
+        "需求变更",
+        "快速迭代",
+        "上线压力",
+        "跨浏览器兼容",
+        "性能优化"
+      ],
+      "description": "能够应对频繁的需求变更和快速迭代，在压力下保持高效工作，确保前端页面的质量和性能。",
+      "level": 3
+    },
+    "communication_skills": {
+      "keywords": [
+        "UI/UX沟通",
+        "需求分析",
+        "团队协作",
+        "代码评审",
+        "技术文档"
+      ],
+      "description": "能够与产品经理、设计师和后端开发有效沟通，清晰表达前端设计和技术方案。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "前端开发",
+        "UI/UX设计",
+        "响应式布局",
+        "前端框架",
+        "性能优化"
+      ],
+      "description": "有前端开发相关实习经验，参与过UI/UX设计、响应式布局或前端框架应用等项目。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.188,
+      "skill": 0.214,
+      "soft": 0.28,
+      "potential": 0.318
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 8653,
+        "max": 13490,
+        "avg": 11071
+      },
+      "city_level": "新一线",
+      "salary_level": "处于平均区间",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "高需求",
+      "demand_description": "Web应用和移动应用持续繁荣，前端开发需求旺盛。用户体验要求提高推动前端技术复杂度增加，对前端工程师的技术深度和广度要求提升。",
+      "geographic_distribution": "主要集中在互联网产业集中的城市（北京、上海、深圳、杭州、广州）。互联网公司、电商企业、金融科技公司是主要雇主。",
+      "skill_evolution": "从jQuery时代向现代前端框架（React/Vue/Angular）转型；TypeScript成为标配；对工程化（Webpack/Vite）、性能优化、跨端开发（Flutter/React Native）能力要求提高。",
+      "salary_trend": "初级前端工程师8-15K，中级15-25K，高级25-40K，前端架构师40K+。全栈能力和跨端开发能力带来薪资溢价。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "前端工程化程度持续提高；低代码平台降低部分前端开发门槛；WebAssembly扩展前端能力边界；Serverless前端架构兴起；AI辅助UI设计工具普及。",
+      "policy_direction": "数字经济政策利好互联网产业；信创产业推动国产浏览器和前端技术发展；数据安全法规对前端数据处理提出新要求。",
+      "industry_evolution": "从页面制作向应用开发演进；B端前端需求增长迅速；跨端开发（Web/小程序/App）成为常态；前端与后端、设计边界逐渐模糊。",
+      "talent_structure": "初级前端工程师竞争激烈，中高级人才稀缺；全栈工程师（前端+Node.js）更受欢迎；具备产品思维和设计能力的前端人才薪资溢价明显。"
+    }
+  },
+  {
+    "job_id": "JOB_007",
+    "title": "技术支持工程师",
+    "description": "技术支持工程师是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "信息工程"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "技术支持",
+        "故障排查",
+        "客户服务",
+        "产品知识",
+        "网络知识",
+        "数据库知识",
+        "操作系统",
+        "沟通技巧",
+        "问题分析"
+      ],
+      "description": "熟练掌握技术支持工程师相关技能，具备相关领域工作经验。",
+      "level": 3
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "CompTIA A+",
+        "Microsoft Certified: Azure Fundamentals",
+        "ITIL Foundation"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "支持方法",
+        "问题解决",
+        "流程优化",
+        "客户服务",
+        "技术方案"
+      ],
+      "description": "能够创新技术支持方法和流程，快速解决客户问题，提高客户满意度和支持效率。",
+      "level": 3
+    },
+    "learning_capability": {
+      "keywords": [
+        "产品知识",
+        "技术更新",
+        "问题分析",
+        "行业知识",
+        "解决方案"
+      ],
+      "description": "能够快速学习新的产品知识和技术，掌握不同类型的问题分析和解决方案。",
+      "level": 4
+    },
+    "stress_resistance": {
+      "keywords": [
+        "客户压力",
+        "紧急问题",
+        "多任务处理",
+        "时间压力",
+        "问题复杂度"
+      ],
+      "description": "能够应对客户的紧急问题和压力，在复杂的技术问题面前保持冷静，高效解决问题。",
+      "level": 3
+    },
+    "communication_skills": {
+      "keywords": [
+        "客户沟通",
+        "问题描述",
+        "技术解释",
+        "团队协作",
+        "文档编写"
+      ],
+      "description": "能够与客户和内部团队有效沟通，清晰解释技术问题和解决方案，提供优质的客户服务。",
+      "level": 5
+    },
+    "internship_experience": {
+      "keywords": [
+        "技术支持",
+        "客户服务",
+        "问题解决",
+        "产品知识",
+        "技术文档"
+      ],
+      "description": "有技术支持相关实习经验，参与过客户服务、问题解决或技术文档编写等工作。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.183,
+      "skill": 0.241,
+      "soft": 0.262,
+      "potential": 0.314
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 6862,
+        "max": 12181,
+        "avg": 9521
+      },
+      "city_level": "新一线",
+      "salary_level": "低于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "中需求",
+      "demand_description": "企业数字化转型和SaaS普及推动技术支持需求。客户对服务质量要求提高，技术支持从被动响应向主动服务转型。",
+      "geographic_distribution": "分布较为广泛，一线城市和新一线城市需求集中，但远程支持模式使地域限制降低。软件厂商、云服务提供商、IT服务商是主要雇主。",
+      "skill_evolution": "从纯技术支持向客户成功转型；对产品知识和行业业务理解要求提高；数据分析能力（客户使用数据分析）成为加分项；客户沟通和问题解决能力重要性提升。",
+      "salary_trend": "初级技术支持6-10K，中级10-16K，高级16-25K，技术支持经理25K+。具备行业经验和客户成功理念者薪资水平较高。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "AI客服和智能工单系统提升支持效率；远程支持工具成熟；知识库和自助服务平台普及；客户健康度监测工具应用。",
+      "policy_direction": "服务业高质量发展政策利好；客户权益保护法规完善；数据安全法规对技术支持过程中的数据处理提出新要求。",
+      "industry_evolution": "从成本中心向价值中心转变；客户成功（Customer Success）理念普及；技术支持与产品、销售协同更加紧密；服务产品化趋势明显。",
+      "talent_structure": "纯技术支持岗位减少，客户成功经理岗位增加；具备产品知识和业务理解能力的复合型人才更受欢迎；技术+沟通+业务能力的综合型人才稀缺。"
+    }
+  },
+  {
+    "job_id": "JOB_008",
+    "title": "测试工程师",
+    "description": "测试工程师是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "信息工程"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "软件测试",
+        "自动化测试",
+        "性能测试",
+        "安全测试",
+        "测试工具",
+        "测试流程",
+        "质量保证",
+        "缺陷管理",
+        "测试策略"
+      ],
+      "description": "熟练掌握测试工程师相关技能，具备相关领域工作经验。",
+      "level": 3
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "ISTQB Certified Tester",
+        "Certified Software Tester (CSTE)",
+        "Certified Agile Tester (CAT)"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 3
+    },
+    "innovation_capability": {
+      "keywords": [
+        "测试策略",
+        "自动化测试",
+        "测试工具",
+        "质量保证",
+        "测试方法"
+      ],
+      "description": "能够创新测试策略和方法，开发自动化测试工具，提高测试效率和质量保证水平。",
+      "level": 3
+    },
+    "learning_capability": {
+      "keywords": [
+        "测试工具",
+        "自动化测试",
+        "性能测试",
+        "安全测试",
+        "测试框架"
+      ],
+      "description": "能够快速学习新的测试工具和技术，掌握不同类型的测试方法和框架。",
+      "level": 4
+    },
+    "stress_resistance": {
+      "keywords": [
+        "上线压力",
+        "测试周期",
+        "缺陷修复",
+        "紧急测试",
+        "质量要求"
+      ],
+      "description": "能够在项目上线前的紧张测试周期中保持高效工作，应对紧急测试需求和缺陷修复压力。",
+      "level": 3
+    },
+    "communication_skills": {
+      "keywords": [
+        "缺陷报告",
+        "团队协作",
+        "需求沟通",
+        "测试文档",
+        "问题分析"
+      ],
+      "description": "能够清晰地编写缺陷报告，与开发团队和产品团队有效沟通测试结果和问题分析。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "测试工程师",
+        "自动化测试",
+        "性能测试",
+        "测试用例",
+        "缺陷管理"
+      ],
+      "description": "有测试工程师相关实习经验，参与过自动化测试、性能测试或测试用例设计等工作。",
+      "level": 3
+    },
+    "weights": {
+      "base": 0.209,
+      "skill": 0.226,
+      "soft": 0.23,
+      "potential": 0.334
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 6705,
+        "max": 9994,
+        "avg": 8349
+      },
+      "city_level": "新一线",
+      "salary_level": "低于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "中高需求",
+      "demand_description": "软件质量意识提升和敏捷开发普及推动测试工程师需求。自动化测试、性能测试、安全测试等专项测试人才尤为紧缺。",
+      "geographic_distribution": "主要分布在互联网产业集中的城市（北京、上海、深圳、杭州、广州）。互联网大厂、金融科技公司、软件外包企业是主要雇主。",
+      "skill_evolution": "从手工测试向自动化测试转型；测试开发（SDET）成为主流；对编程能力（Python/Java）要求提高；DevOps文化推动测试与开发融合。",
+      "salary_trend": "初级测试工程师6-10K，中级10-18K，高级18-30K，测试架构师30K+。自动化测试和性能测试专家薪资水平明显高于功能测试。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "AI辅助测试用例生成和缺陷预测；自动化测试框架持续演进；测试左移和测试右移理念普及；混沌工程等新技术应用。",
+      "policy_direction": "软件质量监管趋严，金融、医疗等行业对软件合规性要求提高；国家推动软件产业高质量发展，测试环节重要性凸显。",
+      "industry_evolution": "测试从成本中心向价值中心转变；持续集成/持续交付（CI/CD）成为标配；质量保障体系从传统模式向敏捷模式转型。",
+      "talent_structure": "纯手工测试岗位减少，测试开发岗位增加；具备编程能力和业务理解能力的复合型人才更受欢迎；专项测试（安全、性能）人才稀缺。"
+    }
+  },
+  {
+    "job_id": "JOB_009",
+    "title": "科研人员",
+    "description": "科研人员是负责相关技术领域工作的专业岗位",
+    "min_education": "硕士",
+    "target_majors": [
+      "计算机科学与技术",
+      "软件工程",
+      "人工智能"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "科研方法",
+        "实验设计",
+        "数据分析",
+        "文献调研",
+        "技术研发",
+        "项目管理",
+        "学术写作",
+        "专利申请"
+      ],
+      "description": "熟练掌握科研人员相关技能，具备相关领域工作经验。",
+      "level": 5
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "PhD学位",
+        "相关领域专业证书",
+        "行业协会会员资格"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 4
+    },
+    "innovation_capability": {
+      "keywords": [
+        "科研创新",
+        "技术突破",
+        "实验设计",
+        "学术研究",
+        "专利申请"
+      ],
+      "description": "能够在科研领域进行创新和突破，设计创新性的实验方案，提出新的理论和方法，申请技术专利。",
+      "level": 5
+    },
+    "learning_capability": {
+      "keywords": [
+        "学术前沿",
+        "科研方法",
+        "新技术",
+        "文献调研",
+        "跨领域知识"
+      ],
+      "description": "能够持续学习学术前沿知识和新技术，掌握最新的科研方法和工具，进行深入的文献调研。",
+      "level": 5
+    },
+    "stress_resistance": {
+      "keywords": [
+        "科研压力",
+        "实验挑战",
+        "论文发表",
+        "项目周期",
+        "竞争压力"
+      ],
+      "description": "能够应对科研压力和实验挑战，在竞争激烈的科研环境中保持专注和动力，追求学术突破。",
+      "level": 4
+    },
+    "communication_skills": {
+      "keywords": [
+        "学术交流",
+        "论文写作",
+        "团队协作",
+        "项目汇报",
+        "成果展示"
+      ],
+      "description": "能够在学术会议和团队中有效交流科研成果，编写高质量的学术论文，进行清晰的项目汇报。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "科研项目",
+        "实验设计",
+        "数据分析",
+        "文献调研",
+        "学术写作"
+      ],
+      "description": "有科研相关实习经验，参与过科研项目、实验设计或学术论文写作等工作。",
+      "level": 4
+    },
+    "weights": {
+      "base": 0.186,
+      "skill": 0.233,
+      "soft": 0.236,
+      "potential": 0.345
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 15640,
+        "max": 25859,
+        "avg": 20749
+      },
+      "city_level": "新一线",
+      "salary_level": "高于平均",
+      "city_average_salary": {
+        "min": 9606,
+        "max": 16679,
+        "avg": 13142
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "高需求",
+      "demand_description": "国家科技创新战略推动科研人才需求。人工智能、量子计算、生物技术、新能源等前沿领域科研人才尤为紧缺。产学研结合模式创造更多岗位机会。",
+      "geographic_distribution": "主要集中在高校和科研院所集中的城市（北京、上海、南京、武汉、西安、广州）。高校、科研院所、企业研究院、科技园区是主要雇主。",
+      "skill_evolution": "跨学科研究能力重要性提升；数据分析和AI工具应用普及；科研项目管理能力要求提高；产学研合作和成果转化能力成为加分项。",
+      "salary_trend": "博士后/助理研究员15-25K，副研究员/副教授25-40K，研究员/教授40K+。企业研究院薪资水平普遍高于高校和科研院所，AI等热门领域薪资溢价明显。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "AI for Science（科学智能）兴起，AI辅助科研成为趋势；大科学装置和科研基础设施升级；开放科学和数据共享理念普及；交叉学科研究成为热点。",
+      "policy_direction": "国家加大科技投入，'十四五'规划强调科技创新；产学研深度融合政策；科技成果转化激励机制完善；人才引进和培养政策利好。",
+      "industry_evolution": "从纯学术研究向产学研结合转型；企业研究院和新型研发机构兴起；科研成果转化和商业化加速；国际合作与竞争并存。",
+      "talent_structure": "基础学科研究人才竞争激烈，应用型科研人才需求增加；跨学科复合型人才稀缺；既懂科研又懂产业化和商业化的复合型人才供不应求。"
+    }
+  },
+  {
+    "job_id": "JOB_010",
+    "title": "内容审核",
+    "description": "内容审核是负责相关技术领域工作的专业岗位",
+    "min_education": "本科",
+    "target_majors": [
+      "计算机科学与技术",
+      "传播学",
+      "法学"
+    ],
+    "professional_skills": {
+      "keywords": [
+        "内容审核标准",
+        "风险识别",
+        "政策法规",
+        "信息安全",
+        "审核工具",
+        "质量控制",
+        "数据统计"
+      ],
+      "description": "熟练掌握内容审核相关技能，具备相关领域工作经验。",
+      "level": 2
+    },
+    "certificate_requirements": {
+      "keywords": [
+        "内容审核专业培训证书",
+        "信息安全认证",
+        "合规管理认证"
+      ],
+      "description": "具备相关领域专业证书，有行业认证者优先。",
+      "level": 2
+    },
+    "innovation_capability": {
+      "keywords": [
+        "审核方法",
+        "流程优化",
+        "风险识别",
+        "质量控制",
+        "技术应用"
+      ],
+      "description": "能够创新内容审核方法和流程，提高审核效率和准确性，应用新技术提升审核质量。",
+      "level": 2
+    },
+    "learning_capability": {
+      "keywords": [
+        "政策法规",
+        "审核标准",
+        "新技术",
+        "风险识别",
+        "行业知识"
+      ],
+      "description": "能够快速学习新的政策法规和审核标准，掌握内容审核的新技术和方法。",
+      "level": 3
+    },
+    "stress_resistance": {
+      "keywords": [
+        "工作压力",
+        "内容负荷",
+        "时间要求",
+        "责任压力",
+        "情绪管理"
+      ],
+      "description": "能够应对大量的内容审核工作和时间要求，保持注意力集中，管理工作压力和情绪。",
+      "level": 3
+    },
+    "communication_skills": {
+      "keywords": [
+        "团队协作",
+        "问题沟通",
+        "报告编写",
+        "标准解释",
+        "反馈传递"
+      ],
+      "description": "能够与团队成员有效沟通审核标准和问题，编写清晰的审核报告，传递准确的反馈信息。",
+      "level": 3
+    },
+    "internship_experience": {
+      "keywords": [
+        "内容审核",
+        "风险识别",
+        "标准执行",
+        "质量控制",
+        "报告编写"
+      ],
+      "description": "有内容审核相关实习经验，参与过风险识别、标准执行或审核报告编写等工作。",
+      "level": 2
+    },
+    "weights": {
+      "base": 0.191,
+      "skill": 0.239,
+      "soft": 0.216,
+      "potential": 0.353
+    },
+    "salary_info": {
+      "salary_range": {
+        "min": 4394,
+        "max": 6239,
+        "avg": 5316
+      },
+      "city_level": "二线",
+      "salary_level": "低于平均",
+      "city_average_salary": {
+        "min": 6808,
+        "max": 10890,
+        "avg": 8849
+      }
+    },
+    "social_demand_analysis": {
+      "market_demand": "中需求",
+      "demand_description": "互联网内容监管趋严推动内容审核需求。短视频、直播、社交媒体等平台对内容审核人员需求量大，但AI审核技术普及降低纯人工审核需求。",
+      "geographic_distribution": "主要分布在互联网产业集中的城市（北京、上海、深圳、杭州、成都、武汉）。互联网大厂、内容平台、外包审核公司是主要雇主。",
+      "skill_evolution": "从纯人工审核向人机协同转型；对AI审核工具使用能力要求提高；对政策法规理解和风险识别能力要求提升；多语言审核能力成为加分项。",
+      "salary_trend": "初级审核员4-8K，中级8-12K，高级审核/审核主管12-20K。审核专家和政策解读专家薪资水平较高。"
+    },
+    "industry_trend_analysis": {
+      "tech_innovation": "AI内容识别技术快速发展，自动审核准确率提升；多模态内容（图文音视频）审核技术成熟；实时审核和流式审核技术普及；区块链内容存证技术应用。",
+      "policy_direction": "网络内容监管法规日趋完善；平台内容安全责任加重；未成年人保护、数据安全等法规对内容审核提出新要求；跨境数据流动监管趋严。",
+      "industry_evolution": "从人工审核向AI+人工协同模式转型；审核标准国际化与本土化并存；第三方审核服务行业发展；审核与推荐算法协同优化。",
+      "talent_structure": "基础审核岗位需求减少，审核专家和政策解读人才需求增加；具备AI工具使用能力和数据分析能力的复合型人才更受欢迎；多语言和跨文化审核人才稀缺。"
+    }
+  }
+]

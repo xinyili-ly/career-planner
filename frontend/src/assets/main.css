@@ -1,0 +1,465 @@
+@import './base.css';
+
+#app {
+  width: 100vw;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  overflow-x: hidden;
+}
+
+/* ---------------- Uiineed（todo.uiineed.com）按钮体系：全局可复用 ---------------- */
+:root {
+  /* 颜色令牌（页面勿再写死同色值，夜间由 html.dark 覆盖） */
+  --u-body-bg: #e8f6ff;
+  --u-black: #33322e;
+  --u-border: 2px solid var(--u-black);
+  --u-box-shadow: 4px 4px 0px var(--u-black);
+  --u-box-shadow-sm: 2px 2px 0px var(--u-black);
+  --u-border-radius: 12px;
+
+  --u-bg-normal: #f9f3e5;
+  --u-bg-submit: #ffd6e9;
+  --u-bg-completed: #d0f4f0;
+  --u-bg-discard: #fff0ee;
+  --u-bg-muted: #e5e7eb;
+  --u-placeholder: rgba(51, 50, 46, 0.535);
+
+  --u-gradient-fade: rgba(255, 255, 255, 0.92);
+  --u-gradient-fade-soft: rgba(255, 255, 255, 0.9);
+  --u-gradient-fade-mid: rgba(255, 255, 255, 0.86);
+  --u-header-bg-end: rgba(232, 246, 255, 0.9);
+  --u-body-bg-fade: rgba(232, 246, 255, 0.75);
+  --u-fade-completed: rgba(208, 244, 240, 0.55);
+  --u-fade-body: rgba(232, 246, 255, 0.55);
+  --u-fade-normal: rgba(249, 243, 229, 0.55);
+  --u-fade-submit: rgba(255, 214, 233, 0.55);
+
+  --u-bg-deleted: #ddd;
+  --u-bg-edit: #fbeef3;
+  --u-normal: #f5d99e;
+  --u-completed: #8cd4cb;
+  --u-deleted: #f6a89e;
+  --u-panel: #ffffff;
+  --u-mint: #0f766e;
+  --u-purple: #6d28d9;
+  --u-yellow: #b45309;
+  --u-pink: #be185d;
+
+  --u-btn-fg: var(--u-black);
+  --u-btn-bg: var(--u-bg-normal);
+  --u-btn-shadow: var(--u-box-shadow);
+  --u-btn-radius: 999px;
+  --u-btn-lift-hover: -2px;
+  --u-btn-lift-active: 2px;
+  --u-btn-shadow-hover: 6px 6px 0px var(--u-black);
+  --u-btn-shadow-active: 0 0 0 var(--u-black);
+}
+
+/* 夜间：低明度午夜马卡龙 + 亮描边 + 纯黑硬阴影（与 html.dark 同步） */
+html.dark {
+  --u-body-bg: #1a1c1e;
+  --u-black: #e4e4e4;
+  --u-stroke: rgba(255, 255, 255, 0.78);
+  --u-border: 2px solid var(--u-stroke);
+  --u-box-shadow: 4px 4px 0px #000000;
+  --u-box-shadow-sm: 2px 2px 0px #000000;
+
+  --u-bg-normal: #2c2a26;
+  --u-bg-submit: #6d3b52;
+  --u-bg-completed: #2a4d4a;
+  --u-bg-discard: #5c3a38;
+  --u-bg-muted: #333333;
+  --u-placeholder: rgba(228, 228, 228, 0.45);
+
+  --u-gradient-fade: rgba(26, 28, 30, 0.94);
+  --u-gradient-fade-soft: rgba(30, 32, 35, 0.9);
+  --u-gradient-fade-mid: rgba(34, 36, 40, 0.9);
+  --u-header-bg-end: rgba(30, 45, 61, 0.55);
+  --u-body-bg-fade: rgba(30, 45, 61, 0.5);
+  --u-fade-completed: rgba(42, 77, 74, 0.45);
+  --u-fade-body: rgba(30, 45, 61, 0.45);
+  --u-fade-normal: rgba(44, 42, 38, 0.45);
+  --u-fade-submit: rgba(109, 59, 82, 0.45);
+
+  --u-bg-deleted: #2a2a2a;
+  --u-bg-edit: #3a2a32;
+  --u-normal: #5c4a38;
+  --u-completed: #3d6d65;
+  --u-deleted: #6d4a45;
+  --u-panel: #1c2128;
+  --u-mint: #7eb3b0;
+  --u-purple: #a78bfa;
+  --u-yellow: #d4a574;
+  --u-pink: #c084b8;
+
+  --u-btn-fg: var(--u-black);
+  --u-btn-shadow-hover: 6px 6px 0px #000000;
+  --u-btn-shadow-active: 0 0 0 #000000;
+}
+
+html.dark body {
+  background-color: var(--u-body-bg);
+  color: var(--u-black);
+}
+
+html.dark a,
+html.dark .green {
+  color: hsla(160, 45%, 58%, 1);
+}
+
+@media (hover: hover) {
+  html.dark a:hover {
+    background-color: hsla(160, 40%, 45%, 0.18);
+  }
+}
+
+html.dark .u-btn--ghost,
+html.dark .u-btn--ghost.el-button {
+  --_u-bg: rgba(255, 255, 255, 0.07);
+  --_u-fg: var(--u-black);
+}
+
+/* 统一：原生 button / a / ElementPlus el-button 都可以直接挂 class */
+.u-btn,
+.u-btn.el-button,
+a.u-btn {
+  --_u-bg: var(--u-btn-bg);
+  --_u-fg: var(--u-btn-fg);
+  --_u-border: var(--u-border);
+  --_u-shadow: var(--u-btn-shadow);
+  --_u-radius: var(--u-btn-radius);
+  --_u-lift-hover: var(--u-btn-lift-hover);
+  --_u-lift-active: var(--u-btn-lift-active);
+  --_u-shadow-hover: var(--u-btn-shadow-hover);
+  --_u-shadow-active: var(--u-btn-shadow-active);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1;
+
+  padding: 10px 18px !important;
+  border-radius: var(--_u-radius) !important;
+  border: var(--_u-border) !important;
+  box-shadow: var(--_u-shadow) !important;
+  background: var(--_u-bg) !important;
+  color: var(--_u-fg) !important;
+
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+}
+
+.u-btn:not(.u-btn--text):hover,
+.u-btn.el-button:not(.u-btn--text):hover,
+a.u-btn:not(.u-btn--text):hover {
+  filter: brightness(1.02);
+  transform: translate(var(--_u-lift-hover), var(--_u-lift-hover));
+  box-shadow: var(--_u-shadow-hover);
+}
+
+html.dark .u-btn:not(.u-btn--text):hover,
+html.dark .u-btn.el-button:not(.u-btn--text):hover,
+html.dark a.u-btn:not(.u-btn--text):hover {
+  box-shadow: var(--_u-shadow-hover);
+}
+
+.u-btn:not(.u-btn--text):active,
+.u-btn.el-button:not(.u-btn--text):active,
+a.u-btn:not(.u-btn--text):active {
+  transform: translate(var(--_u-lift-active), var(--_u-lift-active));
+  box-shadow: var(--_u-shadow-active);
+  filter: none;
+}
+
+html.dark .u-btn:not(.u-btn--text):active,
+html.dark .u-btn.el-button:not(.u-btn--text):active,
+html.dark a.u-btn:not(.u-btn--text):active {
+  box-shadow: var(--_u-shadow-active);
+}
+
+/* 尺寸 */
+.u-btn--sm,
+.u-btn--sm.el-button {
+  padding: 6px 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.u-btn--lg,
+.u-btn--lg.el-button {
+  /* 稍微更高一点，并覆盖 .u-btn 的 padding: ... !important */
+  padding: 14px 22px !important;
+}
+
+/* 语义变体：对齐 Uiineed 色板 */
+.u-btn--primary,
+.u-btn--primary.el-button {
+  --_u-bg: var(--u-bg-submit);
+}
+
+.u-btn--success,
+.u-btn--success.el-button {
+  --_u-bg: var(--u-bg-completed);
+}
+
+.u-btn--danger,
+.u-btn--danger.el-button {
+  --_u-bg: var(--u-bg-discard);
+}
+
+.u-btn--neutral,
+.u-btn--neutral.el-button {
+  --_u-bg: var(--u-bg-normal);
+}
+
+.u-btn--ghost,
+.u-btn--ghost.el-button {
+  --_u-bg: rgba(255, 255, 255, 0.75);
+}
+
+/* 文本/链接按钮（用于“返回”“编辑/删除”等轻操作） */
+.u-btn--text,
+.u-btn--text.el-button {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.u-btn--text:hover,
+.u-btn--text.el-button:hover {
+  transform: none;
+  filter: none;
+  text-decoration: underline;
+}
+
+/* 禁用态：兼容原生 disabled 与 ElementPlus is-disabled */
+.u-btn:disabled,
+.u-btn[aria-disabled='true'],
+.u-btn.el-button.is-disabled,
+.u-btn.el-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  filter: grayscale(0.2);
+  box-shadow: var(--u-box-shadow) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Q 弹交互：未挂 .u-btn 的 Element Plus 按钮（与 Home 主按钮一致）              */
+/* -------------------------------------------------------------------------- */
+
+html:not(.dark) .el-button.el-button--primary:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background-color: var(--u-bg-submit) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:not(.dark) .el-button.el-button--default:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-normal) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:not(.dark) .el-button.el-button--success:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-completed) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:not(.dark) .el-button.el-button--warning:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-normal) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:not(.dark) .el-button.el-button--danger:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-discard) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:not(.dark) .el-button.el-button--info:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-body-bg) !important;
+  border: 2px solid var(--u-black) !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:not(.dark) .el-button.el-button--primary:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html:not(.dark) .el-button.el-button--default:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html:not(.dark) .el-button.el-button--success:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html:not(.dark) .el-button.el-button--warning:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html:not(.dark) .el-button.el-button--danger:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html:not(.dark) .el-button.el-button--info:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--u-black) !important;
+}
+
+html:not(.dark) .el-button.el-button--primary:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html:not(.dark) .el-button.el-button--default:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html:not(.dark) .el-button.el-button--success:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html:not(.dark) .el-button.el-button--warning:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html:not(.dark) .el-button.el-button--danger:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html:not(.dark) .el-button.el-button--info:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--u-black) !important;
+}
+
+/* 深色：立体按钮同步 Q 弹（阴影用纯黑） */
+html.dark .el-button.el-button--primary:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-submit) !important;
+  border: 2px solid var(--u-stroke) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.dark .el-button.el-button--default:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-normal) !important;
+  border: 2px solid var(--u-stroke) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.dark .el-button.el-button--success:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-completed) !important;
+  border: 2px solid var(--u-stroke) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.dark .el-button.el-button--warning:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-normal) !important;
+  border: 2px solid var(--u-stroke) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.dark .el-button.el-button--danger:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-discard) !important;
+  border: 2px solid var(--u-stroke) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.dark .el-button.el-button--info:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled) {
+  background: var(--u-bg-muted) !important;
+  border: 2px solid var(--u-stroke) !important;
+  box-shadow: 4px 4px 0 #000000 !important;
+  color: var(--u-black) !important;
+  font-weight: 800;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html.dark .el-button.el-button--primary:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html.dark .el-button.el-button--default:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html.dark .el-button.el-button--success:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html.dark .el-button.el-button--warning:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html.dark .el-button.el-button--danger:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover,
+html.dark .el-button.el-button--info:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000000 !important;
+}
+
+html.dark .el-button.el-button--primary:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html.dark .el-button.el-button--default:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html.dark .el-button.el-button--success:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html.dark .el-button.el-button--warning:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html.dark .el-button.el-button--danger:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active,
+html.dark .el-button.el-button--info:not(.u-btn):not(.is-text):not(.is-link):not(.is-circle):not(.is-disabled):active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 #000000 !important;
+}
+
+/* ElementPlus：移除默认 padding/边框，避免和自定义冲突 */
+/* Element Plus：u-btn 直接覆盖其默认样式即可；不要在这里重置边框/阴影 */
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    /* 固定尺寸，无需grid */
+  }
+}

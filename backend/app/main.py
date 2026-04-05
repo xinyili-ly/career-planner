@@ -25,6 +25,7 @@ from app.utils.career_report_module1 import generate_module_1
 from app.utils.career_report_module2 import generate_module_2
 from app.utils.career_report_module3 import generate_module_3
 from app.utils.career_report_module4 import generate_module_4
+from app.api import positions
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -1625,3 +1626,19 @@ async def generate_match_report(request: MatchReportRequest):
             "module_4": module_4,
         },
     }
+
+
+# 合并远程：岗位画像路由 + 版本头 + 健康检查
+@app.middleware("http")
+async def add_version_header(request, call_next):
+    response = await call_next(request)
+    response.headers["X-API-Version"] = "1"
+    return response
+
+
+app.include_router(positions.router)
+
+
+@app.get("/health", summary="健康检查")
+async def health_check():
+    return {"status": "healthy"}
