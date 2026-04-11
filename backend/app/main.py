@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import positions
+from app.api import positions, auth_json
 
 # 创建FastAPI应用实例
 app = FastAPI(
@@ -27,6 +27,7 @@ async def add_version_header(request, call_next):
 
 # 注册路由
 app.include_router(positions.router)
+app.include_router(auth_json.router)
 
 # 根路径
 @app.get("/", summary="API信息")
