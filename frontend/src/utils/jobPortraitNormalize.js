@@ -160,6 +160,19 @@ export function normalizeDetailExtras(raw) {
     ''
   )
 
+  const tagline = normalizeText(
+    raw.tagline ||
+      raw.slogan ||
+      raw.motto ||
+      raw.catchphrase ||
+      raw.one_sentence ||
+      raw.oneSentence ||
+      raw.representative_quote ||
+      raw.representativeQuote ||
+      '',
+    ''
+  )
+
   let skillBullets = normalizeStringArray(raw.skill_requirements || raw.skills || raw.skill_list)
   if (
     typeof raw.skill_requirements === 'string' &&
@@ -204,6 +217,7 @@ export function normalizeDetailExtras(raw) {
 
   return {
     heroImage: hero,
+    tagline,
     skillBullets,
     skillHtml,
     conditions,
@@ -259,5 +273,19 @@ export function loadJobListItemFromCache(id) {
     return parsed?.byId?.[String(id)] ?? null
   } catch {
     return null
+  }
+}
+
+/** 读取缓存中的岗位原始列表（用于首屏快速渲染岗位卡片） */
+export function loadJobListFromCache() {
+  try {
+    const raw = sessionStorage.getItem(JOB_LIST_CACHE_KEY)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    const byId = parsed?.byId
+    if (!byId || typeof byId !== 'object') return []
+    return Object.values(byId).filter((item) => item && typeof item === 'object')
+  } catch {
+    return []
   }
 }

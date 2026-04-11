@@ -13,8 +13,12 @@
         </div>
         <div class="hero-overlay">
           <h1 class="job-name">{{ displayJobName }}</h1>
+          <p v-if="representativeQuote" class="job-quote">{{ representativeQuote }}</p>
           <p class="job-tag-line">
-            {{ job.field }} · {{ job.company }}
+            {{ job.field
+            }}<span v-if="job.company && job.company !== '示例公司'">
+              · {{ job.company }}</span
+            >
           </p>
         </div>
       </section>
@@ -171,45 +175,6 @@
         />
       </section>
 
-      <!-- 学长学姐有话说（评论区简化） -->
-      <section class="section-card">
-        <h2 class="section-title">学长学姐有话说</h2>
-        <div class="comment-list">
-          <div
-            v-for="(comment, index) in demoComments"
-            :key="index"
-            class="comment-item"
-          >
-            <div class="avatar"></div>
-            <div class="comment-content">
-              <div class="comment-header">
-                <span class="author">{{ comment.author }}</span>
-                <span class="time">{{ comment.time }}</span>
-              </div>
-              <p class="comment-text">
-                {{ comment.text }}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="comment-input">
-          <el-input
-            v-model="newComment"
-            type="textarea"
-            :rows="2"
-            placeholder="你可以根据真实设计图，在这里补充评论功能逻辑..."
-          />
-          <el-button
-            type="primary"
-            class="comment-btn u-btn u-btn--primary"
-            @click="handleSend"
-          >
-            发表
-          </el-button>
-        </div>
-      </section>
-
       <!-- 底部引导：探索更多岗位 -->
       <section class="page-bottom-cta">
         <p class="bottom-cta-text">想了解其他岗位的画像与换岗路径？</p>
@@ -232,6 +197,16 @@ import { getJobPortrait } from '../data/jobPortraits'
 import { getJobDetail } from '../api/jobPortraitApi'
 import { formatJobPortraitApiError } from '../api/jobPortraitErrors'
 import JobPortraitPathChart from '../components/JobPortraitPathChart.vue'
+import javaJobPortrait from '../assets/java-job-portrait.png'
+import qaJobPortrait from '../assets/qa-job-portrait.png'
+import cppJobPortrait from '../assets/cpp-job-portrait.png'
+import implementationJobPortrait from '../assets/implementation-job-portrait.png'
+import hardwareTestJobPortrait from '../assets/hardware-test-job-portrait.png'
+import frontendJobPortrait from '../assets/frontend-job-portrait.png'
+import techSupportJobPortrait from '../assets/tech-support-job-portrait.png'
+import testEngineerJobPortrait from '../assets/test-engineer-job-portrait.png'
+import researcherJobPortrait from '../assets/researcher-job-portrait.png'
+import contentReviewJobPortrait from '../assets/content-review-job-portrait.png'
 import {
   loadJobListItemFromCache,
   portraitFromMergedRaw,
@@ -250,6 +225,36 @@ const defaultSkillBullets = [
 
 /** 优先使用接口 hero_image / cover_url；无则使用默认配图 */
 const heroImageSrc = computed(() => {
+  const titleCandidate = `${route.query.title || ''} ${jobPortrait.value?.name || ''}`
+  if (/java/i.test(titleCandidate)) return javaJobPortrait
+  if (/(c\/c\+\+|c\+\+|\\bc\\b|嵌入式|系统开发|驱动开发|底层|linux内核|rtos)/i.test(titleCandidate)) return cppJobPortrait
+  if (/(实施工程师|系统实施|实施顾问|部署工程师|交付工程师|运维实施|上线实施|deployment)/i.test(titleCandidate)) {
+    return implementationJobPortrait
+  }
+  if (/(硬件测试|板级测试|芯片验证|可靠性测试|信号完整性|硬件验证|hardware test|verification)/i.test(titleCandidate)) {
+    return hardwareTestJobPortrait
+  }
+  if (/(前端开发|前端工程师|web前端|web 前端|frontend|front-end)/i.test(titleCandidate)) {
+    return frontendJobPortrait
+  }
+  if (/(技术支持工程师|技术支持|技术服务|support engineer|technical support)/i.test(titleCandidate)) {
+    return techSupportJobPortrait
+  }
+  if (
+    !/(硬件测试|板级测试|芯片验证|可靠性测试|信号完整性|硬件验证|hardware test|verification)/i.test(titleCandidate) &&
+    /(测试工程师|测试开发|test engineer|testing engineer)/i.test(titleCandidate)
+  ) {
+    return testEngineerJobPortrait
+  }
+  if (/(科研人员|科学研究人员|研究员|科研工程师|scientist|researcher)/i.test(titleCandidate)) {
+    return researcherJobPortrait
+  }
+   if (/(内容审核|内容审查|审核专员|风控审核|content moderator|content review)/i.test(titleCandidate)) {
+    return contentReviewJobPortrait
+  }
+  // 软件测试/QA（优先级低于“测试工程师/测试开发”，避免覆盖）
+  if (/(软件测试|qa|quality assurance)/i.test(titleCandidate)) return qaJobPortrait
+
   const url = jobPortrait.value?.heroImage?.trim()
   if (url) return url
   return '/iot-debugger.jpg'
@@ -278,6 +283,30 @@ const job = computed(() => {
 })
 
 const displayJobName = computed(() => jobPortrait.value?.name || job.value.name)
+
+const representativeQuote = computed(() => {
+  if (loadingPortrait.value) return ''
+  const fromApi = (jobPortrait.value?.tagline || '').trim()
+  if (fromApi) return fromApi
+
+  const name = String(displayJobName.value || '').trim()
+  if (!name) return ''
+
+  if (/(数据分析|数据挖掘|商业分析)/.test(name)) return '用数据讲故事，用洞察做决策。'
+  if (/(算法|机器学习|深度学习|ai|人工智能)/i.test(name)) return '让模型落地，用算法驱动增长。'
+  if (/(产品经理|产品运营|产品)/.test(name)) return '把问题想清楚，把方案做出来。'
+  if (/(前端|web|front-end|frontend)/i.test(name)) return '让交互更顺滑，让体验更有温度。'
+  if (/(后端|服务端|server|backend)/i.test(name)) return '稳、快、可扩展，是长期主义的答案。'
+  if (/(测试|qa|质量)/i.test(name)) return '用严谨守住质量，用细节守住口碑。'
+  if (/(运维|sre|devops)/i.test(name)) return '让系统更稳，让故障更少。'
+  if (/(ux|交互|体验|视觉|设计)/i.test(name)) return '以用户为中心，把复杂变简单。'
+  if (/(实施|交付|部署)/.test(name)) return '把方案落地，把价值交付。'
+  if (/(技术支持|客服|support)/i.test(name)) return '用专业解决问题，用耐心赢得信任。'
+  if (/(科研|研究员|研究|researcher|scientist)/i.test(name)) return '在不确定中求证，在探索中前行。'
+  if (/(内容审核|内容审查|风控审核|审核)/.test(name)) return '守住规则边界，护航内容安全。'
+
+  return '把专业做到极致，把价值交付到位。'
+})
 
 const activeTab = ref('skills')
 const loadingPortrait = ref(false)
@@ -459,31 +488,6 @@ const hasEmptyPortrait = computed(() => {
     !(jobPortrait.value?.transfers || []).length
   )
 })
-
-const demoComments = ref([
-  {
-    author: '学长 A',
-    time: '刚刚',
-    text: '这里可以放你根据第二张设计图整理的真实心得内容。'
-  },
-  {
-    author: '学姐 B',
-    time: '1 小时前',
-    text: '比如岗位的实际工作节奏、学习建议、证书推荐等等。'
-  }
-])
-
-const newComment = ref('')
-
-const handleSend = () => {
-  if (!newComment.value.trim()) return
-  demoComments.value.unshift({
-    author: '你',
-    time: '刚刚',
-    text: newComment.value.trim()
-  })
-  newComment.value = ''
-}
 
 </script>
 
@@ -699,6 +703,60 @@ const handleSend = () => {
 
 .hero {
   position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* 从上到下渐变：上部更清晰，下部逐渐变模糊变暗 */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0.10) 35%,
+    rgba(0, 0, 0, 0.22) 70%,
+    rgba(0, 0, 0, 0.30) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 35%,
+    rgba(0, 0, 0, 0.82) 70%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.45) 35%,
+    rgba(0, 0, 0, 0.82) 70%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.hero-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px 18px 22px 22px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 88px;
+  /* 软化底部边界，避免图片与下方内容“硬切” */
+  background: linear-gradient(to bottom, rgba(248, 249, 250, 0) 0%, rgba(248, 249, 250, 0.86) 100%);
+  pointer-events: none;
 }
 
 .hero-image img {
@@ -707,23 +765,70 @@ const handleSend = () => {
   display: block;
   vertical-align: middle;
   background: rgba(255, 255, 255, 0.8);
+  /* 与列表页图片统一：整体稍微提亮、降低一点饱和度与对比度 */
+  filter: brightness(1.08) saturate(0.92) contrast(0.98);
+  transform: scale(1.04);
+  transform-origin: center;
+  border-radius: inherit;
 }
 
 .hero-overlay {
   position: absolute;
-  left: 6vw;
-  bottom: 24px;
+  left: 4.5vw;
+  bottom: 170px;
   color: #fff;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 6px 22px rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  max-width: min(720px, 80vw);
+  padding: 0;
 }
 
 .job-name {
-  font-size: clamp(28px, 2.4vw, 38px);
+  font-size: clamp(70px, 3.2vw, 120px);
+  font-weight: 900;
   margin-bottom: 4px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.job-name::after {
+  content: '';
+  display: block;
+  width: clamp(220px, 24vw, 420px);
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+}
+
+.job-quote {
+  margin: 6px 0 10px;
+  font-size: clamp(40px, 1.4vw, 64px);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  opacity: 0.98;
+  color: rgba(255, 238, 170, 0.98);
+  text-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
 }
 
 .job-tag-line {
-  font-size: clamp(17px, 1.1vw, 20px);
+  font-size: clamp(30px, 1.5vw, 40px);
+  opacity: 0.95;
+}
+
+.job-detail-view.dark .hero::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.16) 35%,
+    rgba(0, 0, 0, 0.30) 70%,
+    rgba(0, 0, 0, 0.40) 100%
+  );
+}
+
+.job-detail-view.dark .hero-image::after {
+  background: linear-gradient(to bottom, rgba(15, 17, 21, 0) 0%, rgba(15, 17, 21, 0.78) 100%);
 }
 
 .section-card {
@@ -874,6 +979,47 @@ const handleSend = () => {
   line-height: 1.5;
 }
 
+/* 重点突出：信息层级与强调样式（亮色） */
+.section-card {
+  color: #1f2328;
+}
+
+.section-card .section-desc {
+  color: rgba(31, 35, 40, 0.72);
+}
+
+.info-list li,
+.two-column,
+.profile-dim-list li,
+.path-node,
+.transfer-path {
+  color: rgba(31, 35, 40, 0.92);
+}
+
+.info-list li {
+  line-height: 1.7;
+}
+
+.info-list li::marker {
+  color: rgba(17, 24, 39, 0.55);
+}
+
+.two-column p {
+  margin: 0 0 10px;
+  line-height: 1.7;
+}
+
+.two-column p strong,
+.rich-text :deep(strong),
+.section-card strong {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(255, 248, 225, 0.95);
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  color: rgba(17, 24, 39, 0.92);
+}
+
 .rich-text {
   font-size: clamp(16px, 1.1vw, 18px);
   line-height: 1.55;
@@ -918,12 +1064,57 @@ const handleSend = () => {
 }
 
 .dim-name {
-  font-weight: 600;
-  margin-right: 4px;
+  display: inline-block;
+  font-weight: 800;
+  margin-right: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(224, 247, 244, 0.85);
+  border: 1px solid rgba(17, 24, 39, 0.14);
 }
 
 .dim-desc {
   color: rgba(51, 50, 46, 0.78);
+}
+
+.path-text,
+.transfer-path-title,
+.bloodline-title {
+  color: rgba(17, 24, 39, 0.92);
+}
+
+.path-desc,
+.transfer-arrow,
+.transfer-gaps,
+.dim-desc {
+  color: rgba(31, 35, 40, 0.72);
+}
+
+/* 暗色模式：同样突出重点但不刺眼 */
+.job-detail-view.dark .section-card {
+  color: var(--dm-text);
+}
+
+.job-detail-view.dark .section-card .section-desc {
+  color: var(--dm-text-secondary);
+}
+
+.job-detail-view.dark .info-list li::marker {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.job-detail-view.dark .two-column p strong,
+.job-detail-view.dark .rich-text :deep(strong),
+.job-detail-view.dark .section-card strong {
+  background: rgba(255, 238, 170, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.job-detail-view.dark .dim-name {
+  background: rgba(167, 139, 250, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .path-block.vertical-path {
@@ -1137,8 +1328,8 @@ const handleSend = () => {
   }
 
   .hero-overlay {
-    left: 16px;
-    bottom: 16px;
+    left: 12px;
+    bottom: 14px;
   }
 }
 </style>

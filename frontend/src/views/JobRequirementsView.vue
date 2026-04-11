@@ -6,14 +6,13 @@
     <main class="page-scroll">
       <!-- 标题与说明 -->
       <section class="hero-title-area">
-        <h1 class="page-title">就业岗位画像</h1>
+        <h1 class="page-title">核心岗位画像库</h1>
         <p class="page-intro">
-          构建不少于 10 个就业岗位画像，涵盖专业技能、证书要求、创新能力、学习能力、
-          抗压能力、沟通能力、实习能力等维度；支持垂直岗位图谱与换岗路径图谱，便于了解晋升与转换路径。
+          依托 AI 大模型深度解构超 10,000 条行业实时招聘数据，结构化沉淀出涵盖计算机信息化核心领域的专业岗位画像。从专业硬实力到职场软素质，全方位解析 AI 时代高影响力职业的胜任力底座。系统不仅精准对标技能鸿沟，更前瞻性地构建了垂直晋升与跨行迁徙的血缘图谱，将碎片化需求转化为清晰的职业进化坐标，助你精准锚定成长路径，实现高质量的职业跃迁。
         </p>
         <div class="icon-row">
           <span
-            v-for="n in 20"
+            v-for="n in 30"
             :key="n"
             class="small-icon"
           >
@@ -22,8 +21,8 @@
         </div>
       </section>
 
-      <section v-if="loadingJobs || jobsError || isUsingMockFallback" class="status-panel">
-        <p v-if="loadingJobs" class="status-text">正在从后端加载岗位列表...</p>
+      <section v-if="(loadingJobs && !hasRenderableJobs) || jobsError || isUsingMockFallback" class="status-panel">
+        <p v-if="loadingJobs && !hasRenderableJobs" class="status-text">正在从后端加载岗位列表...</p>
         <p v-else-if="jobsError" class="status-text status-error">
           岗位接口加载失败：{{ jobsError }}，当前已自动使用本地兜底数据。
         </p>
@@ -34,7 +33,7 @@
 
       <!-- 岗位卡片网格：统一尺寸 + 悬停/点击交互 -->
       <section class="jobs-grid">
-        <div v-if="loadingJobs" class="jobs-skeleton-wrap">
+        <div v-if="loadingJobs && !hasRenderableJobs" class="jobs-skeleton-wrap">
           <el-row :gutter="24" class="job-row">
             <el-col v-for="n in 8" :key="n" :xs="24" :sm="12" :md="6" :lg="6" class="job-col">
               <div class="job-skeleton-card">
@@ -91,7 +90,6 @@
                     一技在身
                     <span class="highlight">{{ job.field }}</span>
                   </p>
-                  <p class="job-company">公司：{{ job.company }}</p>
                   <div class="job-action">
                     <span class="action-text">查看详情</span>
                     <span class="action-arrow">→</span>
@@ -138,9 +136,20 @@ import { getRecommendJobList } from '../api/jobPortraitApi'
 import { formatJobPortraitApiError } from '../api/jobPortraitErrors'
 import {
   extractJobsArray,
+  loadJobListFromCache,
   normalizeText,
   saveJobListCache,
 } from '../utils/jobPortraitNormalize'
+import javaJobPortrait from '../assets/java-job-portrait.png'
+import qaJobPortrait from '../assets/qa-job-portrait.png'
+import cppJobPortrait from '../assets/cpp-job-portrait.png'
+import implementationJobPortrait from '../assets/implementation-job-portrait.png'
+import hardwareTestJobPortrait from '../assets/hardware-test-job-portrait.png'
+import frontendJobPortrait from '../assets/frontend-job-portrait.png'
+import techSupportJobPortrait from '../assets/tech-support-job-portrait.png'
+import testEngineerJobPortrait from '../assets/test-engineer-job-portrait.png'
+import researcherJobPortrait from '../assets/researcher-job-portrait.png'
+import contentReviewJobPortrait from '../assets/content-review-job-portrait.png'
 
 const { theme } = useTheme()
 const router = useRouter()
@@ -158,10 +167,39 @@ const baseJobs = [
   { id: 10, name: 'UX 设计师', field: '体验设计', company: '用户体验设计工作室' }
 ]
 
-const jobs = ref([...baseJobs])
+function mapRawJobsToCards(list) {
+  return list.map((raw, idx) => ({
+    id: raw.id ?? `idx_${idx}`,
+    name: normalizeText(raw.title, `岗位${idx + 1}`),
+    field: fieldFromTags(raw.field_tags),
+    company: normalizeText(raw.company, '—'),
+    coverUrl: (() => {
+      const name = normalizeText(raw.title, `岗位${idx + 1}`)
+      const field = fieldFromTags(raw.field_tags)
+      const url = normalizeText(
+        raw.hero_image || raw.cover_url || raw.image || raw.thumbnail || '',
+        ''
+      )
+      if (isJavaJob(name, field)) return javaJobPortrait
+      if (isCppJob(name, field)) return cppJobPortrait
+      if (isImplementationJob(name, field)) return implementationJobPortrait
+      if (isHardwareTestJob(name, field)) return hardwareTestJobPortrait
+      if (isFrontendJob(name, field)) return frontendJobPortrait
+      if (isTechSupportJob(name, field)) return techSupportJobPortrait
+      if (isGeneralTestEngineerJob(name, field)) return testEngineerJobPortrait
+      if (isResearcherJob(name, field)) return researcherJobPortrait
+      if (isContentReviewJob(name, field)) return contentReviewJobPortrait
+      if (isQaJob(name, field)) return qaJobPortrait
+      return url
+    })(),
+  }))
+}
+
+const cachedRawJobs = loadJobListFromCache()
+const jobs = ref(cachedRawJobs.length ? mapRawJobsToCards(cachedRawJobs) : [...baseJobs])
 const loadingJobs = ref(false)
 const jobsError = ref('')
-const isUsingMockFallback = ref(false)
+const isUsingMockFallback = ref(!cachedRawJobs.length)
 
 const activeCardId = ref(null)
 
@@ -191,6 +229,7 @@ const filteredJobs = computed(() => {
 })
 
 const totalFiltered = computed(() => filteredJobs.value.length)
+const hasRenderableJobs = computed(() => Array.isArray(jobs.value) && jobs.value.length > 0)
 
 const pagedJobs = computed(() => {
   const start = (page.value - 1) * pageSize.value
@@ -207,6 +246,58 @@ function fieldFromTags(tags) {
   return String(t).replace(/\s+/g, '').slice(0, 8) || '泛行业'
 }
 
+function isJavaJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /java/i.test(s)
+}
+
+function isQaJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  // 软件测试/QA（优先级低于“测试工程师/测试开发”，避免覆盖）
+  return /(软件测试|qa|quality assurance)/i.test(s)
+}
+
+function isCppJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(c\/c\+\+|c\+\+|\\bc\\b|嵌入式|系统开发|驱动开发|底层|linux内核|rtos)/i.test(s)
+}
+
+function isImplementationJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(实施工程师|系统实施|实施顾问|部署工程师|交付工程师|运维实施|上线实施|deployment)/i.test(s)
+}
+
+function isHardwareTestJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(硬件测试|板级测试|芯片验证|可靠性测试|信号完整性|硬件验证|hardware test|verification)/i.test(s)
+}
+
+function isFrontendJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(前端开发|前端工程师|web前端|web 前端|frontend|front-end)/i.test(s)
+}
+
+function isTechSupportJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(技术支持工程师|技术支持|技术服务|support engineer|technical support)/i.test(s)
+}
+
+function isGeneralTestEngineerJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  if (/(硬件测试|板级测试|芯片验证|可靠性测试|信号完整性|硬件验证|hardware test|verification)/i.test(s)) return false
+  return /(测试工程师|测试开发|test engineer|testing engineer)/i.test(s)
+}
+
+function isResearcherJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(科研人员|科学研究人员|研究员|科研工程师|scientist|researcher)/i.test(s)
+}
+
+function isContentReviewJob(jobName, field) {
+  const s = `${jobName || ''} ${field || ''}`
+  return /(内容审核|内容审查|审核专员|风控审核|content moderator|content review)/i.test(s)
+}
+
 async function loadJobsFromApi() {
   loadingJobs.value = true
   jobsError.value = ''
@@ -216,16 +307,7 @@ async function loadJobsFromApi() {
     const list = extractJobsArray(res)
     if (Array.isArray(list) && list.length) {
       saveJobListCache(list)
-      jobs.value = list.map((raw, idx) => ({
-        id: raw.id ?? `idx_${idx}`,
-        name: normalizeText(raw.title, `岗位${idx + 1}`),
-        field: fieldFromTags(raw.field_tags),
-        company: normalizeText(raw.company, '—'),
-        coverUrl: normalizeText(
-          raw.hero_image || raw.cover_url || raw.image || raw.thumbnail || '',
-          '',
-        ),
-      }))
+      jobs.value = mapRawJobsToCards(list)
       isUsingMockFallback.value = false
     } else {
       jobsError.value = '岗位列表为空'
@@ -405,7 +487,8 @@ const goToJob = (job) => {
 }
 
 .bottom-intro-text {
-  font-size: clamp(16px, 1.05vw, 18px);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
   color: #64748b;
   line-height: 1.65;
   margin-bottom: 10px;
@@ -416,7 +499,8 @@ const goToJob = (job) => {
 }
 
 .bottom-intro-sub {
-  font-size: clamp(14px, 0.9vw, 16px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
   color: #94a3b8;
   line-height: 1.5;
 }
@@ -429,7 +513,8 @@ const goToJob = (job) => {
   margin-top: 32px;
   padding-top: 24px;
   border-top: 1px solid rgba(148, 163, 184, 0.35);
-  font-size: clamp(14px, 0.9vw, 16px);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-body);
   color: #94a3b8;
   text-align: center;
   width: 100%;
@@ -446,15 +531,18 @@ const goToJob = (job) => {
 }
 
 .page-title {
-  font-size: clamp(32px, 2.6vw, 42px);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-heading);
   letter-spacing: 2px;
   margin-bottom: 12px;
 }
 
 .page-intro {
-  font-size: clamp(17px, 1.1vw, 20px);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
   line-height: 1.6;
-  max-width: 800px;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto 20px;
   color: rgba(51, 50, 46, 0.78);
 }
@@ -467,7 +555,7 @@ const goToJob = (job) => {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 15px;
 }
 
 .small-icon {
@@ -603,7 +691,8 @@ const goToJob = (job) => {
 /* 图片区：统一高度，稍长 */
 .job-image-wrap {
   flex-shrink: 0;
-  height: 168px;
+  /* 稍微加大图片占比，但不改变卡片整体尺寸 */
+  height: 210px;
   overflow: hidden;
   background: var(--u-bg-normal);
 }
@@ -613,12 +702,14 @@ const goToJob = (job) => {
   height: 100%;
   object-fit: cover;
   display: block;
+  /* 轻微提亮，避免整体视觉偏“沉” */
+  filter: brightness(1.08) saturate(0.92) contrast(0.98);
 }
 
 .job-image-placeholder {
   flex-shrink: 0;
-  height: 168px;
-  background: var(--u-bg-normal); /* 纯色：避免蓝色系 */
+  height: 210px;
+  background: rgba(255, 255, 255, 0.72); /* 纯色：避免蓝色系，且更浅 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -626,15 +717,15 @@ const goToJob = (job) => {
 
 /* 纯色交替：米色/粉色/薄荷绿/浅红（仍使用 Uiineed 色板） */
 .job-col:nth-child(4n + 2) .job-image-placeholder {
-  background: var(--u-bg-submit);
+  background: rgba(255, 248, 225, 0.78); /* 米色系更浅 */
 }
 
 .job-col:nth-child(4n + 3) .job-image-placeholder {
-  background: var(--u-bg-completed);
+  background: rgba(255, 235, 248, 0.78); /* 粉色系更浅 */
 }
 
 .job-col:nth-child(4n) .job-image-placeholder {
-  background: var(--u-bg-discard);
+  background: rgba(220, 245, 234, 0.78); /* 薄荷绿系更浅 */
 }
 
 .placeholder-text {
@@ -643,7 +734,7 @@ const goToJob = (job) => {
 }
 
 .jobs-view.dark .job-image-placeholder {
-  background: var(--dm-surface-card);
+  background: rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid var(--dm-border);
 }
 
@@ -653,15 +744,15 @@ const goToJob = (job) => {
 
 /* 暗色模式下仍保持纯色（用低透明度来保证对比度，不使用蓝色） */
 .jobs-view.dark .job-col:nth-child(4n + 2) .job-image-placeholder {
-  background: rgba(255, 214, 233, 0.22);
+  background: rgba(255, 214, 233, 0.30);
 }
 
 .jobs-view.dark .job-col:nth-child(4n + 3) .job-image-placeholder {
-  background: rgba(208, 244, 240, 0.22);
+  background: rgba(208, 244, 240, 0.30);
 }
 
 .jobs-view.dark .job-col:nth-child(4n) .job-image-placeholder {
-  background: rgba(255, 240, 238, 0.22);
+  background: rgba(255, 240, 238, 0.30);
 }
 
 /* 信息区：统一 padding，底部对齐「查看详情」 */
@@ -672,7 +763,7 @@ const goToJob = (job) => {
   padding: 18px 20px 20px;
   background: transparent;
   color: var(--u-black);
-  min-height: 160px;
+  min-height: 120px; /* 配合图片高度增加，避免卡片被撑高 */
 }
 
 .jobs-view.dark .job-info {

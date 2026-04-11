@@ -61,30 +61,70 @@
       <div class="content-spacer" aria-hidden="true" />
 
       <div class="story-card">
-        <p class="tagline">初心与使用方法</p>
-        <h2 class="title">从画像到行动的职业探索</h2>
+        <h2 class="title">从画像到行动的职业探索指南</h2>
 
         <div class="step">
-          <span class="num">01</span>
-          <h3>启动与进入流程</h3>
-          <p>运行项目后，从首页进入“就业岗位画像/学生就业能力”；可切换主题（自动本地记忆）。</p>
-        </div>
-        <div class="step">
-          <span class="num">02</span>
-          <h3>岗位画像与能力评分</h3>
-          <p>岗位优先请求后端（`/recommend/list`），失败则回退本地兜底；查看岗位维度、晋升与换岗路径，再生成学生能力画像。</p>
-        </div>
-        <div class="step">
-          <span class="num">03</span>
-          <h3>匹配报告与训练计划</h3>
-          <p>在“匹配与报告”选定目标岗位生成报告；进入“能力培训计划”查看甘特图与 To Do（增删改查并自动本地保存）。</p>
+          <h3 class="step-head">
+            <span class="num">01</span>
+            <span class="step-head-text">| 启动与环境接入流程</span>
+          </h3>
+          <p class="step-meta">[ 核心动作：项目初始化 · 视觉主题定义 ]</p>
+          <p>
+            <strong>快速启动：</strong>
+            运行项目后，从首页（Index）一键直达<strong>「就业岗位画像」或「学生能力画像」</strong>核心入口。
+          </p>
+          <p>
+            <strong>个性化感知：</strong>
+            通过顶栏切换<strong>浅色/深色（深邃科技）</strong>主题。系统利用 localStorage
+            自动记忆你的视觉偏好，确保每次开启「职业奥德赛」之旅时，界面始终符合你的审美直觉。
+          </p>
         </div>
 
-        <div class="cta-wrapper">
-          <el-button class="u-btn--primary" type="primary" @click="handleAction">
-            开始填写画像
-          </el-button>
-          <p class="footer-note">* 本地演示版说明：部分解析/生成为示例数据，To Do 会保存到本地。</p>
+        <div class="step">
+          <h3 class="step-head">
+            <span class="num">02</span>
+            <span class="step-head-text">| 维度画像与深度评分</span>
+          </h3>
+          <p class="step-meta">[ 核心动作：岗位透视 · 能力拆解 · 路径演化 ]</p>
+          <p>
+            <strong>岗位深度洞察：</strong>
+            优先调取后端动态数据（<code>/recommend/list</code>），若网络受限则自动激活本地数据兜底。解析
+            7 大核心维度要求，同步开启「垂直晋升」与「横向换岗」血缘图谱，预判职业天花板。
+          </p>
+          <p>
+            <strong>学生能力建模：</strong>
+            通过简历解析或 AI 对话，将个人经历转化为结构化画像。系统实时计算完整度与竞争力评分，将模糊的「自我介绍」转化为可量化的数字化核心竞争力。
+          </p>
+        </div>
+
+        <div class="step">
+          <h3 class="step-head">
+            <span class="num">03</span>
+            <span class="step-head-text">| 匹配报告与实战训练计划</span>
+          </h3>
+          <p class="step-meta">[ 核心动作：契合度对标 · 动态执行 · 本地持久化 ]</p>
+          <p>
+            <strong>智能报告生成：</strong>
+            在「匹配与报告」模块选定目标岗位，AI 自动执行四维能力对标，识别技能鸿沟，生成可润色、可导出的个性化职业生涯发展报告。
+          </p>
+          <p>
+            <strong>能力进化闭环：</strong>
+            进入「能力培训计划」，系统自动排布 12 周阶梯式甘特图。支持对 To Do
+            任务清单进行增删改查，所有进度与调整均实现本地自动保存，确保你的每一个成长节点都精准落地。
+          </p>
+        </div>
+
+        <div class="story-tips">
+          <p class="tips-lead">💡 操作小贴士：</p>
+          <p>
+            <strong>优先体验：</strong>
+            建议先在 02 中完成简历解析，再进入 03 生成报告，这样 AI
+            才能基于你的真实画像给出精准建议。
+          </p>
+          <p>
+            <strong>数据保障：</strong>
+            即使在离线演示状态下，系统依然能凭借内置的 mock data 跑通全流程，保证演示的连续性。
+          </p>
         </div>
       </div>
 
@@ -95,11 +135,9 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
 
 const { theme } = useTheme()
-const router = useRouter()
 
 const sectionRef = ref(null)
 const contentRef = ref(null)
@@ -116,10 +154,6 @@ function handleContentScroll(e) {
   const maxScroll = scrollHeight - clientHeight
   const scrollPercent = maxScroll > 0 ? scrollTop / maxScroll : 0
   scrollRotation.value = scrollPercent * 1080
-}
-
-function handleAction() {
-  router.push({ name: 'StudentAbilities' })
 }
 
 let observer = null
@@ -494,93 +528,120 @@ onUnmounted(() => {
 .story-card {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-}
-
-.tagline {
-  color: #3b82f6;
-  font-weight: 800;
-  letter-spacing: 2px;
-  font-size: clamp(11px, 1.1vw, 13px);
-  margin: 0;
+  gap: clamp(26px, 3.2vw, 34px);
+  max-width: min(46rem, 100%);
+  margin-left: clamp(32px, 4.2vw, 64px);
 }
 
 .title {
   font-size: clamp(26px, 3.5vw, 42px);
   font-weight: 900;
-  margin: 0 0 20px;
-  line-height: 1.15;
+  margin: 0;
+  padding-bottom: clamp(12px, 1.6vw, 18px);
+  line-height: 1.18;
   color: #111;
+  border-bottom: 2px solid rgba(17, 17, 17, 0.1);
 }
 
 .step {
-  border-bottom: 2px dashed #ccc;
-  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+  padding-bottom: clamp(22px, 2.8vw, 30px);
 }
 
 .step:last-of-type {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
-.step .num {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(20px, 2.2vw, 24px);
-  color: #ffb8d9;
-  font-style: italic;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.step h3 {
-  font-size: clamp(18px, 1.5vw, 22px);
+.step-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 0.4em;
+  font-size: clamp(17px, 1.45vw, 21px);
   font-weight: 800;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
+  line-height: 1.32;
   color: #111;
 }
 
-.step p {
-  margin: 0;
-  line-height: 1.6;
-  color: #666;
-  font-size: clamp(14px, 1.1vw, 17px);
+.step-head .num {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(19px, 2vw, 23px);
+  color: #ffb8d9;
+  font-style: italic;
+  font-weight: bold;
 }
 
-.cta-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 14px;
-  padding-top: 8px;
-}
-
-.footer-note {
-  margin: 0;
-  font-size: 12px;
-  color: rgba(0, 0, 0, 0.45);
+.step-meta {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  color: #555;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   line-height: 1.5;
-  max-width: 420px;
+  background: rgba(17, 17, 17, 0.04);
+  border-radius: 10px;
+  border-left: 3px solid #ffb8d9;
 }
 
-.u-btn--primary {
-  background: #fde047 !important;
-  color: #000 !important;
-  font-weight: 900 !important;
-  border: 3px solid #000 !important;
-  box-shadow: 6px 6px 0 #000 !important;
-  padding: 25px 40px !important;
-  border-radius: 15px !important;
-  height: auto !important;
+.step p {
+  margin: 0 0 14px;
+  line-height: 1.72;
+  color: #555;
+  font-size: clamp(14px, 1.05vw, 16.5px);
 }
 
-.u-btn--primary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 8px 8px 0 #000 !important;
+.step p:last-child {
+  margin-bottom: 0;
 }
 
-.u-btn--primary:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #000 !important;
+.step p strong {
+  font-weight: 800;
+  color: #1a1a1a;
+}
+
+.step code {
+  font-size: 0.9em;
+  padding: 0.15em 0.45em;
+  background: rgba(0, 0, 0, 0.07);
+  border-radius: 5px;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+}
+
+.story-tips {
+  margin-top: clamp(4px, 0.6vw, 8px);
+  padding: clamp(18px, 2.2vw, 22px) clamp(16px, 2vw, 20px);
+  border-radius: 14px;
+  background: rgba(59, 130, 246, 0.07);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.story-tips p {
+  margin: 0 0 14px;
+  line-height: 1.72;
+  color: #555;
+  font-size: clamp(14px, 1.05vw, 16.5px);
+}
+
+.story-tips p:last-child {
+  margin-bottom: 0;
+}
+
+.tips-lead {
+  font-weight: 800;
+  color: #111;
+  font-size: clamp(14px, 1.1vw, 16px);
+  margin: 0 0 12px !important;
+}
+
+.story-tips p strong {
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
 /* 深色主题：与全局 --u-body-bg（html.dark）一致 */
@@ -592,21 +653,44 @@ onUnmounted(() => {
   background: var(--u-body-bg);
 }
 
-.vinyl-pro--dark .title,
-.vinyl-pro--dark .step h3 {
+.vinyl-pro--dark .title {
+  color: var(--dm-text, #e4e4e4);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+}
+
+.vinyl-pro--dark .step-head,
+.vinyl-pro--dark .tips-lead {
   color: var(--dm-text, #e4e4e4);
 }
 
-.vinyl-pro--dark .step p {
+.vinyl-pro--dark .step p,
+.vinyl-pro--dark .story-tips p {
   color: var(--dm-text-secondary, rgba(228, 228, 228, 0.78));
 }
 
-.vinyl-pro--dark .step {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
+.vinyl-pro--dark .step p strong,
+.vinyl-pro--dark .story-tips p strong {
+  color: var(--dm-text, #e4e4e4);
 }
 
-.vinyl-pro--dark .footer-note {
-  color: var(--dm-text-muted, rgba(228, 228, 228, 0.48));
+.vinyl-pro--dark .step-meta {
+  color: var(--dm-text-secondary, rgba(228, 228, 228, 0.78));
+  background: rgba(255, 255, 255, 0.06);
+  border-left-color: rgba(255, 184, 217, 0.85);
+}
+
+.vinyl-pro--dark .step code {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--dm-text, #e4e4e4);
+}
+
+.vinyl-pro--dark .step {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.vinyl-pro--dark .story-tips {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 @media (max-width: 900px) {
@@ -640,11 +724,6 @@ onUnmounted(() => {
 
   .vinyl-content {
     scroll-behavior: auto;
-  }
-
-  .u-btn--primary:hover,
-  .u-btn--primary:active {
-    transform: none;
   }
 }
 </style>

@@ -424,19 +424,17 @@ onMounted(() => {
 }
 
 .panel {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(51, 50, 46, 0.08) 1.6px, transparent 2.3px)
-      0 0 / 28px 28px,
-    linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  /* 背景统一为主界面同款纯蓝：不使用波点/渐变 */
+  background: var(--u-body-bg);
   border-radius: 18px;
   padding: 22px 22px 24px;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+  box-shadow: none;
 }
 
 .plan-generated-view.dark .panel {
   background: var(--dm-gradient-card);
   border: 1px solid var(--dm-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .top-head {
@@ -476,7 +474,9 @@ onMounted(() => {
 
 .section-title {
   margin: 0;
-  font-size: clamp(20px, 1.4vw, 26px);
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .section-desc {
@@ -533,23 +533,25 @@ onMounted(() => {
 }
 
 .gantt {
-  border-radius: 16px;
-  background: var(--u-panel);
-  border: 1px solid var(--u-border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(249, 243, 229, 0.82), rgba(232, 246, 255, 0.62));
+  border: 1px solid rgba(51, 50, 46, 0.16);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
   overflow: hidden;
 }
 
 .plan-generated-view.dark .gantt {
-  background: var(--dm-surface-card);
+  background: rgba(255, 255, 255, 0.04);
   border-color: var(--dm-border);
+  box-shadow: none;
 }
 
 .gantt-head {
   display: grid;
   grid-template-columns: 160px repeat(12, 1fr);
   align-items: center;
-  background: #f8fafc;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(232, 246, 255, 0.58);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .plan-generated-view.dark .gantt-head {
@@ -578,8 +580,8 @@ onMounted(() => {
 .gantt-row {
   display: grid;
   grid-template-columns: 160px 1fr;
-  min-height: 74px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+  min-height: 78px;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.2);
 }
 
 .gantt-row:last-child {
@@ -589,10 +591,11 @@ onMounted(() => {
 .row-label {
   padding: 14px 12px;
   font-weight: 700;
-  background: #fbfdff;
+  background: rgba(249, 243, 229, 0.7);
   color: #334155;
   display: flex;
   align-items: center;
+  border-right: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .plan-generated-view.dark .row-label {
@@ -605,24 +608,25 @@ onMounted(() => {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
-  padding: 10px 12px;
+  padding: 12px 14px;
   gap: 10px;
 }
 
 .bar {
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 10px 12px;
   color: var(--u-black);
   font-size: 13px;
   line-height: 1.25;
-  box-shadow: 2px 2px 0px var(--u-black);
-  border: var(--u-border);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(51, 50, 46, 0.16);
 }
 
 .plan-generated-view.dark .bar {
   background: rgba(255, 255, 255, 0.06);
   color: var(--dm-text);
-  border-color: var(--dm-border);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: none;
 }
 
 .bar.mint {
@@ -635,7 +639,8 @@ onMounted(() => {
 }
 .bar.yellow {
   /* 黄色系：normal 纸张黄 */
-  background: linear-gradient(90deg, var(--u-bg-normal), var(--u-fade-normal));
+  /* 移除偏黄底色：改用更中性的“页面底”柔和渐变 */
+  background: linear-gradient(90deg, var(--u-body-bg), var(--u-fade-body));
 }
 .bar.pink {
   /* 粉色系：submit 粉 */
@@ -729,7 +734,8 @@ onMounted(() => {
   align-items: start;
   padding: 10px 10px;
   border-radius: var(--u-border-radius);
-  background: var(--u-bg-normal);
+  /* 移除偏黄默认底色：改用更中性的页面底 */
+  background: var(--u-body-bg);
   border: var(--u-border);
   box-shadow: var(--u-box-shadow);
 }
@@ -825,7 +831,8 @@ onMounted(() => {
 }
 
 .todo-tag {
-  background: var(--u-normal);
+  /* 移除偏黄标签底色（短期 W 标签） */
+  background: var(--u-bg-muted);
   color: var(--u-black);
 }
 

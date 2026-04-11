@@ -1,0 +1,597 @@
+{
+  "generated_at": "2026-03-15",
+  "total_skills": 50,
+  "failed_skills": [],
+  "learning_paths": {
+    "Java": {
+      "skill_name": "Java",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {
+          "duration_weeks": 4,
+          "goal": "掌握Java基础语法",
+          "weekly_plan": ["变量、数据类型、运算符", "流程控制语句", "数组、面向对象基础", "常用类库、异常处理"],
+          "resources": {"official": "Oracle官方文档", "courses": ["Java基础", "Think in Java"], "practice": "LeetCode简单题"},
+          "acceptance": {"skill": {"criteria": "能独立编写Java控制台程序"}, "project": {"name": "Java基础练习集", "description": "包含各类基础语法的练习代码", "features": ["基础语法", "面向对象", "异常处理"]}, "resume": "掌握Java基础语法和面向对象编程"}
+        },
+        "intermediate": {
+          "duration_weeks": 4,
+          "goal": "掌握Spring Boot开发",
+          "weekly_plan": ["Spring Boot核心特性", "RESTful API设计", "数据库集成、事务管理", "安全认证、测试"],
+          "resources": {"official": "Spring官方文档", "courses": ["Spring Boot实战", "Java高级教程"], "practice": "Spring Boot项目实战"},
+          "acceptance": {"skill": {"criteria": "能独立完成Spring Boot Web项目"}, "project": {"name": "Spring Boot企业管理系统", "description": "后台管理系统", "features": ["用户管理", "权限控制", "CRUD"]}, "resume": "熟悉Spring Boot，具备Web开发能力"}
+        },
+        "advanced": {
+          "duration_weeks": 4,
+          "goal": "掌握微服务架构",
+          "weekly_plan": ["微服务设计原则", "Spring Cloud组件", "服务治理、分布式事务", "容器化部署"],
+          "resources": {"official": "Spring Cloud文档", "courses": ["微服务架构实战"], "practice": "微服务项目实战"},
+          "acceptance": {"skill": {"criteria": "能设计微服务架构系统"}, "project": {"name": "微服务电商平台", "description": "分布式电商后端", "features": ["服务拆分", "API网关", "容器部署"]}, "resume": "具备微服务架构设计经验"}
+        }
+      }
+    },
+    "Python": {
+      "skill_name": "Python",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Python基础", "weekly_plan": ["环境搭建、基本语法", "函数、模块", "数据结构、文件操作", "异常处理、正则"], "resources": {"official": "Python官方文档", "courses": ["Python入门", "廖雪峰教程"], "practice": "LeetCode简单题"}, "acceptance": {"skill": {"criteria": "能独立编写Python脚本"}, "project": {"name": "Python脚本工具集", "description": "常用脚本集合", "features": ["数据处理", "文件操作", "日志分析"]}, "resume": "熟练使用Python进行数据处理"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Web开发能力", "weekly_plan": ["面向对象、常用库", "Flask/Django框架", "数据库操作", "API开发、测试"], "resources": {"official": "Flask/Django文档", "courses": ["Python Web开发"], "practice": "Web项目实战"}, "acceptance": {"skill": {"criteria": "能完成Web后端开发"}, "project": {"name": "RESTful API服务", "description": "Flask/Django后端", "features": ["用户认证", "数据库CRUD", "API文档"]}, "resume": "具备Python Web开发能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高性能编程", "weekly_plan": ["异步编程、并发", "缓存、消息队列", "微服务架构", "性能优化部署"], "resources": {"official": "Python官方文档", "courses": ["Python高级编程"], "practice": "高性能项目实战"}, "acceptance": {"skill": {"criteria": "能设计高性能Python应用"}, "project": {"name": "微服务电商后端", "description": "高性能系统", "features": ["异步处理", "服务编排", "容器化"]}, "resume": "具备大型项目架构设计能力"}}
+      }
+    },
+    "Spring Boot": {
+      "skill_name": "Spring Boot",
+      "category": "skill",
+      "category_name": "后端框架",
+      "sub_type": "backend_framework",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Spring Boot基础", "weekly_plan": ["Spring Boot核心概念", "快速构建项目", "RESTful API开发", "数据库集成基础"], "resources": {"official": "Spring Boot官方文档", "courses": ["Spring Boot入门"], "practice": "小项目实战"}, "acceptance": {"skill": {"criteria": "能快速搭建Spring Boot项目"}, "project": {"name": "Spring Boot小项目", "description": "基础CRUD应用", "features": ["增删改查", "简单页面"]}, "resume": "掌握Spring Boot快速开发"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握企业级开发", "weekly_plan": ["Spring Data JPA/MyBatis", "事务管理", "安全框架集成", "缓存与日志"], "resources": {"official": "Spring官方文档", "courses": ["Spring Boot实战"], "practice": "企业项目实战"}, "acceptance": {"skill": {"criteria": "能完成企业级Web开发"}, "project": {"name": "企业管理系统", "description": "后台管理系统", "features": ["用户权限", "业务模块", "日志审计"]}, "resume": "熟悉Spring Boot企业级开发"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握微服务架构", "weekly_plan": ["Spring Cloud组件", "服务注册与发现", "配置中心、网关", "容器化部署"], "resources": {"official": "Spring Cloud文档", "courses": ["微服务架构"], "practice": "微服务项目"}, "acceptance": {"skill": {"criteria": "能设计微服务架构"}, "project": {"name": "微服务电商平台", "description": "分布式架构", "features": ["服务拆分", "熔断限流", "DevOps"]}, "resume": "具备微服务架构设计能力"}}
+      }
+    },
+    "Spring Cloud": {
+      "skill_name": "Spring Cloud",
+      "category": "skill",
+      "category_name": "后端框架",
+      "sub_type": "backend_framework",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Spring Cloud基础", "weekly_plan": ["微服务架构概念", "服务注册与发现", "负载均衡", "配置中心基础"], "resources": {"official": "Spring Cloud文档", "courses": ["微服务入门"], "practice": "小微服务项目"}, "acceptance": {"skill": {"criteria": "理解微服务架构原理"}, "project": {"name": "微服务小项目", "description": "基础微服务", "features": ["服务注册", "调用"]}, "resume": "了解Spring Cloud微服务架构"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握核心组件", "weekly_plan": ["Feign远程调用", "Hystrix熔断限流", "Gateway网关", "Sleuth链路追踪"], "resources": {"official": "Spring Cloud文档", "courses": ["Spring Cloud实战"], "practice": "微服务实战"}, "acceptance": {"skill": {"criteria": "能使用Spring Cloud组件"}, "project": {"name": "微服务电商后端", "description": "完整微服务系统", "features": ["多服务", "熔断限流", "网关"]}, "resume": "熟悉Spring Cloud核心组件"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高级特性", "weekly_plan": ["分布式事务", "消息驱动微服务", "安全认证", "Kubernetes部署"], "resources": {"official": "Spring Cloud文档", "courses": ["高级微服务"], "practice": "生产级微服务"}, "acceptance": {"skill": {"criteria": "能设计生产级微服务架构"}, "project": {"name": "生产级微服务平台", "description": "企业级微服务", "features": ["高可用", "监控", "DevOps"]}, "resume": "具备生产级微服务架构能力"}}
+      }
+    },
+    "MySQL": {
+      "skill_name": "MySQL",
+      "category": "skill",
+      "category_name": "数据库",
+      "sub_type": "database",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握MySQL基础", "weekly_plan": ["安装配置、SQL基础", "DDL建表、约束", "DML增删改查", "联结查询、子查询"], "resources": {"official": "MySQL官方文档", "courses": ["MySQL基础", "SQL必知必会"], "practice": "在线SQL练习"}, "acceptance": {"skill": {"criteria": "能完成常规SQL操作"}, "project": {"name": "数据库设计练习", "description": "完整业务数据库", "features": ["ER图", "建表语句", "查询练习"]}, "resume": "熟悉MySQL，能完成数据操作"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握性能优化", "weekly_plan": ["索引原理与优化", "慢查询分析", "存储过程、触发器", "主从复制基础"], "resources": {"official": "MySQL官方文档", "courses": ["MySQL性能优化"], "practice": "性能调优实战"}, "acceptance": {"skill": {"criteria": "能进行数据库性能优化"}, "project": {"name": "数据库优化项目", "description": "性能优化实战", "features": ["索引优化", "慢查询优化"]}, "resume": "具备MySQL性能优化能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高可用架构", "weekly_plan": ["读写分离、分库分表", "MySQL集群", "备份恢复、安全", "分布式数据库进阶"], "resources": {"official": "MySQL官方文档", "courses": ["MySQL架构"], "practice": "高可用架构实践"}, "acceptance": {"skill": {"criteria": "能设计高可用数据库架构"}, "project": {"name": "高可用数据库平台", "description": "企业级数据库架构", "features": ["读写分离", "自动故障转移"]}, "resume": "具备数据库高可用架构设计能力"}}
+      }
+    },
+    "Redis": {
+      "skill_name": "Redis",
+      "category": "skill",
+      "category_name": "数据库",
+      "sub_type": "database",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Redis基础", "weekly_plan": ["安装配置、数据类型", "String、Hash操作", "List、Set、Sorted Set", "发布订阅、事务"], "resources": {"official": "Redis官方文档", "courses": ["Redis入门"], "practice": "Redis命令练习"}, "acceptance": {"skill": {"criteria": "能使用Redis完成缓存功能"}, "project": {"name": "Redis缓存实战", "description": "缓存应用", "features": ["String缓存", "Session共享"]}, "resume": "掌握Redis缓存数据库"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Redis高级特性", "weekly_plan": ["持久化机制", "Redis主从复制", "哨兵模式", "Redis集群"], "resources": {"official": "Redis官方文档", "courses": ["Redis实战"], "practice": "Redis集群部署"}, "acceptance": {"skill": {"criteria": "能搭建Redis高可用集群"}, "project": {"name": "Redis高可用系统", "description": "Redis集群", "features": ["主从复制", "哨兵模式", "集群"]}, "resume": "具备Redis高可用部署能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握缓存架构设计", "weekly_plan": ["缓存策略设计", "分布式锁", "消息队列、延迟队列", "性能优化与监控"], "resources": {"official": "Redis官方文档", "courses": ["Redis高级"], "practice": "缓存架构实战"}, "acceptance": {"skill": {"criteria": "能设计缓存架构方案"}, "project": {"name": "缓存架构设计", "description": "企业级缓存方案", "features": ["多级缓存", "分布式锁"]}, "resume": "具备缓存架构设计能力"}}
+      }
+    },
+    "Kafka": {
+      "skill_name": "Kafka",
+      "category": "skill",
+      "category_name": "数据库",
+      "sub_type": "database",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Kafka基础", "weekly_plan": ["Kafka架构与概念", "生产者开发", "消费者开发", "主题与分区"], "resources": {"official": "Kafka官方文档", "courses": ["Kafka入门"], "practice": "消息队列项目"}, "acceptance": {"skill": {"criteria": "能使用Kafka进行消息收发"}, "project": {"name": "Kafka消息系统", "description": "基础消息队列", "features": ["生产者", "消费者", "主题管理"]}, "resume": "掌握Kafka消息队列"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Kafka高级特性", "weekly_plan": ["消费者组、 offsets", "分区策略、序列化", "拦截器、监控", "可靠性保证"], "resources": {"official": "Kafka官方文档", "courses": ["Kafka实战"], "practice": "高可靠消息系统"}, "acceptance": {"skill": {"criteria": "能设计高可靠消息系统"}, "project": {"name": "高可靠消息平台", "description": "企业级消息系统", "features": ["高可靠", "监控告警"]}, "resume": "具备Kafka高可靠系统设计能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握Kafka集群与生态", "weekly_plan": ["Kafka集群部署", "Connect与Streams", "Kafka生态集成", "性能优化与运维"], "resources": {"official": "Kafka官方文档", "courses": ["Kafka高级"], "practice": "Kafka集群实战"}, "acceptance": {"skill": {"criteria": "能运维Kafka集群"}, "project": {"name": "Kafka集群平台", "description": "生产级Kafka集群", "features": ["集群部署", "监控运维"]}, "resume": "具备Kafka集群运维能力"}}
+      }
+    },
+    "Docker": {
+      "skill_name": "Docker",
+      "category": "skill",
+      "category_name": "DevOps",
+      "sub_type": "devops",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Docker基础", "weekly_plan": ["Docker安装与概念", "镜像操作", "容器操作", "Dockerfile编写"], "resources": {"official": "Docker官方文档", "courses": ["Docker入门"], "practice": "Docker化项目"}, "acceptance": {"skill": {"criteria": "能使用Docker部署应用"}, "project": {"name": "Docker化项目", "description": "项目容器化", "features": ["Dockerfile", "镜像构建"]}, "resume": "掌握Docker容器化技术"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Docker Compose", "weekly_plan": ["Docker网络", "数据卷管理", "Docker Compose", "私有仓库"], "resources": {"official": "Docker官方文档", "courses": ["Docker进阶"], "practice": "多容器应用部署"}, "acceptance": {"skill": {"criteria": "能编排多容器应用"}, "project": {"name": "多容器应用", "description": "Docker Compose部署", "features": ["多服务", "网络配置"]}, "resume": "熟悉Docker Compose编排"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握容器编排", "weekly_plan": ["Swarm集群", "Kubernetes基础", "Helm图表", "CI/CD集成"], "resources": {"official": "K8s官方文档", "courses": ["Kubernetes进阶"], "practice": "K8s部署实战"}, "acceptance": {"skill": {"criteria": "能在K8s上部署应用"}, "project": {"name": "K8s部署项目", "description": "生产级容器编排", "features": ["K8s集群", "滚动更新"]}, "resume": "具备K8s容器编排能力"}}
+      }
+    },
+    "Kubernetes": {
+      "skill_name": "Kubernetes",
+      "category": "skill",
+      "category_name": "DevOps",
+      "sub_type": "devops",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握K8s基础概念", "weekly_plan": ["K8s架构与组件", "Pod、Deployment", "Service、Ingress", "ConfigMap、Secret"], "resources": {"official": "K8s官方文档", "courses": ["K8s入门"], "practice": "K8s部署练习"}, "acceptance": {"skill": {"criteria": "理解K8s核心概念"}, "project": {"name": "K8s基础练习", "description": "K8s核心资源", "features": ["Pod", "Deployment", "Service"]}, "resume": "了解Kubernetes容器编排"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握K8s核心功能", "weekly_plan": ["存储与持久化", "资源配额与限制", "探针与健康检查", "日志与监控"], "resources": {"official": "K8s官方文档", "courses": ["K8s实战"], "practice": "生产级K8s部署"}, "acceptance": {"skill": {"criteria": "能在生产环境使用K8s"}, "project": {"name": "生产级K8s平台", "description": "完整K8s部署", "features": ["高可用", "监控告警"]}, "resume": "熟悉Kubernetes生产级部署"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握K8s高级特性", "weekly_plan": ["网络策略与安全", "RBAC权限控制", "Operator开发", "Istio服务网格"], "resources": {"official": "K8s官方文档", "courses": ["K8s高级"], "practice": "K8s高级特性实战"}, "acceptance": {"skill": {"criteria": "能设计K8s架构方案"}, "project": {"name": "K8s架构设计", "description": "企业级K8s平台", "features": ["服务网格", "安全策略"]}, "resume": "具备Kubernetes架构设计能力"}}
+      }
+    },
+    "Linux": {
+      "skill_name": "Linux",
+      "category": "skill",
+      "category_name": "DevOps",
+      "sub_type": "devops",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Linux基础", "weekly_plan": ["Linux安装与Shell", "文件系统与权限", "文本处理命令", "进程管理与作业控制"], "resources": {"official": "Linux官方文档", "courses": ["Linux入门"], "practice": "Linux常用命令练习"}, "acceptance": {"skill": {"criteria": "能熟练使用Linux命令"}, "project": {"name": "Linux运维脚本", "description": "常用运维脚本", "features": ["日志分析", "批量操作"]}, "resume": "熟练使用Linux操作系统"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Linux服务管理", "weekly_plan": [" systemd服务管理", "网络配置与诊断", "日志管理与分析", "Shell脚本编程"], "resources": {"official": "Linux官方文档", "courses": ["Linux进阶"], "practice": "Shell脚本实战"}, "acceptance": {"skill": {"criteria": "能编写Shell脚本完成自动化任务"}, "project": {"name": "自动化运维工具", "description": "Shell自动化脚本", "features": ["批量部署", "监控告警"]}, "resume": "具备Shell脚本编程能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握Linux性能调优", "weekly_plan": ["性能监控与分析", "内核参数调优", "容器与虚拟化", "故障诊断与排查"], "resources": {"official": "Linux内核文档", "courses": ["Linux性能优化"], "practice": "性能调优实战"}, "acceptance": {"skill": {"criteria": "能进行Linux性能优化"}, "project": {"name": "性能优化报告", "description": "Linux性能优化案例", "features": ["监控分析", "参数调优"]}, "resume": "具备Linux性能调优能力"}}
+      }
+    },
+    "微服务": {
+      "skill_name": "微服务",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "理解微服务架构", "weekly_plan": ["微服务概念与优势", "服务拆分原则", "API设计规范", "服务通信方式"], "resources": {"official": "微服务架构文档", "courses": ["微服务入门"], "practice": "微服务设计练习"}, "acceptance": {"skill": {"criteria": "理解微服务架构原理"}, "project": {"name": "微服务设计方案", "description": "微服务架构设计", "features": ["服务拆分", "API设计"]}, "resume": "理解微服务架构设计原则"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握微服务关键技术", "weekly_plan": ["服务注册与发现", "配置中心", "网关与路由", "服务容错"], "resources": {"official": "Spring Cloud文档", "courses": ["微服务实战"], "practice": "微服务项目实战"}, "acceptance": {"skill": {"criteria": "能实现微服务核心功能"}, "project": {"name": "微服务电商平台", "description": "完整微服务系统", "features": ["服务治理", "网关路由"]}, "resume": "具备微服务开发与治理能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握微服务架构设计", "weekly_plan": ["分布式事务", "链路追踪", "服务监控", "容器编排部署"], "resources": {"official": "微服务架构文档", "courses": ["微服务架构设计"], "practice": "生产级微服务架构"}, "acceptance": {"skill": {"criteria": "能设计微服务架构方案"}, "project": {"name": "微服务架构方案", "description": "企业级微服务设计", "features": ["架构图", "技术选型"]}, "resume": "具备微服务架构设计能力"}}
+      }
+    },
+    "高并发": {
+      "skill_name": "高并发",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "理解高并发基础", "weekly_plan": ["并发与并行概念", "线程与进程", "锁与同步", "线程池基础"], "resources": {"official": "Java并发编程", "courses": ["高并发入门"], "practice": "并发编程练习"}, "acceptance": {"skill": {"criteria": "理解并发编程基础"}, "project": {"name": "并发编程练习", "description": "并发案例", "features": ["线程池", "同步锁"]}, "resume": "掌握并发编程基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握高并发技术栈", "weekly_plan": ["缓存技术", "异步处理", "消息队列", "数据库优化"], "resources": {"official": "高并发架构", "courses": ["高并发实战"], "practice": "高并发系统设计"}, "acceptance": {"skill": {"criteria": "能使用高并发技术"}, "project": {"name": "高并发系统", "description": "高并发案例", "features": ["缓存", "异步", "队列"]}, "resume": "熟悉高并发技术栈"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高并发架构设计", "weekly_plan": ["分布式架构", "限流熔断", "弹性伸缩", "监控与调优"], "resources": {"official": "高并发架构", "courses": ["高并发架构设计"], "practice": "生产级高并发系统"}, "acceptance": {"skill": {"criteria": "能设计高并发系统"}, "project": {"name": "高并发电商系统", "description": "支撑高并发", "features": ["限流", "弹性", "监控"]}, "resume": "具备高并发系统设计能力"}}
+      }
+    },
+    "架构设计": {
+      "skill_name": "架构设计",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "理解架构设计基础", "weekly_plan": ["架构分层", "模块划分", "设计原则", "UML基础"], "resources": {"official": "架构设计书籍", "courses": ["架构入门"], "practice": "架构设计练习"}, "acceptance": {"skill": {"criteria": "能进行简单的架构设计"}, "project": {"name": "系统架构设计", "description": "架构设计文档", "features": ["分层设计", "模块划分"]}, "resume": "了解架构设计基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握常用架构模式", "weekly_plan": ["微服务架构", "CQRS/ES", "事件驱动", "响应式架构"], "resources": {"official": "架构设计文档", "courses": ["架构模式"], "practice": "架构重构项目"}, "acceptance": {"skill": {"criteria": "能选择合适的架构模式"}, "project": {"name": "架构重构项目", "description": "架构重构案例", "features": ["模式应用", "重构实践"]}, "resume": "熟悉常用架构模式"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握企业级架构设计", "weekly_plan": ["技术选型", "性能优化", "高可用设计", "架构演进"], "resources": {"official": "架构设计书籍", "courses": ["架构设计实战"], "practice": "大型架构设计"}, "acceptance": {"skill": {"criteria": "能设计企业级架构方案"}, "project": {"name": "企业架构方案", "description": "完整架构设计", "features": ["技术选型", "架构图", "演进路线"]}, "resume": "具备企业级架构设计能力"}}
+      }
+    },
+    "性能优化": {
+      "skill_name": "性能优化",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握性能优化基础", "weekly_plan": ["性能指标", "性能测试基础", "瓶颈分析", "优化方法论"], "resources": {"official": "性能优化指南", "courses": ["性能优化入门"], "practice": "性能测试练习"}, "acceptance": {"skill": {"criteria": "能进行基础性能测试"}, "project": {"name": "性能测试报告", "description": "性能测试案例", "features": ["测试用例", "结果分析"]}, "resume": "掌握性能测试基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握各层面优化技术", "weekly_plan": ["数据库优化", "缓存优化", "JVM调优", "代码优化"], "resources": {"official": "性能优化指南", "courses": ["性能优化实战"], "practice": "优化项目实战"}, "acceptance": {"skill": {"criteria": "能定位和解决性能问题"}, "project": {"name": "性能优化项目", "description": "优化实战案例", "features": ["瓶颈定位", "优化实施"]}, "resume": "具备性能优化能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握系统级性能优化", "weekly_plan": ["分布式优化", "全链路优化", "容量规划", "自动化监控"], "resources": {"official": "性能优化指南", "courses": ["性能优化高级"], "practice": "生产级优化"}, "acceptance": {"skill": {"criteria": "能进行系统级性能优化"}, "project": {"name": "性能优化总结", "description": "优化案例库", "features": ["优化方案", "效果对比"]}, "resume": "具备系统级性能优化能力"}}
+      }
+    },
+    "系统编程": {
+      "skill_name": "系统编程",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握系统编程基础", "weekly_plan": ["Linux系统调用", "文件I/O", "进程与管道", "信号处理"], "resources": {"official": "APUE", "courses": ["系统编程入门"], "practice": "系统编程练习"}, "acceptance": {"skill": {"criteria": "能使用系统调用编程"}, "project": {"name": "系统工具", "description": "系统编程项目", "features": ["文件处理", "进程管理"]}, "resume": "掌握Linux系统编程"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握高级I/O和网络编程", "weekly_plan": ["多路复用", "Socket编程", "线程编程", "共享内存"], "resources": {"official": "APUE", "courses": ["网络编程进阶"], "practice": "网络编程项目"}, "acceptance": {"skill": {"criteria": "能进行网络编程开发"}, "project": {"name": "网络服务器", "description": "网络编程项目", "features": ["TCP/UDP", "并发服务器"]}, "resume": "具备网络编程开发能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握系统性能编程", "weekly_plan": ["性能分析工具", "内存池", "连接池", "异步I/O"], "resources": {"official": "系统编程书籍", "courses": ["高性能编程"], "practice": "高性能服务器"}, "acceptance": {"skill": {"criteria": "能开发高性能系统程序"}, "project": {"name": "高性能服务器", "description": "高性能项目", "features": ["IO多路复用", "异步处理"]}, "resume": "具备高性能系统编程能力"}}
+      }
+    },
+    "并发编程": {
+      "skill_name": "并发编程",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握并发基础", "weekly_plan": ["线程与进程", "同步原语", "线程安全", "死锁与避免"], "resources": {"official": "Java并发编程", "courses": ["并发编程入门"], "practice": "并发编程练习"}, "acceptance": {"skill": {"criteria": "能编写线程安全代码"}, "project": {"name": "并发练习项目", "description": "并发案例", "features": ["线程同步", "锁使用"]}, "resume": "掌握Java并发编程基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握并发工具类", "weekly_plan": ["并发容器", "线程池", "Fork/Join", "CompletableFuture"], "resources": {"official": "Java并发编程", "courses": ["并发编程实战"], "practice": "并发项目实战"}, "acceptance": {"skill": {"criteria": "能使用并发工具类"}, "project": {"name": "并发任务系统", "description": "并发应用", "features": ["线程池", "异步任务"]}, "resume": "熟悉Java并发工具类"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握并发性能优化", "weekly_plan": ["无锁编程", "Disruptor", "性能调优", "JVM调优"], "resources": {"official": "并发编程书籍", "courses": ["高性能并发"], "practice": "高并发系统"}, "acceptance": {"skill": {"criteria": "能进行并发性能优化"}, "project": {"name": "高并发系统", "description": "并发优化案例", "features": ["无锁优化", "性能对比"]}, "resume": "具备并发性能优化能力"}}
+      }
+    },
+    "数据库设计": {
+      "skill_name": "数据库设计",
+      "category": "skill",
+      "category_name": "数据库",
+      "sub_type": "database",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握数据库设计基础", "weekly_plan": ["数据库范式", "ER图设计", "表结构设计", "索引设计基础"], "resources": {"official": "数据库原理", "courses": ["数据库设计入门"], "practice": "数据库设计练习"}, "acceptance": {"skill": {"criteria": "能设计规范的数据库表结构"}, "project": {"name": "数据库设计项目", "description": "业务数据库设计", "features": ["ER图", "范式设计"]}, "resume": "掌握数据库设计基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握高级设计技术", "weekly_plan": ["反范式设计", "分区表", "分库分表", "数据归档"], "resources": {"official": "数据库设计书籍", "courses": ["数据库设计进阶"], "practice": "大型数据库设计"}, "acceptance": {"skill": {"criteria": "能设计大型数据库"}, "project": {"name": "大型数据库设计", "description": "分库分表设计", "features": ["分库分表", "数据迁移"]}, "resume": "具备大型数据库设计能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握数据架构设计", "weekly_plan": ["数据仓库概念", "OLAP与OLTP", "数据建模", "数据治理"], "resources": {"official": "数据架构书籍", "courses": ["数据架构设计"], "practice": "数据平台设计"}, "acceptance": {"skill": {"criteria": "能设计数据平台架构"}, "project": {"name": "数据平台架构", "description": "数据架构方案", "features": ["数据建模", "数据治理"]}, "resume": "具备数据架构设计能力"}}
+      }
+    },
+    "前端框架": {
+      "skill_name": "前端框架",
+      "category": "skill",
+      "category_name": "前端",
+      "sub_type": "frontend",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握前端基础", "weekly_plan": ["HTML/CSS基础", "JavaScript基础", "DOM操作", "ES6新特性"], "resources": {"official": "MDN文档", "courses": ["前端入门"], "practice": "静态页面练习"}, "acceptance": {"skill": {"criteria": "能完成静态页面开发"}, "project": {"name": "静态网站", "description": "HTML/CSS项目", "features": ["页面布局", "交互效果"]}, "resume": "掌握前端基础技术"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Vue/React框架", "weekly_plan": ["Vue/React基础", "组件化开发", "状态管理", "路由配置"], "resources": {"official": "Vue/React文档", "courses": ["前端框架实战"], "practice": "SPA项目开发"}, "acceptance": {"skill": {"criteria": "能使用框架开发单页应用"}, "project": {"name": "Vue/React项目", "description": "SPA应用", "features": ["组件化", "状态管理"]}, "resume": "熟悉Vue/React框架"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握前端工程化", "weekly_plan": ["构建工具", "性能优化", "TypeScript", "SSR/SSG"], "resources": {"official": "前端工程化文档", "courses": ["前端工程化"], "practice": "前端性能优化"}, "acceptance": {"skill": {"criteria": "能进行前端性能优化"}, "project": {"name": "性能优化项目", "description": "前端优化案例", "features": ["首屏优化", "打包优化"]}, "resume": "具备前端性能优化能力"}}
+      }
+    },
+    "Vue.js": {
+      "skill_name": "Vue.js",
+      "category": "skill",
+      "category_name": "前端",
+      "sub_type": "frontend",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Vue.js基础", "weekly_plan": ["Vue核心概念", "模板语法", "响应式原理", "组件基础"], "resources": {"official": "Vue官方文档", "courses": ["Vue入门"], "practice": "Vue小项目"}, "acceptance": {"skill": {"criteria": "能使用Vue开发页面"}, "project": {"name": "Vue小项目", "description": "Vue练习", "features": ["数据绑定", "组件"]}, "resume": "掌握Vue.js基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Vue生态", "weekly_plan": ["Vue Router", "Pinia/Vuex", "组合式API", "Element Plus"], "resources": {"official": "Vue文档", "courses": ["Vue实战"], "practice": "Vue项目实战"}, "acceptance": {"skill": {"criteria": "能完成Vue全栈开发"}, "project": {"name": "Vue管理系统", "description": "完整后台", "features": ["路由", "状态管理", "API调用"]}, "resume": "熟悉Vue生态开发"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握Vue高级特性", "weekly_plan": ["性能优化", "SSR/Nuxt", "Vite深入", "源码分析"], "resources": {"official": "Vue源码", "courses": ["Vue高级"], "practice": "Vue性能优化"}, "acceptance": {"skill": {"criteria": "能进行Vue性能优化"}, "project": {"name": "Vue优化项目", "description": "性能优化", "features": ["虚拟列表", "懒加载"]}, "resume": "具备Vue高级特性能力"}}
+      }
+    },
+    "React": {
+      "skill_name": "React",
+      "category": "skill",
+      "category_name": "前端",
+      "sub_type": "frontend",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握React基础", "weekly_plan": ["React核心概念", "JSX语法", "组件与Props", "State与生命周期"], "resources": {"official": "React官方文档", "courses": ["React入门"], "practice": "React小项目"}, "acceptance": {"skill": {"criteria": "能使用React开发组件"}, "project": {"name": "React练习", "description": "React组件", "features": ["组件化", "状态管理"]}, "resume": "掌握React基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握React生态", "weekly_plan": ["React Router", "Redux/Zustand", "Hooks深入", "Ant Design"], "resources": {"official": "React文档", "courses": ["React实战"], "practice": "React项目"}, "acceptance": {"skill": {"criteria": "能完成React全栈开发"}, "project": {"name": "React管理系统", "description": "完整后台", "features": ["路由", "状态管理", "API"]}, "resume": "熟悉React生态"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握React高级特性", "weekly_plan": ["性能优化", "Next.js SSR", "源码原理", "测试"], "resources": {"official": "React高级", "courses": ["React高级"], "practice": "React优化"}, "acceptance": {"skill": {"criteria": "能进行React性能优化"}, "project": {"name": "React优化项目", "description": "性能优化", "features": ["memo优化", "Code Splitting"]}, "resume": "具备React高级能力"}}
+      }
+    },
+    "TypeScript": {
+      "skill_name": "TypeScript",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握TypeScript基础", "weekly_plan": ["类型基础", "接口与类型", "函数类型", "泛型基础"], "resources": {"official": "TS官方文档", "courses": ["TypeScript入门"], "practice": "TS重构练习"}, "acceptance": {"skill": {"criteria": "能使用TS编写代码"}, "project": {"name": "TS重构项目", "description": "JS转TS练习", "features": ["类型定义", "接口使用"]}, "resume": "掌握TypeScript基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握TS高级特性", "weekly_plan": ["泛型进阶", "条件类型", "装饰器", "模块管理"], "resources": {"official": "TS高级", "courses": ["TypeScript进阶"], "practice": "TS项目实战"}, "acceptance": {"skill": {"criteria": "能使用TS进行项目开发"}, "project": {"name": "TS全栈项目", "description": "TS应用", "features": ["类型系统", "最佳实践"]}, "resume": "熟悉TypeScript高级特性"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握TS类型体操", "weekly_plan": ["类型工具实现", "类型推导", "类型测试", "声明文件编写"], "resources": {"official": "TS源码", "courses": ["TypeScript类型体操"], "practice": "类型库开发"}, "acceptance": {"skill": {"criteria": "能编写复杂的类型定义"}, "project": {"name": "类型工具库", "description": "TS类型库", "features": ["工具类型", "类型文档"]}, "resume": "具备TypeScript类型系统设计能力"}}
+      }
+    },
+    "JavaScript": {
+      "skill_name": "JavaScript",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握JS基础", "weekly_plan": ["基础语法", "函数与作用域", "对象与数组", "DOM操作"], "resources": {"official": "MDN文档", "courses": ["JavaScript入门"], "practice": "JS练习"}, "acceptance": {"skill": {"criteria": "能完成页面交互功能"}, "project": {"name": "JS交互组件", "description": "DOM操作", "features": ["轮播图", "表单验证"]}, "resume": "掌握JavaScript基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握JS高级特性", "weekly_plan": ["闭包与原型", "异步编程", "Promise/Async", "模块化"], "resources": {"official": "JS高级", "courses": ["JavaScript进阶"], "practice": "JS项目实战"}, "acceptance": {"skill": {"criteria": "能处理复杂异步逻辑"}, "project": {"name": "异步任务系统", "description": "异步应用", "features": ["Promise", "Async/Await"]}, "resume": "熟悉JavaScript高级特性"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握JS运行机制", "weekly_plan": ["事件循环", "执行上下文", "垃圾回收", "性能优化"], "resources": {"official": "JS引擎文档", "courses": ["JavaScript高级"], "practice": "JS性能优化"}, "acceptance": {"skill": {"criteria": "能进行JS性能优化"}, "project": {"name": "JS性能优化", "description": "优化案例", "features": ["内存优化", "执行优化"]}, "resume": "具备JavaScript运行机制理解"}}
+      }
+    },
+    "Node.js": {
+      "skill_name": "Node.js",
+      "category": "skill",
+      "category_name": "后端框架",
+      "sub_type": "backend_framework",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Node.js基础", "weekly_plan": ["Node核心概念", "模块系统", "文件操作", "HTTP服务器"], "resources": {"official": "Node官方文档", "courses": ["Node.js入门"], "practice": "Node小项目"}, "acceptance": {"skill": {"criteria": "能使用Node开发服务器"}, "project": {"name": "Node服务器", "description": "基础服务", "features": ["HTTP服务", "API"]}, "resume": "掌握Node.js基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Express/Koa框架", "weekly_plan": ["Express深入", "中间件", "数据库集成", "认证授权"], "resources": {"official": "Express文档", "courses": ["Node.js实战"], "practice": "Express项目"}, "acceptance": {"skill": {"criteria": "能完成Express全栈开发"}, "project": {"name": "Express全栈项目", "description": "后端API", "features": ["RESTful API", "数据库"]}, "resume": "熟悉Express/Koa框架"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握Node.js性能优化", "weekly_plan": ["性能监控", "集群与进程", "Stream与Buffer", "Nest.js框架"], "resources": {"official": "Node高级", "courses": ["Node.js高级"], "practice": "高性能Node服务"}, "acceptance": {"skill": {"criteria": "能开发高性能Node服务"}, "project": {"name": "高性能服务", "description": "性能优化案例", "features": ["集群", "Stream"]}, "resume": "具备Node.js性能优化能力"}}
+      }
+    },
+    "API设计": {
+      "skill_name": "API设计",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握RESTful API基础", "weekly_plan": ["REST原则", "HTTP方法", "URL设计", "状态码"], "resources": {"official": "REST规范", "courses": ["API设计入门"], "practice": "API设计练习"}, "acceptance": {"skill": {"criteria": "能设计RESTful API"}, "project": {"name": "RESTful API", "description": "API设计", "features": ["REST规范", "接口文档"]}, "resume": "掌握RESTful API设计"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握API高级设计", "weekly_plan": ["版本管理", "分页与过滤", "认证与授权", "API文档化"], "resources": {"official": "API设计书籍", "courses": ["API设计实战"], "practice": "大型API设计"}, "acceptance": {"skill": {"criteria": "能设计企业级API"}, "project": {"name": "企业级API", "description": "API平台", "features": ["版本管理", "鉴权"]}, "resume": "具备企业级API设计能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握API架构设计", "weekly_plan": ["GraphQL", "API网关", "API监控", "API经济"], "resources": {"official": "API架构", "courses": ["API架构设计"], "practice": "API网关设计"}, "acceptance": {"skill": {"criteria": "能设计API网关架构"}, "project": {"name": "API网关", "description": "API网关设计", "features": ["路由", "限流", "监控"]}, "resume": "具备API架构设计能力"}}
+      }
+    },
+    "Git": {
+      "skill_name": "Git",
+      "category": "skill",
+      "category_name": "DevOps",
+      "sub_type": "devops",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "掌握Git基础", "weekly_plan": ["安装与配置", "基本命令", "分支基础", "远程仓库"], "resources": {"official": "Git官方文档", "courses": ["Git入门"], "practice": "Git练习"}, "acceptance": {"skill": {"criteria": "能使用Git进行版本控制"}, "project": {"name": "Git练习", "description": "Git使用", "features": ["提交", "分支"]}, "resume": "掌握Git版本控制"}},
+        "intermediate": {"duration_weeks": 2, "goal": "掌握Git高级操作", "weekly_plan": ["分支管理策略", "合并与变基", "标签与发布", "子模块"], "resources": {"official": "Git官方文档", "courses": ["Git进阶"], "practice": "团队Git使用"}, "acceptance": {"skill": {"criteria": "能处理Git冲突和分支问题"}, "project": {"name": "Git工作流", "description": "团队协作", "features": ["分支策略", "代码合并"]}, "resume": "熟悉Git高级操作"}},
+        "advanced": {"duration_weeks": 2, "goal": "掌握Git运维", "weekly_plan": ["GitLab/Gitea", "Hook脚本", "权限管理", "CI/CD集成"], "resources": {"official": "Git运维文档", "courses": ["Git运维"], "practice": "Git服务器搭建"}, "acceptance": {"skill": {"criteria": "能搭建和管理Git服务器"}, "project": {"name": "Git服务器", "description": "Git服务器", "features": ["GitLab", "权限配置"]}, "resume": "具备Git服务器运维能力"}}
+      }
+    },
+    "CI/CD": {
+      "skill_name": "CI/CD",
+      "category": "skill",
+      "category_name": "DevOps",
+      "sub_type": "devops",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "理解CI/CD基础", "weekly_plan": ["CI/CD概念", "Jenkins安装", "流水线基础", "自动构建"], "resources": {"official": "Jenkins文档", "courses": ["CI/CD入门"], "practice": "Jenkins练习"}, "acceptance": {"skill": {"criteria": "能搭建Jenkins流水线"}, "project": {"name": "CI/CD流水线", "description": "自动构建", "features": ["构建", "测试"]}, "resume": "理解CI/CD流水线"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握CI/CD实战", "weekly_plan": ["Docker集成", "自动部署", "GitLab CI", "Sonar扫描"], "resources": {"official": "CI/CD最佳实践", "courses": ["CI/CD实战"], "practice": "完整CI/CD流程"}, "acceptance": {"skill": {"criteria": "能搭建完整CI/CD流程"}, "project": {"name": "完整CI/CD", "description": "自动化流程", "features": ["构建", "测试", "部署"]}, "resume": "具备CI/CD流程搭建能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握DevOps文化与实践", "weekly_plan": ["GitOps", "ArgoCD", "蓝绿部署", "金丝雀发布"], "resources": {"official": "DevOps文档", "courses": ["DevOps高级"], "practice": "GitOps实践"}, "acceptance": {"skill": {"criteria": "能设计DevOps落地流程"}, "project": {"name": "DevOps平台", "description": "完整DevOps", "features": ["GitOps", "监控"]}, "resume": "具备DevOps平台设计能力"}}
+      }
+    },
+    "自动化测试": {
+      "skill_name": "自动化测试",
+      "category": "skill",
+      "category_name": "测试",
+      "sub_type": "testing",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握自动化测试基础", "weekly_plan": ["测试理论", "JUnit/TestNG", "断言与报告", "测试覆盖率"], "resources": {"official": "JUnit文档", "courses": ["自动化测试入门"], "practice": "单元测试练习"}, "acceptance": {"skill": {"criteria": "能编写单元测试"}, "project": {"name": "单元测试项目", "description": "测试练习", "features": ["JUnit", "覆盖率"]}, "resume": "掌握自动化测试基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握集成测试与UI测试", "weekly_plan": ["Spring测试", "Selenium基础", "PageObject模式", "API测试"], "resources": {"official": "Selenium文档", "courses": ["自动化测试实战"], "practice": "自动化测试项目"}, "acceptance": {"skill": {"criteria": "能搭建自动化测试框架"}, "project": {"name": "自动化测试框架", "description": "测试平台", "features": ["Selenium", "API测试"]}, "resume": "具备自动化测试框架搭建能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握测试策略与实践", "weekly_plan": ["测试金字塔", "TDD/BDD", "契约测试", "性能测试"], "resources": {"official": "测试策略文档", "courses": ["测试高级"], "practice": "测试策略设计"}, "acceptance": {"skill": {"criteria": "能设计测试策略"}, "project": {"name": "测试策略设计", "description": "测试方案", "features": ["策略文档", "落地实践"]}, "resume": "具备测试策略设计能力"}}
+      }
+    },
+    "测试用例设计": {
+      "skill_name": "测试用例设计",
+      "category": "skill",
+      "category_name": "测试",
+      "sub_type": "testing",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "掌握测试用例基础", "weekly_plan": ["测试用例格式", "等价类划分", "边界值分析", "判定表"], "resources": {"official": "测试理论", "courses": ["测试用例设计"], "practice": "测试用例编写"}, "acceptance": {"skill": {"criteria": "能编写规范的测试用例"}, "project": {"name": "测试用例库", "description": "用例练习", "features": ["等价类", "边界值"]}, "resume": "掌握测试用例设计方法"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握高级用例设计", "weekly_plan": ["状态迁移", "场景法", "正交试验", "用例评审"], "resources": {"official": "测试方法", "courses": ["测试用例进阶"], "practice": "复杂用例设计"}, "acceptance": {"skill": {"criteria": "能设计复杂场景测试用例"}, "project": {"name": "复杂场景用例", "description": "用例设计", "features": ["状态迁移", "场景设计"]}, "resume": "熟悉高级测试用例设计"}},
+        "advanced": {"duration_weeks": 3, "goal": "掌握测试策略", "weekly_plan": ["测试策略制定", "风险分析", "测试计划", "测试度量"], "resources": {"official": "测试管理", "courses": ["测试策略"], "practice": "测试计划制定"}, "acceptance": {"skill": {"criteria": "能制定测试策略"}, "project": {"name": "测试策略文档", "description": "策略设计", "features": ["策略文档", "风险分析"]}, "resume": "具备测试策略制定能力"}}
+      }
+    },
+    "功能测试": {
+      "skill_name": "功能测试",
+      "category": "skill",
+      "category_name": "测试",
+      "sub_type": "testing",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "掌握功能测试基础", "weekly_plan": ["功能测试流程", "测试计划", "测试用例执行", "缺陷报告"], "resources": {"official": "测试理论", "courses": ["功能测试入门"], "practice": "功能测试练习"}, "acceptance": {"skill": {"criteria": "能执行功能测试并提交缺陷"}, "project": {"name": "功能测试项目", "description": "测试练习", "features": ["用例执行", "缺陷报告"]}, "resume": "掌握功能测试执行"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握功能测试深入", "weekly_plan": ["业务流程测试", "接口测试", "数据库验证", "跨平台测试"], "resources": {"official": "测试方法", "courses": ["功能测试实战"], "practice": "完整功能测试"}, "acceptance": {"skill": {"criteria": "能独立完成功能测试"}, "project": {"name": "功能测试报告", "description": "完整测试", "features": ["测试计划", "缺陷分析"]}, "resume": "具备功能测试能力"}},
+        "advanced": {"duration_weeks": 3, "goal": "掌握功能测试专家", "weekly_plan": ["测试设计", "测试策略", "测试度量", "测试自动化"], "resources": {"official": "测试专家", "courses": ["功能测试高级"], "practice": "测试改进"}, "acceptance": {"skill": {"criteria": "能优化测试流程"}, "project": {"name": "测试改进项目", "description": "流程优化", "features": ["效率提升", "覆盖率"]}, "resume": "具备测试流程优化能力"}}
+      }
+    },
+    "算法与数据结构": {
+      "skill_name": "算法与数据结构",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握基础算法", "weekly_plan": ["数组与链表", "栈与队列", "树与二叉树", "基础排序"], "resources": {"official": "算法导论", "courses": ["算法入门"], "practice": "LeetCode简单题"}, "acceptance": {"skill": {"criteria": "能解决简单算法问题"}, "project": {"name": "算法练习集", "description": "算法练习", "features": ["简单题", "数据结构"]}, "resume": "掌握基础算法与数据结构"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握进阶算法", "weekly_plan": ["图算法", "动态规划", "贪心算法", "二分查找"], "resources": {"official": "算法导论", "courses": ["算法进阶"], "practice": "LeetCode中等题"}, "acceptance": {"skill": {"criteria": "能解决中等难度算法问题"}, "project": {"name": "算法题解库", "description": "算法分类", "features": ["DP", "图论"]}, "resume": "熟悉进阶算法"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高级算法", "weekly_plan": ["高级数据结构", "字符串算法", "网络流", "近似算法"], "resources": {"official": "CP-Algorithms", "courses": ["ACM算法"], "practice": "LeetCode困难题"}, "acceptance": {"skill": {"criteria": "能解决困难算法问题"}, "project": {"name": "算法竞赛记录", "description": "算法挑战", "features": ["困难题", "竞赛"]}, "resume": "具备算法竞赛能力"}}
+      }
+    },
+    "机器学习": {
+      "skill_name": "机器学习",
+      "category": "skill",
+      "category_name": "AI与数据",
+      "sub_type": "ai_data",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握ML基础", "weekly_plan": ["机器学习概念", "线性回归", "逻辑回归", "决策树"], "resources": {"official": "ML教材", "courses": ["机器学习入门"], "practice": "ML基础项目"}, "acceptance": {"skill": {"criteria": "能使用sklearn实现基础ML"}, "project": {"name": "ML基础项目", "description": "机器学习", "features": ["回归", "分类"]}, "resume": "掌握机器学习基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握ML核心算法", "weekly_plan": ["SVM与朴素贝叶斯", "集成学习", "聚类算法", "降维技术"], "resources": {"official": "ML高级", "courses": ["机器学习实战"], "practice": "ML项目实战"}, "acceptance": {"skill": {"criteria": "能独立完成ML项目"}, "project": {"name": "ML项目", "description": "机器学习应用", "features": ["特征工程", "模型调优"]}, "resume": "具备机器学习项目能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握ML进阶技术", "weekly_plan": ["深度学习基础", "CNN/RNN", "模型优化", "模型部署"], "resources": {"official": "深度学习", "courses": ["深度学习"], "practice": "DL项目"}, "acceptance": {"skill": {"criteria": "能进行模型训练和部署"}, "project": {"name": "DL项目", "description": "深度学习", "features": ["CNN/RNN", "部署"]}, "resume": "具备深度学习实战能力"}}
+      }
+    },
+    "数据分析": {
+      "skill_name": "数据分析",
+      "category": "skill",
+      "category_name": "AI与数据",
+      "sub_type": "ai_data",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握数据分析基础", "weekly_plan": ["数据分析流程", "Python数据分析", "Pandas基础", "可视化基础"], "resources": {"official": "Pandas文档", "courses": ["数据分析入门"], "practice": "数据分析练习"}, "acceptance": {"skill": {"criteria": "能使用Pandas进行数据处理"}, "project": {"name": "数据分析练习", "description": "数据处理", "features": ["数据清洗", "可视化"]}, "resume": "掌握数据分析基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握数据分析技能", "weekly_plan": ["SQL数据分析", "统计基础", "特征工程", "探索性分析"], "resources": {"official": "统计书籍", "courses": ["数据分析实战"], "practice": "数据分析项目"}, "acceptance": {"skill": {"criteria": "能独立完成数据分析报告"}, "project": {"name": "数据分析报告", "description": "完整分析", "features": ["EDA", "报告"]}, "resume": "具备数据分析能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高级数据分析", "weekly_plan": ["大数据分析", "AB测试", "用户画像", "数据挖掘"], "resources": {"official": "高级分析", "courses": ["高级数据分析"], "practice": "复杂数据分析"}, "acceptance": {"skill": {"criteria": "能进行复杂数据分析"}, "project": {"name": "数据挖掘项目", "description": "数据挖掘", "features": ["特征工程", "模型"]}, "resume": "具备高级数据分析能力"}}
+      }
+    },
+    "Python爬虫": {
+      "skill_name": "Python爬虫",
+      "category": "skill",
+      "category_name": "AI与数据",
+      "sub_type": "ai_data",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "掌握爬虫基础", "weekly_plan": ["HTTP基础", "Requests库", "正则表达式", "BeautifulSoup"], "resources": {"official": "Python文档", "courses": ["爬虫入门"], "practice": "简单爬虫"}, "acceptance": {"skill": {"criteria": "能编写简单爬虫"}, "project": {"name": "简单爬虫", "description": "爬虫练习", "features": ["requests", "bs4"]}, "resume": "掌握Python爬虫基础"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握爬虫进阶", "weekly_plan": ["Selenium", "Scrapy框架", "反爬应对", "数据存储"], "resources": {"official": "Scrapy文档", "courses": ["爬虫实战"], "practice": "Scrapy项目"}, "acceptance": {"skill": {"criteria": "能使用Scrapy构建爬虫"}, "project": {"name": "Scrapy爬虫", "description": "爬虫项目", "features": ["Scrapy", "数据存储"]}, "resume": "熟悉Scrapy爬虫框架"}},
+        "advanced": {"duration_weeks": 3, "goal": "掌握爬虫架构", "weekly_plan": ["分布式爬虫", "代理池", "增量爬取", "爬虫部署"], "resources": {"official": "爬虫架构", "courses": ["爬虫高级"], "practice": "分布式爬虫"}, "acceptance": {"skill": {"criteria": "能构建分布式爬虫"}, "project": {"name": "分布式爬虫", "description": "爬虫架构", "features": ["Scrapy-Redis", "代理池"]}, "resume": "具备爬虫架构设计能力"}}
+      }
+    },
+    "Django": {
+      "skill_name": "Django",
+      "category": "skill",
+      "category_name": "后端框架",
+      "sub_type": "backend_framework",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Django基础", "weekly_plan": ["MTV模式", "ORM基础", "Admin后台", "模板系统"], "resources": {"official": "Django文档", "courses": ["Django入门"], "practice": "Django小项目"}, "acceptance": {"skill": {"criteria": "能使用Django开发Web应用"}, "project": {"name": "Django小项目", "description": "Django练习", "features": ["ORM", "Admin"]}, "resume": "掌握Django基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Django进阶", "weekly_plan": ["类视图", "中间件", "表单与验证", "缓存与分页"], "resources": {"official": "Django文档", "courses": ["Django实战"], "practice": "Django项目"}, "acceptance": {"skill": {"criteria": "能完成Django全栈开发"}, "project": {"name": "Django全栈项目", "description": "完整Web", "features": ["用户系统", "API"]}, "resume": "熟悉Django全栈开发"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握Django高级", "weekly_plan": ["REST Framework", "DRF高级特性", "Celery异步", "部署与优化"], "resources": {"official": "Django DRF", "courses": ["Django高级"], "practice": "Django API项目"}, "acceptance": {"skill": {"criteria": "能开发高性能Django服务"}, "project": {"name": "Django API服务", "description": "DRF项目", "features": ["REST API", "异步任务"]}, "resume": "具备Django高级开发能力"}}
+      }
+    },
+    "Flask": {
+      "skill_name": "Flask",
+      "category": "skill",
+      "category_name": "后端框架",
+      "sub_type": "backend_framework",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "掌握Flask基础", "weekly_plan": ["路由与视图", "模板渲染", "请求与响应", "SQLAlchemy基础"], "resources": {"official": "Flask文档", "courses": ["Flask入门"], "practice": "Flask小项目"}, "acceptance": {"skill": {"criteria": "能使用Flask开发API"}, "project": {"name": "Flask小项目", "description": "Flask练习", "features": ["路由", "模板"]}, "resume": "掌握Flask基础"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握Flask进阶", "weekly_plan": ["蓝图模块化", "Flask-RESTful", "JWT认证", "数据库进阶"], "resources": {"official": "Flask文档", "courses": ["Flask实战"], "practice": "Flask API项目"}, "acceptance": {"skill": {"criteria": "能开发Flask RESTful API"}, "project": {"name": "Flask API项目", "description": "RESTful API", "features": ["JWT", "蓝图"]}, "resume": "熟悉Flask RESTful开发"}},
+        "advanced": {"duration_weeks": 3, "goal": "掌握Flask高级特性", "weekly_plan": ["Celery异步", "WebSocket", "Flask部署", "性能优化"], "resources": {"official": "Flask高级", "courses": ["Flask高级"], "practice": "Flask高性能服务"}, "acceptance": {"skill": {"criteria": "能构建高性能Flask服务"}, "project": {"name": "Flask微服务", "description": "微服务", "features": ["Celery", "异步"]}, "resume": "具备Flask高级开发能力"}}
+      }
+    },
+    "FastAPI": {
+      "skill_name": "FastAPI",
+      "category": "skill",
+      "category_name": "后端框架",
+      "sub_type": "backend_framework",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "掌握FastAPI基础", "weekly_plan": ["路由与参数", "Pydantic验证", "依赖注入", "数据库集成"], "resources": {"official": "FastAPI文档", "courses": ["FastAPI入门"], "practice": "FastAPI小项目"}, "acceptance": {"skill": {"criteria": "能使用FastAPI开发API"}, "project": {"name": "FastAPI小项目", "description": "API练习", "features": ["类型提示", "自动文档"]}, "resume": "掌握FastAPI基础"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握FastAPI进阶", "weekly_plan": ["认证授权", "后台任务", "WebSocket", "中间件"], "resources": {"official": "FastAPI文档", "courses": ["FastAPI实战"], "practice": "FastAPI项目"}, "acceptance": {"skill": {"criteria": "能开发完整的FastAPI服务"}, "project": {"name": "FastAPI全栈项目", "description": "完整服务", "features": ["JWT", "WebSocket"]}, "resume": "熟悉FastAPI全栈开发"}},
+        "advanced": {"duration_weeks": 3, "goal": "掌握FastAPI生产部署", "weekly_plan": ["Docker部署", "性能优化", "测试", "异步最佳实践"], "resources": {"official": "FastAPI高级", "courses": ["FastAPI高级"], "practice": "FastAPI生产部署"}, "acceptance": {"skill": {"criteria": "能进行FastAPI生产部署"}, "project": {"name": "FastAPI生产服务", "description": "生产级部署", "features": ["Docker", "监控"]}, "resume": "具备FastAPI生产部署能力"}}
+      }
+    },
+    "Go": {
+      "skill_name": "Go",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握Go基础", "weekly_plan": ["Go语法基础", "函数与错误处理", "数据结构", "并发基础"], "resources": {"official": "Go官方文档", "courses": ["Go入门"], "practice": "Go练习"}, "acceptance": {"skill": {"criteria": "能编写Go程序"}, "project": {"name": "Go练习项目", "description": "Go基础", "features": ["基础语法", "并发"]}, "resume": "掌握Go语言基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Go Web开发", "weekly_plan": ["Gin框架", "中间件", "数据库", "API开发"], "resources": {"official": "Gin文档", "courses": ["Go Web开发"], "practice": "Gin项目"}, "acceptance": {"skill": {"criteria": "能使用Gin开发Web服务"}, "project": {"name": "Gin API项目", "description": "Web服务", "features": ["RESTful", "中间件"]}, "resume": "熟悉Go Web开发"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握Go高级特性", "weekly_plan": ["微服务框架", "gRPC", "容器化", "性能分析"], "resources": {"official": "Go高级", "courses": ["Go微服务"], "practice": "Go微服务"}, "acceptance": {"skill": {"criteria": "能开发Go微服务"}, "project": {"name": "Go微服务", "description": "微服务", "features": ["gRPC", "Docker"]}, "resume": "具备Go微服务开发能力"}}
+      }
+    },
+    "C/C++": {
+      "skill_name": "C/C++",
+      "category": "skill",
+      "category_name": "编程语言",
+      "sub_type": "programming_language",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握C/C++基础", "weekly_plan": ["C语言基础", "指针与内存", "C++面向对象", "STL基础"], "resources": {"official": "C++ Primer", "courses": ["C++入门"], "practice": "C++练习"}, "acceptance": {"skill": {"criteria": "能编写C/C++程序"}, "project": {"name": "C++练习", "description": "基础练习", "features": ["指针", "STL"]}, "resume": "掌握C/C++基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握C/C++进阶", "weekly_plan": ["C++11/14/17", "智能指针", "多线程", "设计模式"], "resources": {"official": "C++高级", "courses": ["C++进阶"], "practice": "C++项目"}, "acceptance": {"skill": {"criteria": "能使用现代C++特性"}, "project": {"name": "C++项目", "description": "项目练习", "features": ["现代C++", "多线程"]}, "resume": "熟悉现代C++"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握C/C++系统级", "weekly_plan": ["网络编程", "内存管理", "性能优化", "源码分析"], "resources": {"official": "系统级C++", "courses": ["C++高级"], "practice": "系统级项目"}, "acceptance": {"skill": {"criteria": "能进行系统级编程"}, "project": {"name": "系统级项目", "description": "系统编程", "features": ["网络", "性能"]}, "resume": "具备系统级C++编程能力"}}
+      }
+    },
+    "嵌入式开发": {
+      "skill_name": "嵌入式开发",
+      "category": "skill",
+      "category_name": "底层",
+      "sub_type": "low_level",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握嵌入式基础", "weekly_plan": ["嵌入式概念", "STM32基础", "GPIO与中断", "定时器与PWM"], "resources": {"official": "STM32文档", "courses": ["嵌入式入门"], "practice": "STM32练习"}, "acceptance": {"skill": {"criteria": "能进行STM32开发"}, "project": {"name": "STM32小项目", "description": "嵌入式练习", "features": ["GPIO", "中断"]}, "resume": "掌握嵌入式基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握嵌入式外设", "weekly_plan": ["UART通信", "SPI/I2C", "ADC/DAC", "DMA"], "resources": {"official": "嵌入式外设", "courses": ["嵌入式实战"], "practice": "嵌入式项目"}, "acceptance": {"skill": {"criteria": "能使用各种外设"}, "project": {"name": "嵌入式项目", "description": "完整项目", "features": ["通信", "传感器"]}, "resume": "具备嵌入式项目能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握嵌入式RTOS", "weekly_plan": ["FreeRTOS", "任务与调度", "队列与信号量", "嵌入式Linux"], "resources": {"official": "RTOS文档", "courses": ["嵌入式RTOS"], "practice": "RTOS项目"}, "acceptance": {"skill": {"criteria": "能使用RTOS开发"}, "project": {"name": "RTOS项目", "description": "RTOS应用", "features": ["多任务", "队列"]}, "resume": "具备嵌入式RTOS开发能力"}}
+      }
+    },
+    "驱动开发": {
+      "skill_name": "驱动开发",
+      "category": "skill",
+      "category_name": "底层",
+      "sub_type": "low_level",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "理解驱动基础", "weekly_plan": ["Linux内核结构", "字符设备驱动", "设备号", "file_operations"], "resources": {"official": "Linux内核文档", "courses": ["驱动入门"], "practice": "简单驱动"}, "acceptance": {"skill": {"criteria": "理解Linux驱动原理"}, "project": {"name": "字符设备驱动", "description": "驱动练习", "features": ["ioctl", "read/write"]}, "resume": "理解Linux驱动基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握驱动开发", "weekly_plan": ["中断与等待队列", "阻塞与非阻塞", "平台设备驱动", "设备树"], "resources": {"official": "驱动开发书籍", "courses": ["驱动实战"], "practice": "驱动项目"}, "acceptance": {"skill": {"criteria": "能编写Linux设备驱动"}, "project": {"name": "设备驱动", "description": "驱动项目", "features": ["中断", "设备树"]}, "resume": "具备Linux驱动开发能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握高级驱动", "weekly_plan": ["PCIe驱动", "网络设备驱动", "USB驱动", "内核调试"], "resources": {"official": "Linux内核", "courses": ["驱动高级"], "practice": "复杂驱动"}, "acceptance": {"skill": {"criteria": "能进行复杂驱动开发"}, "project": {"name": "复杂驱动", "description": "高级驱动", "features": ["PCIe", "调试"]}, "resume": "具备高级驱动开发能力"}}
+      }
+    },
+    "计算机网络": {
+      "skill_name": "计算机网络",
+      "category": "skill",
+      "category_name": "底层",
+      "sub_type": "low_level",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "掌握网络基础", "weekly_plan": ["OSI七层模型", "TCP/IP协议", "HTTP/HTTPS", "Socket基础"], "resources": {"official": "计算机网络", "courses": ["网络基础"], "practice": "网络抓包分析"}, "acceptance": {"skill": {"criteria": "理解网络协议原理"}, "project": {"name": "网络抓包分析", "description": "协议分析", "features": ["TCP", "HTTP"]}, "resume": "掌握计算机网络基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握网络编程", "weekly_plan": ["TCP/UDP编程", "IO多路复用", "高性能网络", "网络安全基础"], "resources": {"official": "网络编程", "courses": ["网络编程实战"], "practice": "网络编程项目"}, "acceptance": {"skill": {"criteria": "能进行网络编程开发"}, "project": {"name": "网络服务器", "description": "网络编程", "features": ["TCP", "IO多路复用"]}, "resume": "具备网络编程能力"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握网络高级", "weekly_plan": ["网络协议栈", "高性能网络", "网络虚拟化", "SDN"], "resources": {"official": "高级网络", "courses": ["网络高级"], "practice": "网络协议分析"}, "acceptance": {"skill": {"criteria": "能进行网络协议分析"}, "project": {"name": "协议分析工具", "description": "网络工具", "features": ["抓包", "协议栈"]}, "resume": "具备网络高级分析能力"}}
+      }
+    },
+    "操作系统": {
+      "skill_name": "操作系统",
+      "category": "skill",
+      "category_name": "底层",
+      "sub_type": "low_level",
+      "tiers": {
+        "entry": {"duration_weeks": 4, "goal": "理解OS基础", "weekly_plan": ["进程与线程", "内存管理", "文件系统", "系统调用"], "resources": {"official": "操作系统原理", "courses": ["OS基础"], "practice": "OS概念理解"}, "acceptance": {"skill": {"criteria": "理解操作系统核心概念"}, "project": {"name": "OS概念总结", "description": "OS笔记", "features": ["进程", "内存"]}, "resume": "理解操作系统基础"}},
+        "intermediate": {"duration_weeks": 4, "goal": "掌握Linux内核", "weekly_plan": ["内核架构", "进程调度", "内存管理", "内核模块"], "resources": {"official": "Linux内核", "courses": ["Linux内核"], "practice": "内核模块开发"}, "acceptance": {"skill": {"criteria": "能编写Linux内核模块"}, "project": {"name": "内核模块", "description": "内核开发", "features": ["模块", "系统调用"]}, "resume": "具备Linux内核基础"}},
+        "advanced": {"duration_weeks": 4, "goal": "掌握系统级开发", "weekly_plan": ["进程间通信", "锁与同步", "虚拟化", "容器原理"], "resources": {"official": "系统编程", "courses": ["系统级开发"], "practice": "系统工具开发"}, "acceptance": {"skill": {"criteria": "能进行系统级开发"}, "project": {"name": "系统工具", "description": "系统开发", "features": ["IPC", "容器"]}, "resume": "具备系统级开发能力"}}
+      }
+    },
+    "软件工程": {
+      "skill_name": "软件工程",
+      "category": "skill",
+      "category_name": "架构与性能",
+      "sub_type": "architecture_performance",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "理解软件工程基础", "weekly_plan": ["软件生命周期", "需求分析", "UML建模", "开发模型"], "resources": {"official": "软件工程", "courses": ["软件工程基础"], "practice": "需求文档编写"}, "acceptance": {"skill": {"criteria": "理解软件工程方法论"}, "project": {"name": "需求分析", "description": "需求文档", "features": ["用例图", "ER图"]}, "resume": "理解软件工程基础"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握工程实践", "weekly_plan": ["敏捷开发", "代码规范", "代码审查", "项目管理工具"], "resources": {"official": "工程实践", "courses": ["工程实践"], "practice": "团队项目"}, "acceptance": {"skill": {"criteria": "能进行团队协作开发"}, "project": {"name": "团队项目", "description": "协作开发", "features": ["Git", "Code Review"]}, "resume": "具备团队协作开发能力"}},
+        "advanced": {"duration_weeks": 3, "goal": "掌握架构设计", "weekly_plan": ["架构模式", "设计原则", "重构", "技术选型"], "resources": {"official": "架构设计", "courses": ["架构设计"], "practice": "架构设计"}, "acceptance": {"skill": {"criteria": "能进行软件架构设计"}, "project": {"name": "架构设计", "description": "架构方案", "features": ["架构图", "选型"]}, "resume": "具备软件架构设计能力"}}
+      }
+    },
+    "项目管理": {
+      "skill_name": "项目管理",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "理解项目管理基础", "weekly_plan": ["项目管理知识体系", "项目生命周期", "敏捷基础", "团队协作"], "resources": {"official": "PMBOK", "courses": ["项目管理入门"], "practice": "小项目管理"}, "acceptance": {"skill": {"criteria": "理解项目管理基本概念"}, "project": {"name": "小项目计划", "description": "项目计划", "features": ["任务分解", "时间表"]}, "resume": "了解项目管理基础"}},
+        "intermediate": {"duration_weeks": 3, "goal": "掌握项目管理技能", "weekly_plan": ["Scrum实践", "看板方法", "风险管理", "干系人管理"], "resources": {"official": "敏捷实践", "courses": ["项目管理实战"], "practice": "敏捷项目"}, "acceptance": {"skill": {"criteria": "能进行敏捷项目实践"}, "project": {"name": "敏捷项目", "description": "敏捷实践", "features": ["Sprint", "回顾"]}, "resume": "具备敏捷项目实践能力"}},
+        "advanced": {"duration_weeks": 3, "goal": "成为项目管理专家", "weekly_plan": ["PMP认证", "项目集管理", "战略对齐", "教练技术"], "resources": {"official": "PMP", "courses": ["PMP认证"], "practice": "大型项目管理"}, "acceptance": {"skill": {"criteria": "能管理大型复杂项目"}, "project": {"name": "大型项目", "description": "项目管理", "features": ["多团队", "风险管理"]}, "resume": "具备大型项目管理能力"}}
+      }
+    },
+    "团队协作": {
+      "skill_name": "团队协作",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "掌握基础协作能力", "weekly_plan": ["沟通技巧", "会议参与", "文档协作", "反馈方法"], "resources": {"official": "协作指南", "courses": ["协作入门"], "practice": "协作练习"}, "acceptance": {"skill": {"criteria": "能有效进行团队沟通"}, "project": {"name": "协作实践", "description": "协作案例", "features": ["会议纪要", "文档"]}, "resume": "具备基础团队协作能力"}},
+        "intermediate": {"duration_weeks": 2, "goal": "提升协作效率", "weekly_plan": ["跨团队沟通", "冲突解决", "协作工具", "知识共享"], "resources": {"official": "协作方法", "courses": ["协作进阶"], "practice": "跨团队协作"}, "acceptance": {"skill": {"criteria": "能进行跨团队协作"}, "project": {"name": "跨团队项目", "description": "协作项目", "features": ["沟通协调", "文档"]}, "resume": "具备跨团队协作能力"}},
+        "advanced": {"duration_weeks": 2, "goal": "成为协作领袖", "weekly_plan": ["领导力", "技术分享", "导师制度", "文化建设"], "resources": {"official": "领导力", "courses": ["团队领导"], "practice": "团队建设"}, "acceptance": {"skill": {"criteria": "能带领团队协作"}, "project": {"name": "团队建设", "description": "团队项目", "features": ["分享", "Mentoring"]}, "resume": "具备团队领导能力"}}
+      }
+    },
+    "沟通能力": {
+      "skill_name": "沟通能力",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "提升基础沟通", "weekly_plan": ["结构化表达", "倾听技巧", "书面表达", "会议沟通"], "resources": {"official": "沟通技巧", "courses": ["沟通入门"], "practice": "沟通练习"}, "acceptance": {"skill": {"criteria": "能清晰表达工作内容"}, "project": {"name": "沟通案例", "description": "沟通实践", "features": ["表达", "倾听"]}, "resume": "具备清晰表达的能力"}},
+        "intermediate": {"duration_weeks": 2, "goal": "掌握高效沟通", "weekly_plan": ["汇报技巧", "需求沟通", "冲突沟通", "跨部门沟通"], "resources": {"official": "高效沟通", "courses": ["沟通实战"], "practice": "场景化沟通"}, "acceptance": {"skill": {"criteria": "能处理复杂沟通场景"}, "project": {"name": "沟通案例库", "description": "沟通实践", "features": ["冲突处理", "需求对齐"]}, "resume": "具备复杂场景沟通能力"}},
+        "advanced": {"duration_weeks": 2, "goal": "成为沟通专家", "weekly_plan": ["演讲技巧", "谈判策略", "影响力建设", "危机沟通"], "resources": {"official": "沟通高级", "courses": ["沟通高级"], "practice": "演讲实践"}, "acceptance": {"skill": {"criteria": "能进行公开演讲"}, "project": {"name": "技术演讲", "description": "演讲实践", "features": ["PPT", "演讲"]}, "resume": "具备公开演讲和影响力"}}
+      }
+    },
+    "问题解决": {
+      "skill_name": "问题解决",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "掌握问题解决方法", "weekly_plan": ["问题识别", "原因分析", "解决方案", "复盘总结"], "resources": {"official": "问题解决", "courses": ["问题解决入门"], "practice": "案例分析"}, "acceptance": {"skill": {"criteria": "能系统性地解决问题"}, "project": {"name": "问题解决案例", "description": "案例分析", "features": ["分析", "解决"]}, "resume": "具备问题解决能力"}},
+        "intermediate": {"duration_weeks": 2, "goal": "提升复杂问题处理", "weekly_plan": ["MECE原则", "假设驱动", "快速验证", "创新思维"], "resources": {"official": "问题解决高级", "courses": ["问题解决进阶"], "practice": "复杂问题处理"}, "acceptance": {"skill": {"criteria": "能处理复杂问题"}, "project": {"name": "复杂问题解决", "description": "问题处理", "features": ["分析", "方案"]}, "resume": "具备复杂问题处理能力"}},
+        "advanced": {"duration_weeks": 2, "goal": "成为问题解决专家", "weekly_plan": ["系统思维", "战略问题", "预防问题", "持续改进"], "resources": {"official": "问题预防", "courses": ["问题解决高级"], "practice": "系统改进"}, "acceptance": {"skill": {"criteria": "能预防问题发生"}, "project": {"name": "系统改进", "description": "改进项目", "features": ["预防", "改进"]}, "resume": "具备问题预防和系统改进能力"}}
+      }
+    },
+    "文档编写": {
+      "skill_name": "文档编写",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "掌握技术文档基础", "weekly_plan": ["文档结构", "Markdown", "技术术语", "代码注释"], "resources": {"official": "写作指南", "courses": ["文档入门"], "practice": "文档练习"}, "acceptance": {"skill": {"criteria": "能编写清晰的技术文档"}, "project": {"name": "技术文档", "description": "文档练习", "features": ["API文档", "README"]}, "resume": "具备技术文档编写能力"}},
+        "intermediate": {"duration_weeks": 2, "goal": "提升文档质量", "weekly_plan": ["用户文档", "设计文档", "API文档", "知识库建设"], "resources": {"official": "文档最佳实践", "courses": ["文档进阶"], "practice": "文档项目"}, "acceptance": {"skill": {"criteria": "能编写多类型技术文档"}, "project": {"name": "文档体系", "description": "文档建设", "features": ["设计", "API", "用户"]}, "resume": "具备多类型文档编写能力"}},
+        "advanced": {"duration_weeks": 2, "goal": "成为文档专家", "weekly_plan": ["文档策略", "文档系统", "自动化文档", "文档度量"], "resources": {"official": "文档管理", "courses": ["文档高级"], "practice": "文档系统建设"}, "acceptance": {"skill": {"criteria": "能建设文档体系"}, "project": {"name": "文档系统", "description": "体系设计", "features": ["规范", "工具"]}, "resume": "具备文档体系设计能力"}}
+      }
+    },
+    "学术写作": {
+      "skill_name": "学术写作",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 3, "goal": "掌握学术写作基础", "weekly_plan": ["论文结构", "文献检索", "文献引用", "学术规范"], "resources": {"official": "学术写作指南", "courses": ["学术写作入门"], "practice": "文献综述"}, "acceptance": {"skill": {"criteria": "能撰写规范的学术论文"}, "project": {"name": "文献综述", "description": "写作练习", "features": ["引用", "格式"]}, "resume": "掌握学术写作基础"}},
+        "intermediate": {"duration_weeks": 3, "goal": "提升学术写作", "weekly_plan": ["研究方法", "数据分析写作", "图表制作", "论文修改"], "resources": {"official": "学术写作", "courses": ["学术写作进阶"], "practice": "论文写作"}, "acceptance": {"skill": {"criteria": "能完成学术论文写作"}, "project": {"name": "学术论文", "description": "论文写作", "features": ["结构", "论证"]}, "resume": "具备学术论文写作能力"}},
+        "advanced": {"duration_weeks": 3, "goal": "成为学术写作专家", "weekly_plan": ["论文发表", "审稿意见", "学术影响力", "科研伦理"], "resources": {"official": "学术发表", "courses": ["学术写作高级"], "practice": "论文投稿"}, "acceptance": {"skill": {"criteria": "能进行论文发表"}, "project": {"name": "发表论文", "description": "学术成果", "features": ["发表", "引用"]}, "resume": "具备学术论文发表能力"}}
+      }
+    },
+    "学习方法": {
+      "skill_name": "学习方法",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "建立学习方法", "weekly_plan": ["费曼学习法", "主动回忆", "番茄工作法", "知识整理"], "resources": {"official": "学习之道", "courses": ["学习方法入门"], "practice": "学习方法实践"}, "acceptance": {"skill": {"criteria": "有系统的学习方法"}, "project": {"name": "学习方法总结", "description": "方法实践", "features": ["笔记", "复盘"]}, "resume": "具备高效学习方法"}},
+        "intermediate": {"duration_weeks": 2, "goal": "提升学习效率", "weekly_plan": ["深度学习", "批判性思维", "快速验证", "知识迁移"], "resources": {"official": "深度学习", "courses": ["学习进阶"], "practice": "学习实践"}, "acceptance": {"skill": {"criteria": "能快速学习新技能"}, "project": {"name": "快速学习案例", "description": "学习案例", "features": ["方法", "效果"]}, "resume": "具备快速学习能力"}},
+        "advanced": {"duration_weeks": 2, "goal": "建立知识体系", "weekly_plan": ["T型能力", "知识输出", "个人品牌", "持续成长"], "resources": {"official": "个人成长", "courses": ["知识管理"], "practice": "知识体系建设"}, "acceptance": {"skill": {"criteria": "有清晰的成长路径"}, "project": {"name": "个人知识库", "description": "知识体系", "features": ["博客", "分享"]}, "resume": "具备知识体系和个人品牌"}}
+      }
+    },
+    "简历优化": {
+      "skill_name": "简历优化",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 1, "goal": "掌握简历基础", "weekly_plan": ["简历结构", "STAR法则", "关键词优化", "格式排版"], "resources": {"official": "简历指南", "courses": ["简历入门"], "practice": "简历编写"}, "acceptance": {"skill": {"criteria": "能撰写规范的简历"}, "project": {"name": "个人简历", "description": "简历优化", "features": ["结构", "关键词"]}, "resume": "掌握简历撰写技巧"}},
+        "intermediate": {"duration_weeks": 1, "goal": "提升简历质量", "weekly_plan": ["项目描述优化", "量化成果", "岗位定制", "简历诊断"], "resources": {"official": "简历高级", "courses": ["简历实战"], "practice": "简历迭代"}, "acceptance": {"skill": {"criteria": "能针对岗位定制简历"}, "project": {"name": "岗位简历", "description": "定制简历", "features": ["岗位分析", "定制"]}, "resume": "具备简历定制能力"}},
+        "advanced": {"duration_weeks": 1, "goal": "成为简历专家", "weekly_plan": ["简历系统", "品牌包装", "求职策略", "面试准备联动"], "resources": {"official": "求职策略", "courses": ["求职高级"], "practice": "求职系统"}, "acceptance": {"skill": {"criteria": "有系统的求职方法"}, "project": {"name": "求职体系", "description": "求职系统", "features": ["简历", "面试"]}, "resume": "具备完整求职能力"}}
+      }
+    },
+    "面试技巧": {
+      "skill_name": "面试技巧",
+      "category": "soft",
+      "category_name": "软技能",
+      "sub_type": "soft_skill",
+      "tiers": {
+        "entry": {"duration_weeks": 2, "goal": "掌握面试基础", "weekly_plan": ["面试流程", "自我介绍", "STAR法则", "常见问题"], "resources": {"official": "面试指南", "courses": ["面试入门"], "practice": "模拟面试"}, "acceptance": {"skill": {"criteria": "能进行流畅的自我介绍"}, "project": {"name": "自我介绍", "description": "面试练习", "features": ["结构", "表达"]}, "resume": "掌握面试基础技巧"}},
+        "intermediate": {"duration_weeks": 2, "goal": "提升面试能力", "weekly_plan": ["技术面试", "行为面试", "薪资谈判", "反问环节"], "resources": {"official": "面试实战", "courses": ["面试实战"], "practice": "真实面试"}, "acceptance": {"skill": {"criteria": "能应对各类面试问题"}, "project": {"name": "面试复盘", "description": "面试总结", "features": ["问题", "复盘"]}, "resume": "具备面试实战能力"}},
+        "advanced": {"duration_weeks": 2, "goal": "成为面试高手", "weekly_plan": ["高级技术面", "系统设计", "谈offer策略", "职业规划"], "resources": {"official": "高级面试", "courses": ["面试高级"], "practice": "高阶面试"}, "acceptance": {"skill": {"criteria": "能拿下高薪offer"}, "project": {"name": "offer总结", "description": "求职成果", "features": ["offer", "薪资"]}, "resume": "具备拿下高薪offer的能力"}}
+      }
+    }
+  }
+}

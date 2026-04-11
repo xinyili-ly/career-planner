@@ -1,0 +1,63 @@
+{
+  "JOB_001": {
+    "demand_level": "高",
+    "demand_evidence": "岗位池内属于后端核心研发方向，企业通用需求稳定。",
+    "trend_direction": "稳定",
+    "trend_evidence": "技术栈（Python/后端/微服务）长期存在，需求随业务规模稳定。"
+  },
+  "JOB_002": {
+    "demand_level": "高",
+    "demand_evidence": "算法岗位在岗位池内为核心稀缺方向，对学历与能力门槛较高。",
+    "trend_direction": "上升",
+    "trend_evidence": "企业对NLP/推荐等算法能力持续投入，岗位要求更偏工程落地。"
+  },
+  "JOB_003": {
+    "demand_level": "高",
+    "demand_evidence": "前端为产品交付必需岗位，岗位池内覆盖Web与多端方向。",
+    "trend_direction": "稳定",
+    "trend_evidence": "业务数字化推动前端需求持续存在，技术栈更新但岗位本质稳定。"
+  },
+  "JOB_004": {
+    "demand_level": "中",
+    "demand_evidence": "产品岗位对业务理解与沟通要求高，岗位池内为管培/入门方向。",
+    "trend_direction": "稳定",
+    "trend_evidence": "企业持续需要产品角色，但更看重复合能力与行业理解。"
+  },
+  "JOB_005": {
+    "demand_level": "高",
+    "demand_evidence": "数据分析是业务决策必需能力，岗位池内覆盖SQL/Python/可视化。",
+    "trend_direction": "上升",
+    "trend_evidence": "数据驱动运营深化，指标体系与分析能力需求持续增强。"
+  },
+  "JOB_006": {
+    "demand_level": "中",
+    "demand_evidence": "嵌入式受行业周期影响更大，但在智能硬件场景长期存在。",
+    "trend_direction": "稳定",
+    "trend_evidence": "智能硬件/物联网持续发展，岗位更强调底层能力与工程实践。"
+  },
+  "JOB_007": {
+    "demand_level": "中",
+    "demand_evidence": "测试岗位在研发流程中必需，自动化能力可提升竞争力。",
+    "trend_direction": "稳定",
+    "trend_evidence": "质量保障刚需存在，岗位向测试开发/自动化方向演进。"
+  },
+  "JOB_008": {
+    "demand_level": "高",
+    "demand_evidence": "SRE/运维开发对稳定性要求高，岗位池内强调K8s与自动化。",
+    "trend_direction": "上升",
+    "trend_evidence": "云原生普及提升稳定性岗位需求，自动化与平台化趋势增强。"
+  },
+  "JOB_009": {
+    "demand_level": "中",
+    "demand_evidence": "技术支持与售前/售后在企业ToB交付中重要，偏沟通与方案能力。",
+    "trend_direction": "稳定",
+    "trend_evidence": "企业产品化与交付体系稳定存在，岗位随行业客户结构波动。"
+  },
+  "JOB_010": {
+    "demand_level": "中",
+    "demand_evidence": "UI/UX对产品体验关键，但更依赖作品集与行业需求波动。",
+    "trend_direction": "稳定",
+    "trend_evidence": "体验设计仍是产品竞争要素，岗位向体验研究/设计系统发展。"
+  }
+}
+

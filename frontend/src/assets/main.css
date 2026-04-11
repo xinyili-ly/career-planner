@@ -51,6 +51,10 @@
   --u-btn-bg: var(--u-bg-normal);
   --u-btn-shadow: var(--u-box-shadow);
   --u-btn-radius: 999px;
+  --u-btn-lift-hover: -2px;
+  --u-btn-lift-active: 2px;
+  --u-btn-shadow-hover: 6px 6px 0px var(--u-black);
+  --u-btn-shadow-active: 0 0 0 var(--u-black);
 }
 
 /* 夜间：低明度午夜马卡龙 + 亮描边 + 纯黑硬阴影（与 html.dark 同步） */
@@ -91,6 +95,8 @@ html.dark {
   --u-pink: #c084b8;
 
   --u-btn-fg: var(--u-black);
+  --u-btn-shadow-hover: 6px 6px 0px #000000;
+  --u-btn-shadow-active: 0 0 0 #000000;
 }
 
 html.dark body {
@@ -124,6 +130,10 @@ a.u-btn {
   --_u-border: var(--u-border);
   --_u-shadow: var(--u-btn-shadow);
   --_u-radius: var(--u-btn-radius);
+  --_u-lift-hover: var(--u-btn-lift-hover);
+  --_u-lift-active: var(--u-btn-lift-active);
+  --_u-shadow-hover: var(--u-btn-shadow-hover);
+  --_u-shadow-active: var(--u-btn-shadow-active);
 
   display: inline-flex;
   align-items: center;
@@ -150,28 +160,28 @@ a.u-btn {
 .u-btn.el-button:not(.u-btn--text):hover,
 a.u-btn:not(.u-btn--text):hover {
   filter: brightness(1.02);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--u-black);
+  transform: translate(var(--_u-lift-hover), var(--_u-lift-hover));
+  box-shadow: var(--_u-shadow-hover);
 }
 
 html.dark .u-btn:not(.u-btn--text):hover,
 html.dark .u-btn.el-button:not(.u-btn--text):hover,
 html.dark a.u-btn:not(.u-btn--text):hover {
-  box-shadow: 6px 6px 0 #000000;
+  box-shadow: var(--_u-shadow-hover);
 }
 
 .u-btn:not(.u-btn--text):active,
 .u-btn.el-button:not(.u-btn--text):active,
 a.u-btn:not(.u-btn--text):active {
-  transform: translate(2px, 2px);
-  box-shadow: 0 0 0 var(--u-black);
+  transform: translate(var(--_u-lift-active), var(--_u-lift-active));
+  box-shadow: var(--_u-shadow-active);
   filter: none;
 }
 
 html.dark .u-btn:not(.u-btn--text):active,
 html.dark .u-btn.el-button:not(.u-btn--text):active,
 html.dark a.u-btn:not(.u-btn--text):active {
-  box-shadow: 0 0 0 #000000;
+  box-shadow: var(--_u-shadow-active);
 }
 
 /* 尺寸 */
@@ -184,7 +194,8 @@ html.dark a.u-btn:not(.u-btn--text):active {
 
 .u-btn--lg,
 .u-btn--lg.el-button {
-  padding: 12px 22px;
+  /* 稍微更高一点，并覆盖 .u-btn 的 padding: ... !important */
+  padding: 14px 22px !important;
 }
 
 /* 语义变体：对齐 Uiineed 色板 */
