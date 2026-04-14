@@ -4,7 +4,10 @@
     <main class="report-detail-main">
       <el-card class="report-detail-card" shadow="never">
         <template #header>
-          <span class="report-detail-title">报告详情</span>
+          <div class="report-detail-header">
+            <span class="report-detail-title">报告详情</span>
+            <el-button class="u-btn u-btn--ghost" @click="goProfile">返回个人主页</el-button>
+          </div>
         </template>
         <p v-if="title" class="report-detail-name">{{ title }}</p>
         <p class="report-detail-id">报告编号：{{ id }}</p>
@@ -40,6 +43,10 @@ const title = computed(() => titleMap[String(id.value)] || '')
 const goCareerReport = () => {
   router.push({ name: 'CareerReport' })
 }
+
+const goProfile = () => {
+  router.push({ name: 'Profile' })
+}
 </script>
 
 <style scoped>
@@ -67,6 +74,13 @@ const goCareerReport = () => {
 .report-detail-title {
   font-weight: 600;
   font-size: 18px;
+}
+
+.report-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .report-detail-name {

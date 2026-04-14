@@ -34,7 +34,7 @@
 
         <div class="tip">
           这个页面会把我们已知的学生关键信息填入统一模板。你可以先选择「学生自动编辑」生成一版更直白的报告，
-          或选择「智能润色」生成更正式、更有说服力的表达（示意，后续可接入大模型）。
+          或选择「智能润色」：将按《API_DOC.md》先请求报告预览再调用 finalize，拉取 module_4 的 Markdown 全文（生成可能需数秒至数十秒）。
         </div>
       </section>
 
@@ -48,10 +48,15 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
+import {
+  postCareerReportPolishFromPreview,
+  readLastMatchResult,
+  readProfileCacheId,
+} from '../api/careerAgentApi'
 
 const { theme } = useTheme()
 
@@ -159,9 +164,58 @@ const applyStudentAutoEdit = () => {
   ElMessage.success('已生成「学生自动编辑」版本（示意）。')
 }
 
-const applySmartPolish = () => {
-  reportText.value = buildTemplateText('polish')
-  ElMessage.success('已生成「智能润色」版本（示意）。')
+const applySmartPolish = async () => {
+  const jobId = String(payload.value.jobId || readLastMatchResult()?.job_info?.job_id || '').trim()
+  const profileCacheId = String(
+    payload.value.profile_cache_id || readProfileCacheId() || ''
+  ).trim()
+  const last = readLastMatchResult()
+  const studentProfile =
+    last?.student_profile ??
+    last?.studentProfile ??
+    payload.value.student_profile ??
+    undefined
+
+  if (!jobId) {
+    ElMessage.warning('缺少岗位 ID：请先在「职业发展规划报告」页选择岗位并生成报告，再进入本页润色。')
+    return
+  }
+  if (!profileCacheId && (!studentProfile || typeof studentProfile !== 'object')) {
+    ElMessage.warning('缺少画像缓存或学生画像：请先完成简历解析或能力画像流程。')
+    return
+  }
+
+  const loading = ElLoading.service({
+    lock: true,
+    text: '正在生成润色报告（预览 → 定稿），请稍候…',
+    background: 'rgba(255,255,255,0.65)',
+  })
+  try {
+    const { module_4, polished_markdown } = await postCareerReportPolishFromPreview({
+      job_id: jobId,
+      profile_cache_id: profileCacheId || undefined,
+      student_profile: profileCacheId ? undefined : studentProfile,
+    })
+    const text = String(polished_markdown || '').trim()
+    if (module_4?.llm_status === 'error') {
+      ElMessage.warning(
+        module_4?.validation?.warnings?.length
+          ? `润色返回异常：${module_4.validation.warnings.join('；')}`
+          : '润色接口返回 llm_status=error，请稍后重试或查看后端日志。'
+      )
+    }
+    if (text) {
+      reportText.value = text
+      ElMessage.success('润色成功！')
+      return
+    }
+    reportText.value = buildTemplateText('polish')
+    ElMessage.success('未返回 Markdown 正文，已使用本地模板润色稿。')
+  } catch (e) {
+    ElMessage.error(`润色失败：${e?.message || '请检查后端接口（需先 preview 再 finalize）'}`)
+  } finally {
+    loading.close()
+  }
 }
 
 function buildMarkdown() {
@@ -181,7 +235,7 @@ function buildHtml() {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>职业发展规划报告</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;padding:24px;color:#111827;}
+    body{font-family:'Source Han Sans SC','Source Han Sans CN','Source Han Sans','Noto Sans CJK SC','Noto Sans SC',Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;padding:24px;color:#111827;}
     .meta{color:#475569;margin:0 0 14px;}
   </style>
 </head>
@@ -258,7 +312,7 @@ onMounted(() => {
   flex-direction: column;
   background: #f5f7fb;
   color: #222;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-family-sans);
 }
 
 .career-template-view.dark {

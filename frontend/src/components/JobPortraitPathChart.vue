@@ -153,6 +153,12 @@ onBeforeUnmount(() => {
   chart?.dispose()
   chart = null
 })
+
+defineExpose({
+  resize() {
+    chart?.resize()
+  },
+})
 </script>
 
 <style scoped>

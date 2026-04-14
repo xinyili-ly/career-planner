@@ -49,6 +49,14 @@ class MatchReportRequest(BaseModel):
     plan_preferences: Optional[Dict[str, str]] = None
 
 
+class MatchDetailRequest(BaseModel):
+    """与 MatchReportRequest 相同画像解析方式，仅返回匹配详情（供雷达图等，不生成完整报告）。"""
+
+    student_profile: Optional[StudentProfile] = None
+    profile_cache_id: Optional[str] = None
+    job_id: str
+
+
 class ManualParseRequest(BaseModel):
     resume_text: str
 
@@ -1518,6 +1526,85 @@ async def intake_finish(request: IntakeFinishRequest):
     _INTAKE_SESSIONS.pop(request.session_id, None)
     return result
 
+
+def _resolve_student_profile_for_match(
+    student_profile: Optional[StudentProfile], profile_cache_id: Optional[str]
+) -> StudentProfile:
+    if student_profile is not None:
+        return student_profile
+    if profile_cache_id:
+        raw = _load_profile_cache(profile_cache_id)
+        if not raw:
+            raise HTTPException(
+                status_code=404,
+                detail="画像缓存不存在或已过期。请确认未清空缓存目录，并重新调用简历解析接口获取新的 profile_cache_id。",
+            )
+        try:
+            return StudentProfile(**raw)
+        except Exception as e:
+            logger.warning("profile_cache 反序列化失败: %s", e)
+            raise HTTPException(status_code=400, detail=f"缓存中的画像结构无效: {e}")
+    raise HTTPException(
+        status_code=422,
+        detail="请提供 student_profile 或 profile_cache_id 之一。",
+    )
+
+
+@app.post("/api/v1/match/detail")
+async def get_match_detail(request: MatchDetailRequest):
+    """
+    阶段二：选中岗位后拉取匹配详情（四维学生分 vs 岗位要求分），与前端雷达图字段对齐。
+    """
+    student_profile = _resolve_student_profile_for_match(
+        request.student_profile, request.profile_cache_id
+    )
+    all_jobs = load_jobs()
+    target_job = next((job for job in all_jobs if str(job["job_id"]) == str(request.job_id)), None)
+    if not target_job:
+        raise HTTPException(status_code=404, detail="岗位不存在")
+
+    match_detail = calculate_match(student_profile, target_job)
+    module_1 = generate_module_1(student_profile, target_job, match_detail)
+    raw_dims = (module_1.get("fit_analysis") or {}).get("four_dimensions") or []
+
+    dimensions = []
+    for row in raw_dims:
+        if not isinstance(row, dict):
+            continue
+        dimensions.append(
+            {
+                "dimension_key": row.get("dimension_key"),
+                "dimension_label": row.get("dimension_label"),
+                "student_score": row.get("student_score_100"),
+                "job_required_score": row.get("job_required_score_100"),
+                "student_score_100": row.get("student_score_100"),
+                "job_required_score_100": row.get("job_required_score_100"),
+                "fit_percent": row.get("fit_percent"),
+                "conclusion": row.get("conclusion"),
+                "evidence": row.get("evidence") or [],
+            }
+        )
+
+    details = match_detail.get("details") or {}
+    student_name = getattr(student_profile.basic_info, "name", "") or ""
+
+    return {
+        "job_id": target_job.get("job_id"),
+        "title": target_job.get("title"),
+        "match_score": match_detail.get("match_score"),
+        "match_level": _match_level_label(float(match_detail.get("match_score") or 0)),
+        "is_qualified": match_detail.get("is_qualified", True),
+        "dimensions": dimensions,
+        "semantic_score": details.get("semantic_score"),
+        "rule_score": details.get("rule_score"),
+        "student_name": student_name,
+        "details": details,
+        "gap_analysis": "",
+        "improvement_suggestions": "",
+        "narrative": "",
+    }
+
+
 @app.post("/api/v1/match/report")
 async def generate_match_report(request: MatchReportRequest):
     """
@@ -1529,26 +1616,9 @@ async def generate_match_report(request: MatchReportRequest):
 
     同时传了 student_profile 和 profile_cache_id 时，优先使用 student_profile。
     """
-    # 1. 解析画像：优先用直接传来的 student_profile，否则从缓存取
-    if request.student_profile is not None:
-        student_profile = request.student_profile
-    elif request.profile_cache_id:
-        raw = _load_profile_cache(request.profile_cache_id)
-        if not raw:
-            raise HTTPException(
-                status_code=404,
-                detail="画像缓存不存在或已过期。请确认未清空缓存目录，并重新调用简历解析接口获取新的 profile_cache_id。",
-            )
-        try:
-            student_profile = StudentProfile(**raw)
-        except Exception as e:
-            logger.warning("profile_cache 反序列化失败: %s", e)
-            raise HTTPException(status_code=400, detail=f"缓存中的画像结构无效: {e}")
-    else:
-        raise HTTPException(
-            status_code=422,
-            detail="请提供 student_profile 或 profile_cache_id 之一。",
-        )
+    student_profile = _resolve_student_profile_for_match(
+        request.student_profile, request.profile_cache_id
+    )
 
     # 2. 找到目标岗位数据
     all_jobs = load_jobs()

@@ -1,6 +1,6 @@
- <template>
+<template>
   <div class="job-detail-view" :class="theme">
-    <AppHeader :back-to="{ name: 'JobRequirements' }" />
+    <AppHeader :back-to="{ name: 'jobs' }" />
 
     <main class="page-scroll">
       <!-- 顶部大图区域 -->
@@ -38,7 +38,7 @@
         </p>
       </section>
 
-      <!-- 技能要求 / 申请条件 Tab -->
+      <!-- 技能要求 / 评价申请条件 Tab -->
       <section class="section-card">
         <el-tabs v-model="activeTab">
           <el-tab-pane label="技能要求" name="skills">
@@ -91,88 +91,192 @@
         </el-tabs>
       </section>
 
-      <!-- 岗位画像维度（题目要求：专业技能、证书、创新、学习、抗压、沟通、实习等） -->
-      <section class="section-card">
-        <h2 class="section-title">岗位画像维度</h2>
-        <ul class="profile-dim-list" v-if="jobProfileDims.length">
+      <!-- 岗位核心胜任力分析（雷达 + 进度） -->
+      <section class="section-card competency-section">
+        <h2 class="section-title">岗位核心胜任力分析</h2>
+        <p class="section-desc competency-intro">
+          从七个维度概括岗位能力侧重；接口未返回雷达数据时，使用基于岗位名称的示意分布。分值由大模型对岗位文本语义分析估算，仅供参考。
+          橙色虚线为全行业平均（万样本基准）对比，便于横向参照。
+        </p>
+
+        <div class="competency-panel">
+          <div class="radar-container">
+            <div
+              ref="radarChartRef"
+              class="radar-echart"
+              role="img"
+              aria-label="岗位七维能力雷达图"
+            />
+          </div>
+
+          <div class="metrics-board">
+            <div
+              v-for="key in RADAR_DIMENSION_ORDER"
+              :key="key"
+              class="metric-item"
+            >
+              <div class="metric-label">
+                <div class="metric-label-left">
+                  <span>{{ dimensionMap[key] }}</span>
+                  <span
+                    v-if="key === 'certificates' && isCertificateCritical"
+                    class="critical-tag"
+                  >关键准入</span>
+                </div>
+                <el-tooltip :content="abilitySourceTooltip" placement="top">
+                  <el-icon class="source-icon" :aria-label="abilitySourceTooltip">
+                    <InfoFilled />
+                  </el-icon>
+                </el-tooltip>
+              </div>
+              <div
+                class="metric-progress"
+                :class="{ 'glow-animation': (displayScores[key] ?? 0) > 90 }"
+              >
+                <el-progress
+                  :percentage="displayScores[key] ?? 0"
+                  :duration="0"
+                  color="#63bfb7"
+                  :stroke-width="10"
+                  :format="formatProgressPercent"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul v-if="jobProfileDims.length" class="profile-dim-list profile-dim-list--below">
           <li v-for="d in jobProfileDims" :key="d.name">
             <span class="dim-name">{{ d.name }}：</span>
-            <span class="dim-desc">{{ d.desc }}</span>
+            <span
+              class="dim-desc"
+              :class="{ 'dim-desc--clamped': !expandedProfileDims[d.name] }"
+            >{{ d.desc }}</span>
+            <button
+              v-if="shouldShowDimMore(d.desc)"
+              type="button"
+              class="dim-more-btn"
+              @click="toggleProfileDim(d.name)"
+            >
+              {{ expandedProfileDims[d.name] ? '收起' : '查看更多' }}
+            </button>
           </li>
         </ul>
-        <p v-else class="section-desc">暂无岗位画像维度数据。</p>
+        <p v-else class="section-desc">暂无岗位画像维度说明文案。</p>
       </section>
 
-      <!-- 垂直岗位图谱：岗位描述、晋升路径 -->
-      <section class="section-card">
-        <h2 class="section-title">垂直岗位图谱</h2>
-        <p class="section-desc">涵盖岗位描述与晋升路径关联信息，便于了解本岗位纵向发展。</p>
-        <p v-if="jobPortrait" class="section-desc">
-          岗位描述：{{ jobPortrait.summary }}
-        </p>
-        <div class="path-block vertical-path" v-if="verticalPath.length">
-          <div
-            v-for="(node, i) in verticalPath"
-            :key="node.title"
-            class="path-node"
-          >
-            <div class="path-title">
-              <span class="path-index">{{ i + 1 }}</span>
-              <span class="path-text">{{ node.title }}</span>
-            </div>
-            <p class="path-desc">{{ node.focus }}</p>
-          </div>
-        </div>
-        <p v-else class="section-desc">暂无垂直岗位图谱数据。</p>
-      </section>
-
-      <!-- 换岗路径图谱：当前岗位换岗路径与相关岗位血缘 -->
-      <section class="section-card">
-        <h2 class="section-title">换岗路径图谱</h2>
-        <p class="section-desc">相关岗位血缘关系与转换路径，便于规划横向发展。</p>
-
-        <div v-if="jobPortrait && transferPaths.length" class="transfer-current">
-          <p class="transfer-from">从「{{ displayJobName }}」可换岗的路径示例：</p>
-          <p v-if="transferUsingFallback" class="section-desc transfer-fallback-hint">
-            当前岗位暂无后端返回的换岗明细，以下为通用横向发展示例，接入接口后将自动替换为真实路径。
-          </p>
-          <div class="transfer-path-list">
-            <div v-for="p in transferPaths" :key="p.title" class="transfer-path">
-              <p class="transfer-path-title">{{ p.title }}</p>
-              <div class="transfer-steps">
-                <span v-for="(s, i) in p.steps" :key="`${p.title}-${i}-${s}`" class="transfer-step">
-                  {{ s }}<span v-if="i < p.steps.length - 1" class="transfer-arrow">→</span>
-                </span>
+      <!-- Tab：纵向晋升图谱 / 横向血缘分析 -->
+      <section class="section-card path-analysis-tabs-wrap">
+        <el-tabs
+          v-model="pathAnalysisTab"
+          class="path-analysis-tabs"
+          @tab-click="onPathAnalysisTabClick"
+        >
+          <el-tab-pane label="职业晋升图谱" name="career">
+            <p class="section-desc tab-pane-lead">
+              从初级到专家的纵向发展路径，以及基于 path_graph 或换岗路径生成的可拖拽关系图。
+            </p>
+            <template v-if="jobPortrait && (jobPortrait.summary || '').trim()">
+              <div class="job-summary-block">
+                <strong class="job-summary-label">岗位描述</strong>
+                <p
+                  class="job-summary-text"
+                  :class="{ 'job-summary-text--clamped': !summaryExpanded }"
+                >
+                  {{ jobPortrait.summary }}
+                </p>
+                <button
+                  v-if="showSummaryToggle"
+                  type="button"
+                  class="text-expand-btn"
+                  @click="summaryExpanded = !summaryExpanded"
+                >
+                  {{ summaryExpanded ? '收起' : '查看更多' }}
+                </button>
               </div>
-              <ul v-if="p.keyGaps?.length" class="transfer-gaps">
-                <li v-for="g in p.keyGaps" :key="g">{{ g }}</li>
-              </ul>
+            </template>
+            <div class="path-block vertical-path" v-if="verticalPath.length">
+              <div
+                v-for="(node, i) in verticalPath"
+                :key="node.title"
+                class="path-node"
+              >
+                <div class="path-title">
+                  <span class="path-index">{{ i + 1 }}</span>
+                  <span class="path-text">{{ node.title }}</span>
+                </div>
+                <p class="path-desc">{{ node.focus }}</p>
+              </div>
             </div>
-          </div>
+            <p v-else-if="!loadingPortrait" class="section-desc">暂无纵向晋升路径说明。</p>
+            <div v-if="showPathChart" class="path-chart-embed">
+              <JobPortraitPathChart
+                ref="pathChartRef"
+                :path-graph="jobPortrait?.pathGraph ?? null"
+                :transfer-paths="transferPaths"
+                :theme="theme"
+              />
+            </div>
+            <p v-else-if="!loadingPortrait" class="section-desc">暂无关系图数据。</p>
+          </el-tab-pane>
 
-          <div v-if="relationsDisplay.length" class="bloodline">
-            <p class="bloodline-title">相关岗位血缘（关联原因）：</p>
-            <ul class="bloodline-list">
-              <li v-for="r in relationsDisplay" :key="r.role">
-                <span class="dim-name">{{ r.role }}：</span>
-                <span class="dim-desc">{{ r.reason }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <p v-else-if="!loadingPortrait" class="section-desc">暂无换岗路径图谱数据。</p>
-      </section>
+          <el-tab-pane label="跨行血缘分析" name="bloodline">
+            <p class="section-desc tab-pane-lead">
+              换岗路径、相关岗位关联原因与脉冲血缘图，用于规划横向迁移。
+            </p>
+            <div v-if="jobPortrait && transferPaths.length" class="transfer-current">
+              <p class="transfer-from">从「{{ displayJobName }}」可换岗的路径示例：</p>
+              <p v-if="transferUsingFallback" class="section-desc transfer-fallback-hint">
+                当前岗位暂无后端返回的换岗明细，以下为通用横向发展示例，接入接口后将自动替换为真实路径。
+              </p>
+              <div class="transfer-path-list">
+                <div v-for="p in transferPaths" :key="p.title" class="transfer-path">
+                  <p class="transfer-path-title">{{ p.title }}</p>
+                  <div class="transfer-steps">
+                    <span v-for="(s, i) in p.steps" :key="`${p.title}-${i}-${s}`" class="transfer-step">
+                      {{ s }}<span v-if="i < p.steps.length - 1" class="transfer-arrow">→</span>
+                    </span>
+                  </div>
+                  <ul v-if="p.keyGaps?.length" class="transfer-gaps">
+                    <li v-for="g in p.keyGaps" :key="g">{{ g }}</li>
+                  </ul>
+                </div>
+              </div>
 
-      <section v-if="showPathChart" class="section-card">
-        <h2 class="section-title">岗位发展关系图</h2>
-        <p class="section-desc">
-          基于后端 path_graph（nodes / edges）或当前换岗路径自动生成的关系图，可拖拽与缩放。
-        </p>
-        <JobPortraitPathChart
-          :path-graph="jobPortrait?.pathGraph ?? null"
-          :transfer-paths="transferPaths"
-          :theme="theme"
-        />
+              <div v-if="relationsDisplay.length" class="bloodline">
+                <p class="bloodline-title">相关岗位血缘（关联原因）：</p>
+                <ul class="bloodline-list">
+                  <li
+                    v-for="r in relationsDisplay"
+                    :key="r.role"
+                    :ref="(el) => registerBloodlineRef(r.role, el)"
+                    :class="[
+                      'bloodline-item',
+                      {
+                        'bloodline-item--active': r.role === activeBloodlineRole,
+                        'bloodline-item--flash': r.role === flashBloodlineRole
+                      }
+                    ]"
+                  >
+                    <span class="dim-name">{{ r.role }}：</span>
+                    <span class="dim-desc">{{ r.reason }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div v-if="bloodlineGraphNodes.length" class="bloodline-graph-wrap">
+                <p class="bloodline-title">岗位血缘脉冲图谱：</p>
+                <JobBloodlineGraph
+                  :nodes="bloodlineGraphNodes"
+                  :path-preview-order="bloodlinePathPreviewOrder"
+                  @node-hover="onBloodlineNodeHover"
+                  @node-click="onBloodlineNodeClick"
+                />
+              </div>
+            </div>
+            <p v-else-if="!loadingPortrait" class="section-desc">暂无换岗路径与血缘数据。</p>
+          </el-tab-pane>
+        </el-tabs>
       </section>
 
       <!-- 底部引导：探索更多岗位 -->
@@ -185,18 +289,75 @@
         <span>© {{ new Date().getFullYear() }} 职途智引 · AI职业规划助手</span>
       </footer>
     </main>
+
+    <el-drawer
+      v-model="showTransferDrawer"
+      :title="transferDrawerTitle"
+      direction="rtl"
+      size="min(440px, 92vw)"
+      append-to-body
+      destroy-on-close
+      :class="transferDrawerRootClass"
+    >
+      <div v-if="transferAnalysis" class="transfer-analysis-content">
+        <h3 class="transfer-analysis-heading">
+          岗位迁移分析：{{ transferOriginName }} <span class="transfer-analysis-arrow" aria-hidden="true">➔</span>
+          {{ transferTargetName }}
+        </h3>
+        <p class="transfer-analysis-hint">
+          以下由当前画像与目标岗位关联数据生成，接入迁移接口后可替换为真实对比结果。
+        </p>
+
+        <div class="transfer-analysis-section">
+          <h4 class="transfer-section-tag transfer-section-tag--reuse">技能迁移（可复用）</h4>
+          <p class="transfer-section-desc">两岗位重合、可平移复用的能力资产。</p>
+          <div v-if="transferAnalysis.reusable_skills.length" class="transfer-skill-tags">
+            <el-tag
+              v-for="s in transferAnalysis.reusable_skills"
+              :key="`reuse-${s}`"
+              type="success"
+              effect="dark"
+              class="transfer-skill-tag"
+            >
+              {{ s }}
+            </el-tag>
+          </div>
+          <p v-else class="transfer-section-empty">暂无重合技能数据</p>
+        </div>
+
+        <div class="transfer-analysis-section">
+          <h4 class="transfer-section-tag transfer-section-tag--gap">提升路径（需学习）</h4>
+          <p class="transfer-section-desc">目标岗位侧重、需补齐的技能方向。</p>
+          <div v-if="transferAnalysis.gap_skills.length" class="transfer-skill-tags">
+            <el-tag
+              v-for="s in transferAnalysis.gap_skills"
+              :key="`gap-${s}`"
+              type="warning"
+              effect="dark"
+              class="transfer-skill-tag"
+            >
+              {{ s }}
+            </el-tag>
+          </div>
+          <p v-else class="transfer-section-empty">暂无缺口技能数据</p>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import * as echarts from 'echarts'
+import { InfoFilled } from '@element-plus/icons-vue'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
 import { getJobPortrait } from '../data/jobPortraits'
 import { getJobDetail } from '../api/jobPortraitApi'
 import { formatJobPortraitApiError } from '../api/jobPortraitErrors'
 import JobPortraitPathChart from '../components/JobPortraitPathChart.vue'
+import JobBloodlineGraph from '../components/JobBloodlineGraph.vue'
 import javaJobPortrait from '../assets/java-job-portrait.png'
 import qaJobPortrait from '../assets/qa-job-portrait.png'
 import cppJobPortrait from '../assets/cpp-job-portrait.png'
@@ -215,6 +376,53 @@ import {
 
 const route = useRoute()
 const { theme } = useTheme()
+
+/** 岗位七维：与后端 ability_radar 键一致 */
+const dimensionMap = {
+  professional_skills: '专业技能',
+  certificates: '证书要求',
+  innovation: '创新能力',
+  learning: '学习能力',
+  stress_resistance: '抗压能力',
+  communication: '沟通能力',
+  internship: '实习实战'
+}
+
+const RADAR_DIMENSION_ORDER = [
+  'professional_skills',
+  'certificates',
+  'innovation',
+  'learning',
+  'stress_resistance',
+  'communication',
+  'internship'
+]
+
+function hashForRadar(seed) {
+  let h = 0
+  const s = String(seed || '')
+  for (let i = 0; i < s.length; i += 1) {
+    h = h * 31 + s.charCodeAt(i)
+    h |= 0
+  }
+  return Math.abs(h)
+}
+
+function buildFallbackAbilityRadar(seed) {
+  const h = hashForRadar(seed)
+  const out = {}
+  RADAR_DIMENSION_ORDER.forEach((key, i) => {
+    const base = 48 + ((h >> (i * 4)) & 0x1f)
+    out[key] = Math.max(38, Math.min(92, base))
+  })
+  return out
+}
+
+function normalizeText(value, fallback = '') {
+  if (typeof value === 'string') return value
+  if (typeof value === 'number') return String(value)
+  return fallback
+}
 
 const defaultSkillBullets = [
   '掌握岗位相关基础理论与专业知识。',
@@ -309,7 +517,15 @@ const representativeQuote = computed(() => {
 })
 
 const activeTab = ref('skills')
-const loadingPortrait = ref(false)
+const pathAnalysisTab = ref('career')
+const pathChartRef = ref(null)
+const radarChartRef = ref(null)
+let radarChartInstance = null
+let radarResizeObserver = null
+const summaryExpanded = ref(false)
+const expandedProfileDims = ref({})
+
+const loadingPortrait = ref(true)
 const errorPortrait = ref('')
 const isUsingMockFallback = ref(false)
 
@@ -325,11 +541,227 @@ const defaultProfileDims = [
 
 const jobPortrait = ref(null)
 
-function normalizeText(value, fallback = '') {
-  if (typeof value === 'string') return value
-  if (typeof value === 'number') return String(value)
-  return fallback
+const showSummaryToggle = computed(() => (jobPortrait.value?.summary || '').trim().length > 96)
+
+watch(
+  () => jobPortrait.value?.summary,
+  () => {
+    summaryExpanded.value = false
+  }
+)
+
+function shouldShowDimMore(desc) {
+  return String(desc || '').length > 72
 }
+
+function toggleProfileDim(name) {
+  expandedProfileDims.value = {
+    ...expandedProfileDims.value,
+    [name]: !expandedProfileDims.value[name],
+  }
+}
+
+function onPathAnalysisTabClick() {
+  nextTick(() => {
+    radarChartInstance?.resize()
+    pathChartRef.value?.resize?.()
+  })
+}
+
+watch(pathAnalysisTab, () => {
+  onPathAnalysisTabClick()
+})
+
+const abilityRadarMerged = computed(() => {
+  const seed = String(displayJobName.value || job.value.name || '岗位')
+  const api = jobPortrait.value?.abilityRadar
+  const fallback = buildFallbackAbilityRadar(seed)
+  const out = {}
+  for (const key of RADAR_DIMENSION_ORDER) {
+    let v = api && typeof api[key] === 'number' ? api[key] : fallback[key]
+    v = Number(v)
+    out[key] = Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : fallback[key]
+  }
+  return out
+})
+
+const abilitySourceTooltip = computed(() => {
+  const t = (jobPortrait.value?.abilitySourceInfo || '').trim()
+  return t || '该分值由大语言模型对岗位描述与要求进行语义分析后估算，非招聘方官方评分。'
+})
+
+/** 进度条展示分值：自 0 滚动至目标，营造实时计算感 */
+const displayScores = ref(
+  Object.fromEntries(RADAR_DIMENSION_ORDER.map((k) => [k, 0]))
+)
+let scoreAnimRaf = null
+
+function runScoreAnimation(targetMap) {
+  const startMap = { ...displayScores.value }
+  const startT = performance.now()
+  const duration = 1180
+  const easeOut = (t) => 1 - (1 - t) ** 3
+  function frame(now) {
+    const t = Math.min(1, (now - startT) / duration)
+    const e = easeOut(t)
+    const next = {}
+    for (const k of RADAR_DIMENSION_ORDER) {
+      const from = Number(startMap[k]) || 0
+      const to = Number(targetMap[k]) || 0
+      next[k] = Math.round(from + (to - from) * e)
+    }
+    displayScores.value = next
+    if (t < 1) {
+      scoreAnimRaf = requestAnimationFrame(frame)
+    } else {
+      scoreAnimRaf = null
+    }
+  }
+  if (scoreAnimRaf != null) cancelAnimationFrame(scoreAnimRaf)
+  scoreAnimRaf = requestAnimationFrame(frame)
+}
+
+watch(abilityRadarMerged, (m) => runScoreAnimation(m), { deep: true, immediate: true })
+
+function buildIndustryAverageRadar(seed) {
+  const h = hashForRadar(`${seed}::industry_benchmark_v1`)
+  const baseline = [64, 52, 58, 62, 55, 60, 48]
+  return RADAR_DIMENSION_ORDER.map((_, i) => {
+    const jitter = ((h >> (i * 4)) & 15) - 7
+    return Math.max(32, Math.min(78, baseline[i] + jitter))
+  })
+}
+
+/** 全行业对比圈：接口 industry_radar_avg 优先，否则基于岗位名的稳定示意基准 */
+const industryAverageRadar = computed(() => {
+  const api = jobPortrait.value?.industryRadarAvg
+  if (api && typeof api === 'object') {
+    const arr = RADAR_DIMENSION_ORDER.map((k) => {
+      const n = Number(api[k])
+      return Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n))) : null
+    })
+    if (arr.every((v) => v !== null)) return arr
+  }
+  const seed = String(displayJobName.value || job.value.name || '岗位')
+  return buildIndustryAverageRadar(seed)
+})
+
+const isCertificateCritical = computed(() => (abilityRadarMerged.value.certificates ?? 0) > 80)
+
+function formatProgressPercent(pct) {
+  return `${Math.round(pct)}%`
+}
+
+const radarOption = computed(() => {
+  const isDark = theme.value === 'dark'
+  const values = RADAR_DIMENSION_ORDER.map((k) => abilityRadarMerged.value[k])
+  const industryVals = industryAverageRadar.value
+  const industryColor = isDark ? 'rgba(251, 191, 36, 0.92)' : 'rgba(180, 83, 9, 0.78)'
+  const legendText = isDark ? 'rgba(238, 238, 238, 0.9)' : 'rgba(51, 50, 46, 0.88)'
+  return {
+    backgroundColor: 'transparent',
+    legend: {
+      data: ['全行业平均（万样本基准）', '岗位要求'],
+      bottom: 4,
+      itemGap: 18,
+      icon: 'roundRect',
+      textStyle: {
+        color: legendText,
+        fontSize: 11
+      }
+    },
+    radar: {
+      indicator: RADAR_DIMENSION_ORDER.map((k) => ({ name: dimensionMap[k], max: 100 })),
+      radius: '72%',
+      center: ['50%', '46%'],
+      splitNumber: 4,
+      axisName: {
+        color: isDark ? 'rgba(238, 238, 238, 0.92)' : 'rgba(51, 50, 46, 0.88)',
+        fontSize: 12
+      },
+      splitLine: {
+        lineStyle: { color: isDark ? 'rgba(99, 191, 183, 0.28)' : 'rgba(51, 50, 46, 0.12)' }
+      },
+      splitArea: {
+        show: true,
+        areaStyle: {
+          color: isDark
+            ? ['rgba(99, 191, 183, 0.14)', 'rgba(99, 191, 183, 0.05)']
+            : ['rgba(99, 191, 183, 0.09)', 'rgba(99, 191, 183, 0.03)']
+        }
+      },
+      axisLine: {
+        lineStyle: { color: isDark ? 'rgba(99, 191, 183, 0.4)' : 'rgba(51, 50, 46, 0.14)' }
+      }
+    },
+    series: [
+      {
+        type: 'radar',
+        emphasis: {
+          lineStyle: { width: 3 }
+        },
+        data: [
+          {
+            value: industryVals,
+            name: '全行业平均（万样本基准）',
+            lineStyle: {
+              type: 'dashed',
+              width: 2,
+              color: industryColor
+            },
+            areaStyle: { opacity: 0 },
+            itemStyle: { color: industryColor, borderWidth: 0 },
+            symbol: 'circle',
+            symbolSize: 5
+          },
+          {
+            value: values,
+            name: '岗位要求',
+            areaStyle: { color: 'rgba(99, 191, 183, 0.4)' },
+            lineStyle: { color: '#63bfb7', width: 2.5 },
+            itemStyle: { color: '#63bfb7' },
+            symbol: 'circle',
+            symbolSize: 6
+          }
+        ]
+      }
+    ]
+  }
+})
+
+function disposeJobRadarChart() {
+  if (radarResizeObserver) {
+    radarResizeObserver.disconnect()
+    radarResizeObserver = null
+  }
+  if (radarChartInstance) {
+    radarChartInstance.dispose()
+    radarChartInstance = null
+  }
+}
+
+function ensureJobRadarChart() {
+  if (!radarChartRef.value) return
+  if (!radarChartInstance) {
+    radarChartInstance = echarts.init(radarChartRef.value, null, { renderer: 'canvas' })
+    radarResizeObserver = new ResizeObserver(() => radarChartInstance?.resize())
+    radarResizeObserver.observe(radarChartRef.value)
+  }
+  radarChartInstance.setOption(radarOption.value, true)
+}
+
+watch(
+  () => [radarOption.value, theme.value],
+  () => {
+    nextTick(() => ensureJobRadarChart())
+  }
+)
+
+onUnmounted(() => {
+  if (scoreAnimRaf != null) cancelAnimationFrame(scoreAnimRaf)
+  scoreAnimRaf = null
+  disposeJobRadarChart()
+})
 
 function getMockPortrait(jobName) {
   const mock = getJobPortrait(jobName)
@@ -378,6 +810,7 @@ async function loadPortrait() {
 
 onMounted(() => {
   loadPortrait()
+  nextTick(() => ensureJobRadarChart())
 })
 
 watch(
@@ -450,6 +883,138 @@ const relationsDisplay = computed(() => {
     }
   ]
 })
+
+function hashString(str) {
+  let h = 0
+  const s = String(str || '')
+  for (let i = 0; i < s.length; i += 1) {
+    h = h * 31 + s.charCodeAt(i)
+    h |= 0
+  }
+  return Math.abs(h)
+}
+
+const bloodlineGraphNodes = computed(() => {
+  const centerLabel = displayJobName.value || job.value.name || '当前岗位'
+  const list = relationsDisplay.value.slice(0, 8)
+  const skillPools = [
+    ['Vue3', 'TypeScript', 'Node.js'],
+    ['系统架构', '性能优化', '团队协作'],
+    ['业务建模', '需求拆解', '跨部门沟通'],
+    ['云原生', 'Kubernetes', 'CI/CD'],
+    ['UI/UX 规范', '组件库', '无障碍'],
+    ['数据建模', 'SQL', '指标体系'],
+    ['Python', '机器学习基础', '实验设计'],
+    ['客户沟通', '方案设计', '文档沉淀']
+  ]
+  const outer = list.map((item, index) => {
+    const h = hashString(`${centerLabel}::${item.role}`)
+    const matchScore = 52 + (h % 44)
+    const transitionDifficulty = 22 + (h % 68)
+    const salaryDeltaPct = 6 + (h % 28)
+    const skillOverlap = Math.min(96, Math.max(38, matchScore - 8 + (h % 12)))
+    const pool = skillPools[h % skillPools.length]
+    const reusableSkills = [pool[0], '协作与沟通', h % 2 === 0 ? '业务理解' : '文档沉淀'].filter(
+      Boolean
+    )
+    const gapSkills = [pool[1], pool[2], `${item.role}纵深`].filter(Boolean)
+    const diffFromCenter = [pool[1], pool[2]].filter(Boolean)
+    return {
+      id: item.role,
+      label: item.role,
+      center: false,
+      matchScore,
+      transitionDifficulty,
+      salaryDeltaPct,
+      skillOverlap,
+      reusableSkills,
+      gapSkills,
+      diffFromCenter
+    }
+  })
+  return [
+    {
+      id: 'center',
+      label: centerLabel,
+      center: true,
+      matchScore: 100,
+      transitionDifficulty: 0,
+      gapSkills: [],
+      diffFromCenter: []
+    },
+    ...outer
+  ]
+})
+
+/** 路径预演：中心 → 外围按匹配度由高到低（接口可日后改为真实晋升链 id） */
+const bloodlinePathPreviewOrder = computed(() => {
+  const nodes = bloodlineGraphNodes.value
+  const center = nodes.find((n) => n.center)
+  if (!center) return []
+  const outer = nodes.filter((n) => !n.center)
+  const sorted = [...outer].sort((a, b) => Number(b.matchScore ?? 0) - Number(a.matchScore ?? 0))
+  return [center.id, ...sorted.map((n) => n.id)]
+})
+
+const activeBloodlineRole = ref('')
+const flashBloodlineRole = ref('')
+const bloodlineItemRefs = ref({})
+
+const showTransferDrawer = ref(false)
+const transferDrawerTarget = ref(null)
+
+const transferOriginName = computed(() => displayJobName.value || job.value.name || '当前岗位')
+const transferTargetName = computed(() => transferDrawerTarget.value?.label || '目标岗位')
+
+const transferDrawerTitle = computed(
+  () => `岗位迁移分析：${transferOriginName.value} ➔ ${transferTargetName.value}`
+)
+
+const transferDrawerRootClass = computed(() =>
+  theme.value === 'dark'
+    ? 'transfer-analysis-drawer transfer-analysis-drawer--dark'
+    : 'transfer-analysis-drawer transfer-analysis-drawer--light'
+)
+
+const transferAnalysis = computed(() => {
+  const n = transferDrawerTarget.value
+  if (!n || n.center) return null
+  const reusable = Array.isArray(n.reusableSkills) ? n.reusableSkills.filter(Boolean) : []
+  const gaps = Array.isArray(n.gapSkills) ? n.gapSkills.filter(Boolean) : []
+  return {
+    reusable_skills: reusable,
+    gap_skills: gaps
+  }
+})
+
+const registerBloodlineRef = (role, el) => {
+  if (el) bloodlineItemRefs.value[role] = el
+  else delete bloodlineItemRefs.value[role]
+}
+
+let flashBloodlineTimer = null
+
+const onBloodlineNodeHover = (node) => {
+  activeBloodlineRole.value = node?.label || ''
+}
+
+const onBloodlineNodeClick = (node) => {
+  const role = node?.label || ''
+  if (!role) return
+  transferDrawerTarget.value = node
+  showTransferDrawer.value = true
+  activeBloodlineRole.value = role
+  flashBloodlineRole.value = role
+  if (flashBloodlineTimer) clearTimeout(flashBloodlineTimer)
+  flashBloodlineTimer = setTimeout(() => {
+    flashBloodlineRole.value = ''
+    flashBloodlineTimer = null
+  }, 1600)
+  nextTick(() => {
+    const el = bloodlineItemRefs.value[role]
+    el?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest' })
+  })
+}
 
 const detailSkillHtml = computed(() => {
   if (loadingPortrait.value) return ''
@@ -1052,6 +1617,353 @@ const hasEmptyPortrait = computed(() => {
   font-size: clamp(16px, 1.1vw, 18px);
 }
 
+.competency-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(99, 191, 183, 0.12) 0%,
+    rgba(255, 255, 255, 0.45) 42%,
+    rgba(99, 191, 183, 0.06) 100%
+  );
+  border: var(--u-border);
+  box-shadow: 8px 8px 0px var(--u-black);
+  transition: transform 0.2s ease;
+}
+
+.job-detail-view.dark .competency-section {
+  background: linear-gradient(
+    145deg,
+    rgba(99, 191, 183, 0.18) 0%,
+    rgba(30, 40, 42, 0.42) 45%,
+    rgba(99, 191, 183, 0.1) 100%
+  );
+  border: 2px solid var(--dm-border);
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.35);
+}
+
+.competency-intro {
+  margin-top: 4px;
+}
+
+/* 与上方雷达 + 进度区分隔开，避免「专业技能」等说明贴住图表区 */
+.profile-dim-list--below {
+  margin-top: 144px;
+  padding-top: 72px;
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.profile-dim-list--below > li:first-child {
+  margin-top: 10px;
+}
+
+.job-detail-view.dark .profile-dim-list--below {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.competency-panel {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.2fr) minmax(260px, 0.95fr);
+  gap: 28px;
+  align-items: stretch;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .competency-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+.radar-container {
+  position: relative;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(99, 191, 183, 0.2);
+  min-height: 440px;
+}
+
+.job-detail-view.dark .radar-container {
+  background: rgba(20, 28, 30, 0.45);
+  border-color: rgba(99, 191, 183, 0.28);
+}
+
+.radar-echart {
+  width: 100%;
+  height: 480px;
+  min-height: 380px;
+}
+
+.metrics-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 4px 8px 8px;
+}
+
+.metric-item {
+  padding: 10px 0;
+}
+
+.metric-item + .metric-item {
+  border-top: 1px dashed rgba(99, 191, 183, 0.22);
+}
+
+.job-detail-view.dark .metric-item + .metric-item {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.metric-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: clamp(14px, 0.95vw, 16px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(17, 24, 39, 0.9);
+}
+
+.job-detail-view.dark .metric-label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.metric-label-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.critical-tag {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 6px;
+  color: #0f172a;
+  background: linear-gradient(135deg, rgba(99, 191, 183, 0.38), rgba(99, 191, 183, 0.72));
+  border: 1px solid rgba(15, 23, 42, 0.35);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+}
+
+.job-detail-view.dark .critical-tag {
+  color: rgba(255, 255, 255, 0.96);
+  background: linear-gradient(135deg, rgba(99, 191, 183, 0.28), rgba(99, 191, 183, 0.52));
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+}
+
+.source-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: rgba(99, 191, 183, 0.95);
+  cursor: default;
+  opacity: 0.85;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease;
+}
+
+.source-icon:hover {
+  opacity: 1;
+  color: #63bfb7;
+}
+
+.metric-item :deep(.el-progress-bar__outer) {
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.06);
+}
+
+.job-detail-view.dark .metric-item :deep(.el-progress-bar__outer) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.metric-item :deep(.el-progress__text) {
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 2.5em;
+}
+
+.job-detail-view.dark .metric-item :deep(.el-progress__text) {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.metric-progress.glow-animation :deep(.el-progress-bar__inner) {
+  box-shadow:
+    0 0 12px rgba(99, 191, 183, 0.65),
+    0 0 22px rgba(251, 191, 36, 0.35);
+  animation: glow-animation 2.2s ease-in-out infinite;
+}
+
+.metric-progress.glow-animation :deep(.el-progress__text) {
+  animation: glow-animation-text 2.2s ease-in-out infinite;
+}
+
+@keyframes glow-animation {
+  0%,
+  100% {
+    filter: brightness(1);
+    box-shadow:
+      0 0 10px rgba(99, 191, 183, 0.55),
+      0 0 18px rgba(251, 191, 36, 0.25);
+  }
+  50% {
+    filter: brightness(1.08);
+    box-shadow:
+      0 0 16px rgba(99, 191, 183, 0.9),
+      0 0 28px rgba(251, 191, 36, 0.45);
+  }
+}
+
+@keyframes glow-animation-text {
+  0%,
+  100% {
+    color: #0f766e;
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    color: #047857;
+    text-shadow: 0 0 10px rgba(99, 191, 183, 0.75);
+  }
+}
+
+.job-detail-view.dark .metric-progress.glow-animation :deep(.el-progress__text) {
+  animation: glow-animation-text-dark 2.2s ease-in-out infinite;
+}
+
+@keyframes glow-animation-text-dark {
+  0%,
+  100% {
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 0 6px rgba(99, 191, 183, 0.35);
+  }
+  50% {
+    color: #ecfdf5;
+    text-shadow: 0 0 14px rgba(99, 191, 183, 0.85);
+  }
+}
+
+.path-analysis-tabs-wrap {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.42);
+  border: var(--u-border);
+  box-shadow: 8px 8px 0 var(--u-black);
+}
+
+.job-detail-view.dark .path-analysis-tabs-wrap {
+  background: rgba(30, 35, 42, 0.55);
+  border: 2px solid var(--u-black);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.55);
+}
+
+.path-analysis-tabs {
+  width: 100%;
+}
+
+.path-analysis-tabs :deep(.el-tabs__header) {
+  margin: 0 0 12px;
+  border-bottom: 1px solid rgba(99, 191, 183, 0.2);
+}
+
+.path-analysis-tabs :deep(.el-tabs__item) {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.path-analysis-tabs :deep(.el-tabs__item.is-active) {
+  color: #0f766e;
+}
+
+.job-detail-view.dark .path-analysis-tabs :deep(.el-tabs__item.is-active) {
+  color: #63bfb7;
+}
+
+.tab-pane-lead {
+  margin-top: 0;
+}
+
+.job-summary-block {
+  margin-bottom: 16px;
+}
+
+.job-summary-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.job-summary-text {
+  margin: 0;
+  line-height: 1.55;
+  font-size: clamp(15px, 1vw, 17px);
+  color: rgba(51, 50, 46, 0.88);
+}
+
+.job-detail-view.dark .job-summary-text {
+  color: var(--dm-text-secondary);
+}
+
+.job-summary-text--clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.text-expand-btn {
+  margin-top: 8px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f766e;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.text-expand-btn:hover {
+  color: #63bfb7;
+}
+
+.job-detail-view.dark .text-expand-btn {
+  color: #63bfb7;
+}
+
+.path-chart-embed {
+  margin-top: 12px;
+}
+
+.dim-desc--clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dim-more-btn {
+  padding: 2px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f766e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.job-detail-view.dark .dim-more-btn {
+  color: #63bfb7;
+}
+
 .profile-dim-list {
   list-style: none;
   padding: 0;
@@ -1059,6 +1971,10 @@ const hasEmptyPortrait = computed(() => {
 }
 
 .profile-dim-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   margin-bottom: 10px;
   font-size: clamp(16px, 1.1vw, 18px);
 }
@@ -1097,6 +2013,35 @@ const hasEmptyPortrait = computed(() => {
 
 .job-detail-view.dark .section-card .section-desc {
   color: var(--dm-text-secondary);
+}
+
+.job-detail-view.dark .info-list li,
+.job-detail-view.dark .two-column,
+.job-detail-view.dark .two-column p,
+.job-detail-view.dark .rich-text,
+.job-detail-view.dark .rich-text :deep(p),
+.job-detail-view.dark .rich-text :deep(li),
+.job-detail-view.dark .profile-dim-list li,
+.job-detail-view.dark .path-node,
+.job-detail-view.dark .transfer-path,
+.job-detail-view.dark .transfer-steps,
+.job-detail-view.dark .job-summary-text,
+.job-detail-view.dark .dim-desc,
+.job-detail-view.dark .path-desc,
+.job-detail-view.dark .transfer-gaps {
+  color: var(--dm-text-secondary);
+}
+
+.job-detail-view.dark .path-text,
+.job-detail-view.dark .transfer-path-title,
+.job-detail-view.dark .bloodline-title,
+.job-detail-view.dark .transfer-from,
+.job-detail-view.dark .job-summary-label {
+  color: var(--dm-text);
+}
+
+.job-detail-view.dark .transfer-arrow {
+  color: var(--dm-text-muted);
 }
 
 .job-detail-view.dark .info-list li::marker {
@@ -1248,6 +2193,39 @@ const hasEmptyPortrait = computed(() => {
   font-size: clamp(15px, 1vw, 17px);
 }
 
+.bloodline-item {
+  transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  border-radius: 10px;
+  padding: 4px 8px;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+}
+
+.bloodline-item--active {
+  background: rgba(224, 247, 244, 0.75);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 118, 110, 0.12);
+}
+
+.bloodline-item--flash {
+  border-color: var(--u-black);
+  box-shadow: 4px 4px 0 var(--u-black);
+  animation: bloodlineFlash 1.4s ease-out forwards;
+}
+
+@keyframes bloodlineFlash {
+  0% {
+    background: rgba(255, 248, 170, 0.95);
+  }
+  100% {
+    background: rgba(224, 247, 244, 0.75);
+  }
+}
+
+.bloodline-graph-wrap {
+  margin-top: 14px;
+}
+
 .transfer-from {
   font-weight: 600;
   font-size: clamp(16px, 1.1vw, 18px);
@@ -1331,5 +2309,137 @@ const hasEmptyPortrait = computed(() => {
     left: 12px;
     bottom: 14px;
   }
+}
+
+.transfer-analysis-content {
+  padding: 4px 2px 24px;
+}
+
+.transfer-analysis-heading {
+  margin: 0 0 12px;
+  font-size: clamp(16px, 1.05vw, 18px);
+  font-weight: 800;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--u-black);
+}
+
+.transfer-analysis-arrow {
+  display: inline-block;
+  margin: 0 6px;
+  color: #63bfb7;
+  font-weight: 900;
+}
+
+.transfer-analysis-hint {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(51, 50, 46, 0.65);
+}
+
+.transfer-analysis-section {
+  margin-bottom: 22px;
+}
+
+.transfer-analysis-section:last-child {
+  margin-bottom: 0;
+}
+
+.transfer-section-tag {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.transfer-section-tag--reuse {
+  color: #047857;
+}
+
+.transfer-section-tag--gap {
+  color: #b45309;
+}
+
+.transfer-section-desc {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: rgba(51, 50, 46, 0.62);
+}
+
+.transfer-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.transfer-skill-tag {
+  border: 1px solid rgba(15, 23, 42, 0.2) !important;
+}
+
+.transfer-section-empty {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(51, 50, 46, 0.55);
+}
+</style>
+
+<style>
+/* Drawer 挂载到 body，需非 scoped 覆盖 Element Plus 外壳 */
+.transfer-analysis-drawer.el-drawer {
+  background: linear-gradient(165deg, #0c1220 0%, #111827 42%, #0b1222 100%);
+  border-left: 2px solid rgba(99, 191, 183, 0.45);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.transfer-analysis-drawer--light.el-drawer {
+  background: linear-gradient(165deg, #0f172a 0%, #1e293b 48%, #0f172a 100%);
+  border-left-color: rgba(99, 191, 183, 0.4);
+}
+
+.transfer-analysis-drawer .el-drawer__header {
+  padding: 18px 20px 14px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(99, 191, 183, 0.22);
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.transfer-analysis-drawer .el-drawer__title {
+  color: #f8fafc;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.transfer-analysis-drawer .el-drawer__close-btn {
+  color: rgba(248, 250, 252, 0.85);
+}
+
+.transfer-analysis-drawer .el-drawer__body {
+  padding: 16px 20px 28px;
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.5) 0%, rgba(15, 23, 42, 0.92) 100%);
+  color: #e2e8f0;
+}
+
+.transfer-analysis-drawer .transfer-analysis-heading {
+  color: #f1f5f9;
+}
+
+.transfer-analysis-drawer .transfer-analysis-hint {
+  color: rgba(226, 232, 240, 0.72);
+}
+
+.transfer-analysis-drawer .transfer-section-desc,
+.transfer-analysis-drawer .transfer-section-empty {
+  color: rgba(203, 213, 225, 0.75);
+}
+
+.transfer-analysis-drawer .transfer-section-tag--reuse {
+  color: #6ee7b7;
+}
+
+.transfer-analysis-drawer .transfer-section-tag--gap {
+  color: #fcd34d;
 }
 </style>

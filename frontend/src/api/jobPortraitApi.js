@@ -7,8 +7,7 @@ import {
 } from './jobPortraitContract'
 import { JobPortraitApiError } from './jobPortraitErrors'
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'https://career-planner--3144682663.replit.app'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://192.144.229.32:8000'
 
 /** 最近一次成功响应中记录的服务端版本（响应头 X-API-Version 或 body.apiVersion） */
 let lastServerApiVersion = null
@@ -218,4 +217,15 @@ export function getRecommendJobList(params = {}) {
 export function getJobDetail(id) {
   const path = `/job_detail/${encodeURIComponent(String(id))}`
   return requestApi(path)
+}
+
+/**
+ * 岗位列表页统计看板：词云 + 薪资分布
+ * OpenAPI: GET /api/v1/jobs/stats
+ * 约定 data 内可选字段（兼容多种命名）：
+ * - keyword_cloud | keywordCloud | skill_keywords: { name, value }[]
+ * - salary_bins | salaryBins | salary_distribution: { label|range, count|value }[]
+ */
+export function getJobsStats() {
+  return requestApi('/api/v1/jobs/stats')
 }

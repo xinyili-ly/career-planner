@@ -653,6 +653,39 @@ onUnmounted(() => {
   background: var(--u-body-bg);
 }
 
+.vinyl-pro--dark .turntable {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--u-yellow) 16%, var(--dm-bg)) 0%,
+    color-mix(in srgb, var(--u-yellow) 8%, var(--dm-bg)) 56%,
+    var(--dm-bg) 100%
+  );
+  border-color: var(--u-stroke);
+  box-shadow: 8px 8px 0 var(--u-black);
+}
+
+.vinyl-pro--dark .platter::before {
+  background: color-mix(in srgb, var(--u-bg-submit) 24%, var(--dm-surface-card));
+  border-color: var(--u-stroke);
+}
+
+.vinyl-pro--dark .needle-base,
+.vinyl-pro--dark .needle-arm,
+.vinyl-pro--dark .needle-head {
+  border-color: var(--u-stroke);
+  box-shadow: 3px 3px 0 var(--u-black);
+}
+
+.vinyl-pro--dark .needle-base,
+.vinyl-pro--dark .needle-arm {
+  background: color-mix(in srgb, var(--dm-surface-elevated) 82%, #94a3b8);
+}
+
+.vinyl-pro--dark .record-label {
+  background: color-mix(in srgb, var(--u-bg-discard) 22%, var(--dm-surface-card));
+  border-color: var(--u-stroke);
+}
+
 .vinyl-pro--dark .title {
   color: var(--dm-text, #e4e4e4);
   border-bottom-color: rgba(255, 255, 255, 0.14);

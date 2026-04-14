@@ -73,26 +73,35 @@
             对各维度岗位要求与学生信息对比后打分，再按当前岗位各维度权重加权综合，得出匹配度（关键技能匹配准确率目标 ≥80%）。
           </p>
           <div class="compare-grid">
-            <div class="compare-card">
+            <div class="compare-card compare-card--radar">
               <p class="compare-title">雷达图（学生 vs 岗位）</p>
-              <div class="compare-placeholder">
-                可接入 ECharts 等雷达图，展示四维度及细分能力对比。
+              <div class="compare-radar-chart" role="img" aria-label="学生与岗位四维度雷达对比">
+                <div ref="matchCompareRadarRef" class="compare-radar-echart" />
+                <p class="compare-radar-note">可与下方四维度表对照查看；学生分取自匹配详情接口，缺失时使用示意值。</p>
               </div>
             </div>
             <div class="compare-card">
               <p class="compare-title">四维度对比（基础要求 / 职业技能 / 职业素养 / 发展潜力）</p>
               <ul class="compare-list">
-                <li v-for="item in compareDimensions" :key="item.name">
-                  <span class="dim-name">{{ item.name }}</span>
-                  <span class="dim-score">学生：{{ item.student }} / 要求：{{ item.job }}</span>
+                <li v-for="item in compareDimensions" :key="item.name" class="compare-list-item">
+                  <div class="dim-row-head">
+                    <span class="dim-name">{{ item.name }}</span>
+                    <span class="dim-student">学生：<strong>{{ item.student }}</strong></span>
+                  </div>
+                  <div class="dim-requirement">
+                    <span class="dim-requirement-label">岗位要求</span>
+                    <p class="dim-requirement-text">{{ item.requirementText }}</p>
+                  </div>
                 </li>
               </ul>
-              <p class="weight-hint">综合得分已按维度权重加权计算，具备可解释性。</p>
+              <p class="weight-hint">
+                学生列为维度得分；岗位要求为岗位画像/报告中的具体说明，缺失时为通用描述。
+              </p>
             </div>
           </div>
 
           <div class="detail-analysis">
-            <p class="section-subtitle">详细差距分析（示意）</p>
+            <p class="section-subtitle">详细差距分析</p>
             <ul>
               <li v-for="(d, index) in gapDetails" :key="index">
                 {{ d }}
@@ -184,7 +193,15 @@
 
         <section class="report-section">
           <h2 class="section-title">2. 学生当前能力画像摘要</h2>
-          <p v-if="!isEditing">{{ baseInfo.summary }}</p>
+          <div v-if="!isEditing" class="summary-lines">
+            <p
+              v-for="(line, idx) in summaryLines"
+              :key="`summary-line-${idx}`"
+              class="summary-line"
+            >
+              {{ line }}
+            </p>
+          </div>
           <el-input
             v-else
             v-model="draft.baseInfo.summary"
@@ -195,26 +212,7 @@
         </section>
 
         <section class="report-section">
-          <h2 class="section-title">3. 职业发展路径（阶段性规划示意）</h2>
-          <p class="hint-text">
-            下面的表格示意了 6 个月内的阶段性成长路径，未来你可以用自动生成的图片替换这部分。
-          </p>
-          <figure v-if="!isEditing" class="path-figure">
-            <img class="path-img" :src="learningPathPlaceholder" alt="阶段性成长路径（占位示意图）" />
-            <figcaption class="path-caption">{{ pathNote }}</figcaption>
-          </figure>
-          <el-input
-            v-else
-            v-model="draft.pathNote"
-            type="textarea"
-            :rows="3"
-            placeholder="可编辑：职业发展路径说明/占位内容"
-          />
-        </section>
-
-        <!-- 4. 个人优势与短板 -->
-        <section class="report-section">
-          <h2 class="section-title">4. 个人优势与短板</h2>
+          <h2 class="section-title">3. 个人优势与短板</h2>
           <div class="two-column">
             <div>
               <h3 class="subheading">优势</h3>
@@ -245,13 +243,27 @@
           </div>
         </section>
 
+        <section class="report-section">
+          <h2 class="section-title">4. 职业发展路径（阶段性规划示意）</h2>
+          <p class="hint-text">
+            下面的表格示意了 6 个月内的阶段性成长路径，未来你可以用自动生成的图片替换这部分。
+          </p>
+          <figure v-if="!isEditing" class="path-figure">
+            <img class="path-img" :src="learningPathPlaceholder" alt="阶段性成长路径（占位示意图）" />
+            <figcaption class="path-caption">{{ pathNote }}</figcaption>
+          </figure>
+          <el-input
+            v-else
+            v-model="draft.pathNote"
+            type="textarea"
+            :rows="3"
+            placeholder="可编辑：职业发展路径说明/占位内容"
+          />
+        </section>
+
         <!-- 5. 短期成长计划（0-6 个月） -->
         <section class="report-section">
           <h2 class="section-title">5. 短期成长计划（0 ~ 6 个月）</h2>
-          <p class="hint-text">
-            表格中的「量化评估指标」每一项后都有「编辑」按钮，可按下面三步完成修改：
-            ① 触发修改 → ② 选择 / 输入修改内容 → ③ 校验 + 确认 + 保存。
-          </p>
           <el-table
             :data="shortTermPlan"
             border
@@ -297,16 +309,6 @@
                     type="textarea"
                     :rows="2"
                   />
-                  <el-button
-                    class="u-btn u-btn--text"
-                    type="primary"
-                    text
-                    size="small"
-                    :disabled="isEditing"
-                    @click="openMetricEditor('short', row)"
-                  >
-                    编辑
-                  </el-button>
                 </div>
               </template>
             </el-table-column>
@@ -364,22 +366,32 @@
                     type="textarea"
                     :rows="2"
                   />
-                  <el-button
-                    class="u-btn u-btn--text"
-                    type="primary"
-                    text
-                    size="small"
-                    :disabled="isEditing"
-                    @click="openMetricEditor('mid', row)"
-                  >
-                    编辑
-                  </el-button>
                 </div>
               </template>
             </el-table-column>
           </el-table>
           <div v-if="isEditing" class="plan-edit-actions">
             <el-button class="u-btn u-btn--primary u-btn--sm" size="small" @click="addPlanRow('mid')">添加一行</el-button>
+          </div>
+        </section>
+
+        <!-- 6b. 行动建议（模块四任务清单，有数据时展示） -->
+        <section v-if="todoList.length" class="report-section action-todo-section">
+          <h2 class="section-title">行动建议（任务清单）</h2>
+          <p class="hint-text">来自报告模块四的行动项，便于对照执行与验收。</p>
+          <div class="todo-card-grid">
+            <article v-for="(t, idx) in todoList" :key="t.id || `todo-${idx}`" class="todo-card">
+              <h3 class="todo-card-title">{{ t.title || '（未命名任务）' }}</h3>
+              <p v-if="t.description" class="todo-card-desc">{{ t.description }}</p>
+              <div class="todo-card-meta">
+                <span v-if="t.target_dimension_label || t.target_dimension" class="todo-chip">
+                  {{ t.target_dimension_label || t.target_dimension }}
+                </span>
+                <span v-if="t.difficulty" class="todo-chip">{{ t.difficulty }}</span>
+                <span v-if="t.estimated_hours" class="todo-chip">约 {{ t.estimated_hours }}h</span>
+                <span v-if="t.status" class="todo-chip todo-chip--status">{{ t.status }}</span>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -408,79 +420,40 @@
       </footer>
     </main>
 
-    <!-- 量化评估指标编辑弹窗 -->
-    <el-dialog
-      v-model="metricDialogVisible"
-      title="编辑量化评估指标"
-      width="520px"
-    >
-      <div v-if="editingMetricRow">
-        <p class="dialog-label">原指标：</p>
-        <p class="orig-metric">
-          {{ originalMetric }}
-        </p>
-
-        <p class="dialog-label">智能体建议（三档可选）：</p>
-        <el-radio-group v-model="metricChoice" class="suggest-group">
-          <el-radio label="simple">简单版本</el-radio>
-          <el-radio label="standard">标准版本</el-radio>
-          <el-radio label="advanced">进阶版本</el-radio>
-          <el-radio label="custom">自定义</el-radio>
-        </el-radio-group>
-
-        <ul class="suggest-list">
-          <li><strong>简单：</strong>{{ aiSuggestions.simple }}</li>
-          <li><strong>标准：</strong>{{ aiSuggestions.standard }}</li>
-          <li><strong>进阶：</strong>{{ aiSuggestions.advanced }}</li>
-        </ul>
-
-        <p class="dialog-label">自定义修改（可选）：</p>
-        <el-input
-          v-model="customMetric"
-          type="textarea"
-          :rows="3"
-          placeholder="如果选择「自定义」，在这里输入新的量化指标描述…"
-          @focus="metricChoice = 'custom'"
-        />
-
-        <transition name="el-fade-in">
-          <div v-if="needReason" class="reason-block">
-            <p class="dialog-label">
-              调整幅度超出建议区间，请说明理由：
-            </p>
-            <el-input
-              v-model="metricReason"
-              type="textarea"
-              :rows="2"
-              placeholder="例如：已有相关经验、可投入时间更多、希望提前完成某项能力建设等…"
-            />
-          </div>
-        </transition>
-
-        <p class="hint-text">
-          智能体会基于目标岗位、你当前基础和时间周期进行三重校验（合理性、安全性、可达成性），
-          未通过会给出提示，引导你进一步修正。
-        </p>
-      </div>
-
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button class="u-btn u-btn--ghost" @click="metricDialogVisible = false">取 消</el-button>
-          <el-button class="u-btn u-btn--primary" type="primary" @click="saveMetric">校验并保存</el-button>
-        </span>
-      </template>
-    </el-dialog>
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import * as echarts from 'echarts'
 import { useTheme } from '../composables/useTheme'
 import { ElMessage } from 'element-plus'
 import { ArrowDown } from '@element-plus/icons-vue'
 import AppHeader from '../components/AppHeader.vue'
 import learningPathPlaceholder from '../assets/uiineed-carousel-plan.svg'
+import {
+  buildMatchReportPayload,
+  extractFourDimensionScoresFromMatchPayload,
+  fetchRecommendJobList,
+  formatFourDimensionScoresForCompareRows,
+  mapActionPlanItemFromApi,
+  mapPlanRow,
+  mapRecommendListItemToJob,
+  normalizeMatchReportPayload,
+  parseMatchRadarFourDimensionValues,
+  postMatchDetail,
+  postMatchReport,
+  readProfileCacheId,
+  saveLastMatchResult,
+  saveProfileCacheId,
+} from '../api/careerAgentApi'
+import {
+  buildCompareDimensionRows,
+  resolveMatchDimensionRequirementTexts,
+} from '../utils/matchDimensionRequirements'
+import { mergeGapDetailStrings, mergeSuggestDetailStrings } from '../utils/matchAnalysisTextMerge'
+import { buildPortraitStyleRadarOption } from '../utils/portraitRadarEchartsOption'
 
 const router = useRouter()
 const studentName = ref('张同学')
@@ -489,48 +462,99 @@ const { theme } = useTheme()
 // 页面步骤：match（岗位匹配）/ report（职业报告）
 const step = ref('match')
 
-// 推荐岗位示例数据
-const recommendedJobs = ref([
-  { id: 1, name: 'Java 开发工程师', match: 85, requireMatch: 85 },
-  { id: 2, name: '前端开发工程师', match: 78, requireMatch: 82 },
-  { id: 3, name: '软件测试工程师', match: 72, requireMatch: 80 },
-  { id: 4, name: '运维工程师', match: 65, requireMatch: 78 },
-  { id: 5, name: '产品经理', match: 58, requireMatch: 80 }
-])
-
-const selectedJobId = ref(1)
-const currentJob = computed(() =>
-  recommendedJobs.value.find((j) => j.id === selectedJobId.value)
-)
+const recommendedJobs = ref([])
+const selectedJobId = ref('')
+const profileCacheId = ref('')
+const studentProfile = ref(null)
+const currentJob = ref(null)
 
 // 人岗匹配四维度：基础要求、职业技能、职业素养、发展潜力（题目要求）
 const compareDimensions = ref([
-  { name: '基础要求', student: '8 分', job: '8 分' },
-  { name: '职业技能', student: '7 分', job: '8 分' },
-  { name: '职业素养', student: '7 分', job: '8 分' },
-  { name: '发展潜力', student: '8 分', job: '8 分' }
+  { name: '基础要求', student: '-', requirementText: '—' },
+  { name: '职业技能', student: '-', requirementText: '—' },
+  { name: '职业素养', student: '-', requirementText: '—' },
+  { name: '发展潜力', student: '-', requirementText: '—' },
 ])
 
-const gapDetails = ref([
-  '专业技能：你的 Java 基础分 8 分，岗位要求 8 分，基本匹配。',
-  '实践能力：你的分数 6 分 vs 岗位要求 8 分，存在 2 分差距。',
-  '抗压能力：你的分数 6 分 vs 岗位要求 8 分，存在 3 分差距。'
-])
+const gapDetails = ref([])
+const improveSuggestions = ref([])
 
-const improveSuggestions = ref([
-  '尽快寻找一份 Java 岗位相关的实习，以弥补实战经验不足。',
-  '多参与项目开发与团队协作，积累解决真实问题的经验。'
-])
+/** 最近一次匹配详情（用于雷达图岗位四维分） */
+const lastMatchDetail = ref(null)
+
+const CAREER_MATCH_FOUR_LABELS = ['基础要求', '职业技能', '职业素养', '发展潜力']
+
+const matchRadarParsed = computed(() =>
+  parseMatchRadarFourDimensionValues(lastMatchDetail.value || {})
+)
+
+const matchRadarJobValues = computed(() => matchRadarParsed.value.job)
+
+const matchRadarStudentValues = computed(() => matchRadarParsed.value.student)
+
+const matchCompareRadarOption = computed(() => {
+  const isDark = theme.value === 'dark'
+  const indicator = CAREER_MATCH_FOUR_LABELS.map((name) => ({ name, max: 100 }))
+  return buildPortraitStyleRadarOption({
+    isDark,
+    indicator,
+    legendData: ['岗位要求', '学生能力'],
+    seriesData: [
+      {
+        value: matchRadarJobValues.value,
+        name: '岗位要求',
+        lineStyle: { color: '#33322e', width: 2.5 },
+        areaStyle: { color: 'rgba(255, 214, 233, 0.55)' },
+        itemStyle: { color: 'rgba(255, 214, 233, 0.85)', borderWidth: 0 },
+        symbol: 'circle',
+        symbolSize: 6,
+      },
+      {
+        value: matchRadarStudentValues.value,
+        name: '学生能力',
+        lineStyle: { color: '#33322e', width: 2.5 },
+        areaStyle: { color: 'rgba(140, 212, 203, 0.42)' },
+        itemStyle: { color: 'rgba(140, 212, 203, 0.85)', borderWidth: 0 },
+        symbol: 'circle',
+        symbolSize: 6,
+      },
+    ],
+  })
+})
 
 const viewJobDetail = (row) => {
-  selectedJobId.value = row.id
-  ElMessage.success(`已切换到岗位「${row.name}」的匹配详情`)
+  selectedJobId.value = String(row.id)
+  loadMatchDetail()
 }
 
 // 生成报告
-const generateReport = () => {
-  step.value = 'report'
-  ElMessage.success('已根据当前岗位生成职业发展规划报告（示意）')
+const generateReport = async () => {
+  if (!selectedJobId.value) {
+    ElMessage.warning('请先选择岗位')
+    return
+  }
+  if (!profileCacheId.value) {
+    profileCacheId.value = readProfileCacheId() || ''
+  }
+  try {
+    const payload = buildMatchReportPayload({
+      job_id: selectedJobId.value,
+      profile_cache_id: profileCacheId.value || '',
+      student_profile: studentProfile.value || null,
+      precomputed_module_1: null,
+    })
+    const raw = await postMatchReport(payload)
+    saveLastMatchResult(raw)
+    const normalized = normalizeMatchReportPayload(raw)
+    if (normalized) {
+      await applyNormalizedReport(normalized)
+      syncDraftFromCurrent()
+    }
+    step.value = 'report'
+    ElMessage.success('已生成职业发展规划报告')
+  } catch (e) {
+    ElMessage.error(`生成报告失败：${e?.message || '请稍后重试'}`)
+  }
 }
 
 const goGenerateTrainingPlan = () => {
@@ -589,6 +613,9 @@ const midTermPlan = ref([
   }
 ])
 
+/** 模块四行动项（后端 todo_items 等映射） */
+const todoList = ref([])
+
 const evaluationSummary = ref(
   '达到目标岗位的核心胜任力：技术能力可证明（项目/指标）、表达清晰（STAR）、能在压力与约束下稳定交付。'
 )
@@ -605,6 +632,172 @@ const draft = ref({
 })
 
 const deepClone = (v) => JSON.parse(JSON.stringify(v))
+
+const normalizeJobRow = (row) => {
+  if (!row || typeof row !== 'object') return null
+  const mapped = mapRecommendListItemToJob(row)
+  return {
+    id: mapped.job_id,
+    name: mapped.title,
+    match: Math.max(0, Math.min(100, Math.round(Number(mapped.match_score || 0)))),
+    requireMatch: 80,
+  }
+}
+
+const safeArr = (value) => (Array.isArray(value) ? value : [])
+
+const toTextList = (value, fallback = []) => {
+  const list = safeArr(value).map((x) => String(x || '').trim()).filter(Boolean)
+  return list.length ? list : fallback
+}
+
+const summaryLines = computed(() =>
+  String(baseInfo.value?.summary || '')
+    .split('。')
+    .map((x) => x.trim())
+    .filter(Boolean)
+)
+
+const buildMatchPayload = (jobId) => {
+  const payload = { job_id: String(jobId) }
+  if (!profileCacheId.value) {
+    profileCacheId.value = readProfileCacheId() || ''
+  }
+  if (profileCacheId.value) {
+    payload.profile_cache_id = profileCacheId.value
+  } else if (studentProfile.value) {
+    payload.student_profile = studentProfile.value
+  }
+  return payload
+}
+
+const applyMatchDetail = async (detail) => {
+  if (!detail || typeof detail !== 'object') return
+  lastMatchDetail.value = detail
+  const score = Number(detail.match_score ?? 0)
+  currentJob.value = {
+    id: String(detail.job_id || selectedJobId.value),
+    name: detail.title || currentJob.value?.name || baseInfo.value.targetJob,
+    match: Number.isFinite(score) ? Math.round(score) : 0,
+    requireMatch: 80,
+  }
+  const dimScores = extractFourDimensionScoresFromMatchPayload(detail)
+  const studentByKey = formatFourDimensionScoresForCompareRows(dimScores)
+  const texts = await resolveMatchDimensionRequirementTexts(
+    detail,
+    String(detail.job_id || selectedJobId.value),
+    detail.title || currentJob.value?.name || '',
+    null
+  )
+  compareDimensions.value = buildCompareDimensionRows(texts, studentByKey)
+  const narrative = String(detail.narrative || '')
+  gapDetails.value = mergeGapDetailStrings(detail, narrative, dimScores)
+  improveSuggestions.value = mergeSuggestDetailStrings(detail, narrative, dimScores)
+}
+
+const applyNormalizedReport = async (normalized) => {
+  if (!normalized || typeof normalized !== 'object') return
+  const jobTitle = normalized.job_info?.title || currentJob.value?.name
+  if (jobTitle) {
+    baseInfo.value.targetJob = jobTitle
+  }
+  const score = Number(normalized.match_analysis?.match_score ?? currentJob.value?.match ?? 0)
+  currentJob.value = {
+    id: String(normalized.job_info?.job_id || selectedJobId.value || currentJob.value?.id || ''),
+    name: jobTitle || baseInfo.value.targetJob,
+    match: Number.isFinite(score) ? Math.round(score) : 0,
+    requireMatch: 80,
+  }
+  const dimScores = extractFourDimensionScoresFromMatchPayload(normalized)
+  const studentByKey = formatFourDimensionScoresForCompareRows(dimScores)
+  const module1Tj = normalized.career_report?.module_1?.target_job
+  const jobId = String(normalized.job_info?.job_id || selectedJobId.value || '')
+  const texts = await resolveMatchDimensionRequirementTexts(
+    {},
+    jobId,
+    jobTitle || baseInfo.value.targetJob || '',
+    module1Tj || null
+  )
+  compareDimensions.value = buildCompareDimensionRows(texts, studentByKey)
+  const reportNarrative = String(normalized.narrative ?? '')
+  gapDetails.value = mergeGapDetailStrings(normalized, reportNarrative, dimScores)
+  improveSuggestions.value = mergeSuggestDetailStrings(normalized, reportNarrative, dimScores)
+
+  const report = normalized.career_report || {}
+  if (report.gap_analysis) baseInfo.value.summary = String(report.gap_analysis)
+  if (report.learning_path) pathNote.value = String(report.learning_path)
+  const strengths = toTextList(report.strengths)
+  const weaknesses = toTextList(report.weaknesses)
+  if (strengths.length) baseInfo.value.strengths = strengths
+  if (weaknesses.length) baseInfo.value.weaknesses = weaknesses
+  if (report.evaluation_summary) evaluationSummary.value = String(report.evaluation_summary)
+
+  let mappedShort = safeArr(report.short_term_plan).map(mapPlanRow).filter(Boolean)
+  let mappedMid = safeArr(report.mid_term_plan).map(mapPlanRow).filter(Boolean)
+  const fromModule3Items = safeArr(report.module_3?.plan_items ?? report.module_3?.planItems)
+    .map(mapPlanRow)
+    .filter(Boolean)
+  if ((!mappedShort.length || !mappedMid.length) && fromModule3Items.length) {
+    if (!mappedShort.length) mappedShort = fromModule3Items.slice(0, 3)
+    if (!mappedMid.length) mappedMid = fromModule3Items.slice(3)
+  }
+  if (mappedShort.length) shortTermPlan.value = mappedShort
+  if (mappedMid.length) midTermPlan.value = mappedMid
+
+  const m4 = report.module_4 || {}
+  const todoRaw = m4.todo_items ?? m4.todoItems ?? m4.items ?? []
+  const todos = Array.isArray(todoRaw) ? todoRaw : []
+  todoList.value = todos.map(mapActionPlanItemFromApi).filter(Boolean)
+}
+
+const loadRecommendJobs = async () => {
+  try {
+    const list = await fetchRecommendJobList()
+    const mapped = list.map(normalizeJobRow).filter(Boolean)
+    if (mapped.length) {
+      recommendedJobs.value = mapped
+      selectedJobId.value = String(mapped[0].id)
+      return
+    }
+  } catch (e) {
+    ElMessage.warning(`获取岗位列表失败：${e?.message || '使用示意数据'}`)
+  }
+  recommendedJobs.value = [
+    { id: 'JOB_001', name: 'Java 开发工程师', match: 85, requireMatch: 85 },
+    { id: 'JOB_002', name: '前端开发工程师', match: 78, requireMatch: 82 },
+    { id: 'JOB_003', name: '软件测试工程师', match: 72, requireMatch: 80 },
+  ]
+  selectedJobId.value = String(recommendedJobs.value[0].id)
+}
+
+const loadMatchDetail = async () => {
+  if (!selectedJobId.value) return
+  lastMatchDetail.value = null
+  try {
+    const detail = await postMatchDetail(buildMatchPayload(selectedJobId.value))
+    saveLastMatchResult(detail)
+    await applyMatchDetail(detail)
+    ElMessage.success(`已加载岗位「${currentJob.value?.name || ''}」匹配详情`)
+  } catch (e) {
+    const fallback = recommendedJobs.value.find((x) => String(x.id) === String(selectedJobId.value))
+    if (fallback) currentJob.value = { ...fallback }
+    lastMatchDetail.value = null
+    gapDetails.value = ['接口详情获取失败，当前展示基础信息。']
+    improveSuggestions.value = ['请稍后重试，或先直接生成职业规划报告。']
+    ElMessage.warning(`加载详情失败：${e?.message || '请稍后重试'}`)
+  }
+}
+
+const syncDraftFromCurrent = () => {
+  draft.value = {
+    studentName: studentName.value,
+    baseInfo: deepClone(baseInfo.value),
+    pathNote: pathNote.value,
+    shortTermPlan: deepClone(shortTermPlan.value),
+    midTermPlan: deepClone(midTermPlan.value),
+    evaluationSummary: evaluationSummary.value,
+  }
+}
 
 const startEdit = () => {
   draft.value = {
@@ -670,88 +863,6 @@ const draftRowIndex = (phase, row) => {
   return list.findIndex((r) => r.metric === row.metric)
 }
 
-// 量化指标编辑弹窗逻辑
-const metricDialogVisible = ref(false)
-const editingPhase = ref('short') // 'short' | 'mid'
-const editingMetricRow = ref(null)
-
-const originalMetric = computed(
-  () => editingMetricRow.value?.metric || ''
-)
-
-const metricChoice = ref('standard')
-const customMetric = ref('')
-const metricReason = ref('')
-const needReason = ref(false)
-
-const aiSuggestions = ref({
-  simple: '完成不少于 10 次练习题，并在课堂测验中达到及格以上。',
-  standard: '完成不少于 20 次实战练习，阶段测验成绩不低于 80 分。',
-  advanced:
-    '独立完成进阶项目并通过代码评审，阶段测验成绩不低于 90 分，同时能输出学习总结文档。'
-})
-
-const openMetricEditor = (phase, row) => {
-  editingPhase.value = phase
-  editingMetricRow.value = row
-  metricChoice.value = 'standard'
-  customMetric.value = ''
-  metricReason.value = ''
-  needReason.value = false
-  metricDialogVisible.value = true
-}
-
-const saveMetric = () => {
-  if (!editingMetricRow.value) return
-
-  let newMetric = ''
-  if (metricChoice.value === 'simple') {
-    newMetric = aiSuggestions.value.simple
-  } else if (metricChoice.value === 'standard') {
-    newMetric = aiSuggestions.value.standard
-  } else if (metricChoice.value === 'advanced') {
-    newMetric = aiSuggestions.value.advanced
-  } else {
-    if (!customMetric.value.trim()) {
-      ElMessage.error('请在自定义输入框中填写新的量化指标。')
-      return
-    }
-    newMetric = customMetric.value.trim()
-  }
-
-  // 简单模拟「超出调整区间」：长度比原文大 1.6 倍以上视为大幅修改
-  if (
-    metricChoice.value === 'custom' &&
-    newMetric.length > originalMetric.value.length * 1.6
-  ) {
-    if (!metricReason.value.trim()) {
-      needReason.value = true
-      ElMessage.warning('调整幅度较大，请先补充调整理由。')
-      return
-    }
-  }
-
-  // 三重校验（示意）
-  const lengthOk = newMetric.length >= 10
-  const containsNumber = /\d/.test(newMetric)
-  const containsVerb = /完成|达到|实现|通过/.test(newMetric)
-
-  if (!lengthOk || !containsNumber || !containsVerb) {
-    ElMessage.error('未通过智能体三重校验，请确保指标可量化、可操作，再试一次。')
-    return
-  }
-
-  // 保存到对应计划表中
-  const targetList = editingPhase.value === 'short' ? shortTermPlan : midTermPlan
-  const idx = targetList.value.findIndex((r) => r === editingMetricRow.value)
-  if (idx !== -1) {
-    targetList.value[idx] = { ...targetList.value[idx], metric: newMetric }
-  }
-
-  metricDialogVisible.value = false
-  ElMessage.success('已通过三重校验并保存新的量化评估指标（示意）。')
-}
-
 // 报告头部按钮功能（示意）
 const handlePolish = () => {
   const payload = buildReportPayload()
@@ -789,7 +900,10 @@ function buildReportPayload() {
     studentName: studentName.value,
     reportDate,
     theme: theme.value,
+    jobId: String(selectedJobId.value || currentJob.value?.id || ''),
     targetJob: currentJob.value?.name || baseInfo.value.targetJob,
+    profile_cache_id: String(profileCacheId.value || readProfileCacheId() || '').trim(),
+    student_profile: studentProfile.value ? deepClone(studentProfile.value) : null,
     baseInfo: deepClone(baseInfo.value),
     pathNote: pathNote.value,
     shortTermPlan: deepClone(shortTermPlan.value),
@@ -813,15 +927,15 @@ function buildMarkdown(payload) {
   lines.push('## 2. 学生当前能力画像摘要')
   lines.push(payload.baseInfo.summary)
   lines.push('')
-  lines.push('## 3. 职业发展路径（阶段性规划示意）')
-  lines.push(payload.pathNote || '')
-  lines.push('')
-  lines.push('## 4. 个人优势与短板')
+  lines.push('## 3. 个人优势与短板')
   lines.push('**优势**')
   for (const s of payload.baseInfo.strengths || []) lines.push(`- ${s}`)
   lines.push('')
   lines.push('**待提升点**')
   for (const w of payload.baseInfo.weaknesses || []) lines.push(`- ${w}`)
+  lines.push('')
+  lines.push('## 4. 职业发展路径（阶段性规划示意）')
+  lines.push(payload.pathNote || '')
   lines.push('')
   lines.push('## 5. 短期成长计划（0 ~ 6 个月）')
   for (const r of payload.shortTermPlan || []) {
@@ -876,7 +990,7 @@ function buildHtml(payload) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>职业发展规划报告</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;padding:24px;color:#111827;}
+    body{font-family:'Source Han Sans SC','Source Han Sans CN','Source Han Sans','Noto Sans CJK SC','Noto Sans SC',Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;padding:24px;color:#111827;}
     h1{margin:0 0 6px;}
     .meta{color:#475569;margin:0 0 18px;}
     h2{margin:18px 0 10px;}
@@ -898,14 +1012,14 @@ function buildHtml(payload) {
   <h2>2. 学生当前能力画像摘要</h2>
   <p>${esc(payload.baseInfo.summary)}</p>
 
-  <h2>3. 职业发展路径（阶段性规划示意）</h2>
-  <p>${esc(payload.pathNote || '')}</p>
-
-  <h2>4. 个人优势与短板</h2>
+  <h2>3. 个人优势与短板</h2>
   <h3>优势</h3>
   <ul>${li(payload.baseInfo.strengths)}</ul>
   <h3>待提升点</h3>
   <ul>${li(payload.baseInfo.weaknesses)}</ul>
+
+  <h2>4. 职业发展路径（阶段性规划示意）</h2>
+  <p>${esc(payload.pathNote || '')}</p>
 
   <h2>5. 短期成长计划（0 ~ 6 个月）</h2>
   <table>
@@ -952,6 +1066,76 @@ function downloadWordDoc(payload, filename) {
   a.click()
   URL.revokeObjectURL(url)
 }
+
+const matchCompareRadarRef = ref(null)
+let matchCompareRadarInstance = null
+let matchCompareRadarResizeObserver = null
+
+function disposeMatchCompareRadarChart() {
+  if (matchCompareRadarResizeObserver) {
+    matchCompareRadarResizeObserver.disconnect()
+    matchCompareRadarResizeObserver = null
+  }
+  if (matchCompareRadarInstance) {
+    matchCompareRadarInstance.dispose()
+    matchCompareRadarInstance = null
+  }
+}
+
+function ensureMatchCompareRadarChart() {
+  if (step.value !== 'match' || !currentJob.value || !matchCompareRadarRef.value) return
+  if (!matchCompareRadarInstance) {
+    matchCompareRadarInstance = echarts.init(matchCompareRadarRef.value, null, { renderer: 'canvas' })
+    matchCompareRadarResizeObserver = new ResizeObserver(() => matchCompareRadarInstance?.resize())
+    matchCompareRadarResizeObserver.observe(matchCompareRadarRef.value)
+  }
+  matchCompareRadarInstance.setOption(matchCompareRadarOption.value, true)
+}
+
+watch(
+  () => [matchCompareRadarOption.value, theme.value],
+  () => {
+    nextTick(() => ensureMatchCompareRadarChart())
+  }
+)
+
+watch(step, (s) => {
+  nextTick(() => {
+    if (s !== 'match') disposeMatchCompareRadarChart()
+    else if (currentJob.value) ensureMatchCompareRadarChart()
+  })
+})
+
+watch(
+  () => currentJob.value?.id,
+  () => {
+    if (step.value === 'match' && currentJob.value) {
+      nextTick(() => ensureMatchCompareRadarChart())
+    }
+  }
+)
+
+onUnmounted(() => {
+  disposeMatchCompareRadarChart()
+})
+
+onMounted(async () => {
+  try {
+    const routeCacheId = router.currentRoute.value.query?.profile_cache_id
+    const routeName = router.currentRoute.value.query?.student_name
+    if (routeCacheId) profileCacheId.value = String(routeCacheId)
+    if (routeCacheId) saveProfileCacheId(routeCacheId)
+    if (!profileCacheId.value) {
+      profileCacheId.value = readProfileCacheId() || ''
+    }
+    if (routeName) studentName.value = String(routeName)
+  } catch {
+    // ignore
+  }
+  await loadRecommendJobs()
+  await loadMatchDetail()
+  nextTick(() => ensureMatchCompareRadarChart())
+})
 </script>
 
 <style scoped>
@@ -962,8 +1146,7 @@ function downloadWordDoc(payload, filename) {
   flex-direction: column;
   background: #f5f7fb;
   color: #222;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+  font-family: var(--font-family-sans);
   /* 该页字体整体偏大：这里单页再下调一档（不影响其它页面） */
   font-size: 16px;
   line-height: 1.6;
@@ -1012,8 +1195,18 @@ function downloadWordDoc(payload, filename) {
 .career-report-view.dark .student-tag,
 .career-report-view.dark .match-hint,
 .career-report-view.dark .weight-hint,
-.career-report-view.dark .dim-score {
+.career-report-view.dark .dim-student,
+.career-report-view.dark .dim-requirement-text {
   color: var(--dm-text-secondary);
+}
+
+.career-report-view.dark .dim-requirement-label {
+  color: var(--dm-text-muted, var(--dm-text-secondary));
+}
+
+.career-report-view.dark .compare-list-item {
+  background: color-mix(in srgb, var(--dm-surface-card, #1a1d24) 92%, transparent);
+  border-color: color-mix(in srgb, var(--dm-border, #333) 70%, transparent);
 }
 
 .career-report-view.dark .report-panel .report-subtitle,
@@ -1521,6 +1714,32 @@ function downloadWordDoc(payload, filename) {
   text-align: center;
 }
 
+.compare-card--radar .compare-radar-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.compare-radar-echart {
+  width: 100%;
+  max-width: min(100%, 400px);
+  height: clamp(280px, 38vh, 400px);
+  min-height: 260px;
+  margin-inline: auto;
+}
+
+.compare-radar-note {
+  margin: 0;
+  font-size: clamp(12px, 0.85vw, 13px);
+  color: #666;
+  text-align: center;
+}
+
+.career-report-view.dark .compare-radar-note {
+  color: var(--dm-text-secondary);
+}
+
 .compare-list {
   list-style: none;
   padding: 0;
@@ -1529,16 +1748,50 @@ function downloadWordDoc(payload, filename) {
 }
 
 .compare-list li + li {
-  margin-top: 4px;
+  margin-top: 12px;
+}
+
+.compare-list-item {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--u-body-bg, #fafafa) 55%, var(--u-panel, #fff));
+  border: 1px solid color-mix(in srgb, var(--u-border-color, #e5e7eb) 80%, transparent);
+}
+
+.dim-row-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin-bottom: 8px;
 }
 
 .dim-name {
   font-weight: 600;
 }
 
-.dim-score {
-  margin-left: 8px;
+.dim-student {
+  font-size: clamp(12px, 0.88vw, 14px);
   color: #555;
+}
+
+.dim-requirement {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dim-requirement-label {
+  font-size: clamp(11px, 0.78vw, 12px);
+  font-weight: 600;
+  color: #888;
+}
+
+.dim-requirement-text {
+  margin: 0;
+  font-size: clamp(12px, 0.85vw, 14px);
+  line-height: 1.55;
+  color: #444;
 }
 
 .detail-analysis {
@@ -1637,6 +1890,23 @@ function downloadWordDoc(payload, filename) {
 
 .report-panel .report-section > p + p {
   margin-top: 8px;
+}
+
+.summary-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-line {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.summary-line::before {
+  content: '·';
+  margin-right: 6px;
+  font-weight: 700;
 }
 
 .report-panel .report-section ul {
@@ -1749,6 +2019,75 @@ function downloadWordDoc(payload, filename) {
 
 .report-panel .plan-table :deep(.el-table__body tr.el-table__row--hover td.el-table__cell) {
   background: rgba(208, 244, 240, 0.44) !important;
+}
+
+.action-todo-section .todo-card-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+@media (min-width: 720px) {
+  .action-todo-section .todo-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.report-panel .todo-card {
+  border: 2px solid rgba(51, 50, 46, 0.38);
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: var(--u-panel);
+}
+
+.report-panel .todo-card-title {
+  margin: 0 0 8px;
+  font-size: clamp(15px, 0.95vw, 17px);
+  font-weight: 700;
+  color: var(--u-black);
+}
+
+.report-panel .todo-card-desc {
+  margin: 0 0 10px;
+  font-size: clamp(14px, 0.9vw, 15px);
+  line-height: 1.55;
+  color: rgba(51, 50, 46, 0.88);
+}
+
+.report-panel .todo-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.report-panel .todo-chip {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(51, 50, 46, 0.28);
+  background: rgba(208, 244, 240, 0.22);
+}
+
+.report-panel .todo-chip--status {
+  text-transform: capitalize;
+}
+
+.career-report-view.dark .report-panel .todo-card {
+  border-color: var(--dm-border);
+  background: var(--dm-surface);
+}
+
+.career-report-view.dark .report-panel .todo-card-title {
+  color: var(--dm-text);
+}
+
+.career-report-view.dark .report-panel .todo-card-desc {
+  color: color-mix(in srgb, var(--dm-text) 88%, transparent);
+}
+
+.career-report-view.dark .report-panel .todo-chip {
+  border-color: var(--dm-border);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .metric-cell {

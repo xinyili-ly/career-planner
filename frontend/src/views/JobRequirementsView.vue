@@ -110,6 +110,26 @@
         </template>
       </section>
 
+      <section class="stats-dashboard" aria-label="行业数智化洞察">
+        <h2 class="stats-dashboard-heading">行业数智化洞察</h2>
+        <p class="stats-dashboard-lead">
+          基于超 10,000 条岗位样本的语义聚合与薪酬结构化统计（接口：<code class="stats-code">GET /api/v1/jobs/stats</code>）。
+        </p>
+        <div class="stats-dashboard-grid">
+          <div class="stats-card">
+            <h3 class="stats-title">🔥 核心技能热力词云</h3>
+            <p class="stats-sub">高频技能关键词分布</p>
+            <div ref="wordCloudRef" class="chart-box" />
+          </div>
+          <div class="stats-card">
+            <h3 class="stats-title">💰 行业薪资分布态势</h3>
+            <p class="stats-sub">岗位月薪区间占比</p>
+            <div ref="salaryChartRef" class="chart-box" />
+          </div>
+        </div>
+        <p v-if="statsHint" class="stats-hint">{{ statsHint }}</p>
+      </section>
+
       <!-- 底部说明：协调版面，避免页面过短 -->
       <section class="page-bottom-intro">
         <p class="bottom-intro-text">
@@ -128,17 +148,20 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import * as echarts from 'echarts'
+import 'echarts-wordcloud'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
-import { getRecommendJobList } from '../api/jobPortraitApi'
+import { getJobsStats, getRecommendJobList } from '../api/jobPortraitApi'
 import { formatJobPortraitApiError } from '../api/jobPortraitErrors'
 import {
   extractJobsArray,
   loadJobListFromCache,
   normalizeText,
   saveJobListCache,
+  unwrapData,
 } from '../utils/jobPortraitNormalize'
 import javaJobPortrait from '../assets/java-job-portrait.png'
 import qaJobPortrait from '../assets/qa-job-portrait.png'
@@ -153,6 +176,341 @@ import contentReviewJobPortrait from '../assets/content-review-job-portrait.png'
 
 const { theme } = useTheme()
 const router = useRouter()
+
+const DEFAULT_STATS_WORDS = [
+  { name: 'Java', value: 920 },
+  { name: 'Python', value: 880 },
+  { name: 'SQL', value: 890 },
+  { name: '大数据', value: 760 },
+  { name: 'LLM', value: 710 },
+  { name: '架构设计', value: 650 },
+  { name: 'Vue', value: 620 },
+  { name: 'Kubernetes', value: 540 },
+  { name: '微服务', value: 580 },
+  { name: '云计算', value: 520 },
+  { name: 'TypeScript', value: 600 },
+  { name: 'Spring', value: 560 },
+  { name: 'Go', value: 480 },
+  { name: '数据分析', value: 640 },
+  { name: '产品经理', value: 430 },
+  { name: 'DevOps', value: 410 },
+  { name: '机器学习', value: 590 },
+  { name: '前端工程化', value: 450 },
+]
+
+const DEFAULT_STATS_SALARY = [
+  { label: '10k 以下', count: 420 },
+  { label: '10k-15k', count: 1850 },
+  { label: '15k-25k', count: 3120 },
+  { label: '25k-35k', count: 2280 },
+  { label: '35k-50k', count: 1420 },
+  { label: '50k+', count: 910 },
+]
+
+function hashHue(str) {
+  let h = 0
+  const s = String(str || '')
+  for (let i = 0; i < s.length; i += 1) {
+    h = h * 31 + s.charCodeAt(i)
+    h |= 0
+  }
+  return Math.abs(h)
+}
+
+function normalizeJobStatsResponse(res) {
+  const d = unwrapData(res)
+  if (!d || typeof d !== 'object') return null
+
+  const kwRaw =
+    d.keyword_cloud ||
+    d.keywordCloud ||
+    d.skill_keywords ||
+    d.skillKeywords ||
+    d.keywords ||
+    d.word_cloud
+  const salRaw =
+    d.salary_bins ||
+    d.salaryBins ||
+    d.salary_distribution ||
+    d.salaryDistribution ||
+    d.salary_histogram
+
+  const wordData = Array.isArray(kwRaw)
+    ? kwRaw
+        .map((x) => ({
+          name: String(x?.name ?? x?.word ?? x?.keyword ?? x?.label ?? x?.text ?? '').trim(),
+          value: Number(x?.value ?? x?.weight ?? x?.count ?? x?.freq ?? 0) || 0,
+        }))
+        .filter((x) => x.name && x.value > 0)
+    : []
+
+  const barData = Array.isArray(salRaw)
+    ? salRaw
+        .map((x) => ({
+          label: String(x?.label ?? x?.range ?? x?.bin ?? x?.name ?? '').trim(),
+          count: Number(x?.count ?? x?.value ?? x?.jobs ?? x?.num ?? 0) || 0,
+        }))
+        .filter((x) => x.label)
+    : []
+
+  if (!wordData.length && !barData.length) return null
+  return {
+    wordData: wordData.length ? wordData : [...DEFAULT_STATS_WORDS],
+    barData: barData.length ? barData : [...DEFAULT_STATS_SALARY],
+  }
+}
+
+/**
+ * 词云颜色与项目内已有数据一致：
+ * - 岗位详情雷达：主系列 #63bfb7、全行业对比 rgba(251,191,36) / 浅色 rgba(180,83,9)
+ * - base.css 深色主题：--dm-accent / --dm-accent-secondary / --dm-success / --dm-warm
+ */
+const WORD_CLOUD_PALETTE_DARK = [
+  '#63bfb7',
+  '#fbbf24',
+  '#7eb8d4',
+  '#b8899e',
+  '#5fa89e',
+  '#b89a6a',
+  '#fcd34d',
+]
+
+const WORD_CLOUD_PALETTE_LIGHT = [
+  '#0f766e',
+  '#b45309',
+  '#0369a1',
+  '#63bfb7',
+  '#047857',
+  '#a16207',
+  '#7c3aed',
+]
+
+function decorateWordCloudData(wordData, selectedName, isDark) {
+  const sel = (selectedName || '').trim()
+  const palette = isDark ? WORD_CLOUD_PALETTE_DARK : WORD_CLOUD_PALETTE_LIGHT
+  return (wordData || []).map((d) => {
+    const name = d.name
+    const hi = !!(sel && name === sel)
+    return {
+      name,
+      value: d.value,
+      textStyle: {
+        color: hi ? '#fbbf24' : palette[hashHue(name) % palette.length],
+        fontWeight: hi ? 900 : 600,
+        ...(hi
+          ? {
+              textBorderColor: isDark ? 'rgba(15, 23, 42, 0.92)' : 'rgba(51, 50, 46, 0.45)',
+              textBorderWidth: 1,
+            }
+          : {}),
+      },
+    }
+  })
+}
+
+function buildWordCloudOption(isDark, wordData, selectedKeyword = '') {
+  const cloudData = decorateWordCloudData(wordData, selectedKeyword, isDark)
+
+  return {
+    backgroundColor: 'transparent',
+    tooltip: {
+      show: true,
+      backgroundColor: isDark ? 'rgba(15, 23, 42, 0.94)' : 'rgba(255, 255, 255, 0.96)',
+      borderColor: 'rgba(99, 191, 183, 0.45)',
+      textStyle: { color: isDark ? '#e2e8f0' : '#0f172a', fontSize: 12 },
+    },
+    series: [
+      {
+        type: 'wordCloud',
+        shape: 'circle',
+        keepAspect: false,
+        left: 'center',
+        top: 'center',
+        width: '96%',
+        height: '92%',
+        sizeRange: isDark ? [13, 48] : [12, 44],
+        rotationRange: [-42, 42],
+        rotationStep: 9,
+        gridSize: 10,
+        drawOutOfBound: false,
+        layoutAnimation: true,
+        textStyle: {
+          fontFamily: 'system-ui, "Segoe UI", sans-serif',
+          fontWeight: 600,
+        },
+        emphasis: {
+          textStyle: {
+            shadowBlur: 12,
+            shadowColor: isDark ? 'rgba(99, 191, 183, 0.55)' : 'rgba(15, 118, 110, 0.35)',
+          },
+        },
+        data: cloudData,
+      },
+    ],
+  }
+}
+
+function buildSalaryBarOption(isDark, barData) {
+  const labels = barData.map((b) => b.label)
+  const counts = barData.map((b) => b.count)
+  const axisColor = isDark ? 'rgba(148, 163, 184, 0.75)' : 'rgba(51, 50, 46, 0.65)'
+  const splitLine = isDark ? 'rgba(99, 191, 183, 0.12)' : 'rgba(15, 23, 42, 0.08)'
+
+  return {
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' },
+      backgroundColor: isDark ? 'rgba(15, 23, 42, 0.94)' : 'rgba(255, 255, 255, 0.96)',
+      borderColor: 'rgba(99, 191, 183, 0.45)',
+      textStyle: { color: isDark ? '#e2e8f0' : '#0f172a' },
+    },
+    grid: { left: 48, right: 16, top: 20, bottom: 28, containLabel: true },
+    xAxis: {
+      type: 'category',
+      data: labels,
+      axisLine: { lineStyle: { color: axisColor } },
+      axisTick: { show: false },
+      axisLabel: { color: axisColor, fontSize: 11, interval: 0, rotate: labels.length > 6 ? 28 : 0 },
+    },
+    yAxis: {
+      type: 'value',
+      name: '岗位数',
+      nameTextStyle: { color: axisColor, fontSize: 11 },
+      axisLine: { show: false },
+      axisLabel: { color: axisColor, fontSize: 11 },
+      splitLine: { lineStyle: { color: splitLine, type: 'dashed' } },
+    },
+    series: [
+      {
+        type: 'bar',
+        data: counts,
+        barMaxWidth: 36,
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: isDark ? '#fbbf24' : '#d97706' },
+            { offset: 0.55, color: isDark ? '#63bfb7' : '#14b8a6' },
+            { offset: 1, color: isDark ? 'rgba(99, 191, 183, 0.35)' : 'rgba(20, 184, 166, 0.45)' },
+          ]),
+          shadowBlur: isDark ? 14 : 0,
+          shadowColor: isDark ? 'rgba(251, 191, 36, 0.25)' : 'transparent',
+        },
+      },
+    ],
+  }
+}
+
+const wordCloudRef = ref(null)
+const salaryChartRef = ref(null)
+const statsPayload = ref({
+  wordData: [...DEFAULT_STATS_WORDS],
+  barData: [...DEFAULT_STATS_SALARY],
+})
+const statsHint = ref('')
+/** 词云点击后同步搜索并高亮该词 */
+const selectedWordCloudKeyword = ref('')
+let wordCloudChart = null
+let salaryBarChart = null
+let statsResizeObserver = null
+
+function disposeStatsCharts() {
+  if (statsResizeObserver) {
+    statsResizeObserver.disconnect()
+    statsResizeObserver = null
+  }
+  if (wordCloudChart) {
+    wordCloudChart.dispose()
+    wordCloudChart = null
+  }
+  if (salaryBarChart) {
+    salaryBarChart.dispose()
+    salaryBarChart = null
+  }
+}
+
+function bindWordCloudChartClick() {
+  if (!wordCloudChart) return
+  wordCloudChart.off('click')
+  wordCloudChart.on('click', (params) => {
+    if (params.seriesType !== 'wordCloud' || !params.name) return
+    selectedWordCloudKeyword.value = String(params.name)
+    searchKeyword.value = String(params.name)
+    page.value = 1
+    updateStatsCharts()
+  })
+}
+
+function updateStatsCharts() {
+  const isDark = theme.value === 'dark'
+  const { wordData, barData } = statsPayload.value
+  if (wordCloudChart && wordData?.length) {
+    wordCloudChart.setOption(
+      buildWordCloudOption(isDark, wordData, selectedWordCloudKeyword.value),
+      true
+    )
+    bindWordCloudChartClick()
+  }
+  if (salaryBarChart && barData?.length) {
+    salaryBarChart.setOption(buildSalaryBarOption(isDark, barData), true)
+  }
+}
+
+function initStatsCharts() {
+  if (!wordCloudRef.value || !salaryChartRef.value) return
+  if (!wordCloudChart) {
+    wordCloudChart = echarts.init(wordCloudRef.value, null, { renderer: 'canvas' })
+  }
+  if (!salaryBarChart) {
+    salaryBarChart = echarts.init(salaryChartRef.value, null, { renderer: 'canvas' })
+  }
+  updateStatsCharts()
+  if (!statsResizeObserver && wordCloudRef.value?.parentElement) {
+    const wrap = wordCloudRef.value.closest('.stats-dashboard')
+    if (wrap) {
+      statsResizeObserver = new ResizeObserver(() => {
+        wordCloudChart?.resize()
+        salaryBarChart?.resize()
+      })
+      statsResizeObserver.observe(wrap)
+    }
+  }
+}
+
+async function loadJobStats() {
+  statsHint.value = ''
+  try {
+    const res = await getJobsStats()
+    const normalized = normalizeJobStatsResponse(res)
+    if (normalized) {
+      statsPayload.value = normalized
+      statsHint.value = ''
+    } else {
+      statsPayload.value = {
+        wordData: [...DEFAULT_STATS_WORDS],
+        barData: [...DEFAULT_STATS_SALARY],
+      }
+      statsHint.value = '统计接口返回为空，已展示示意数据。'
+    }
+  } catch (e) {
+    statsPayload.value = {
+      wordData: [...DEFAULT_STATS_WORDS],
+      barData: [...DEFAULT_STATS_SALARY],
+    }
+    statsHint.value = `${normalizeText(formatJobPortraitApiError(e), '统计接口不可用')}，当前为本地示意数据。`
+  } finally {
+    await nextTick()
+    initStatsCharts()
+  }
+}
+
+watch(
+  () => [theme.value, statsPayload.value],
+  () => {
+    nextTick(() => updateStatsCharts())
+  },
+  { deep: true }
+)
 
 const baseJobs = [
   { id: 1, name: '物联网调试师', field: '万物智联', company: '重庆森什么什么公司' },
@@ -240,6 +598,14 @@ watch([searchKeyword, sortBy], () => {
   page.value = 1
 })
 
+watch(searchKeyword, (q) => {
+  const t = String(q || '').trim()
+  if (selectedWordCloudKeyword.value && t !== selectedWordCloudKeyword.value) {
+    selectedWordCloudKeyword.value = ''
+    updateStatsCharts()
+  }
+})
+
 function fieldFromTags(tags) {
   if (!Array.isArray(tags) || !tags.length) return '泛行业'
   const t = tags[0]
@@ -325,6 +691,14 @@ async function loadJobsFromApi() {
 
 onMounted(() => {
   loadJobsFromApi()
+  nextTick(() => {
+    initStatsCharts()
+  })
+  loadJobStats()
+})
+
+onBeforeUnmount(() => {
+  disposeStatsCharts()
 })
 
 const goToJob = (job) => {
@@ -346,7 +720,7 @@ const goToJob = (job) => {
   flex-direction: column;
   background: var(--u-body-bg);
   color: var(--u-black);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-family-sans);
 }
 
 .jobs-view.dark {
@@ -563,6 +937,130 @@ const goToJob = (job) => {
   opacity: 0.8;
 }
 
+.stats-dashboard {
+  width: 90%;
+  max-width: 1600px;
+  margin: 36px auto 28px;
+  padding: 0 0 8px;
+}
+
+.stats-dashboard-heading {
+  margin: 0 0 8px;
+  font-size: clamp(18px, 1.25vw, 22px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-align: center;
+  background: linear-gradient(90deg, #0f172a 0%, #63bfb7 45%, #d97706 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.jobs-view.dark .stats-dashboard-heading {
+  background: linear-gradient(90deg, #e2e8f0 0%, #63bfb7 40%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stats-dashboard-lead {
+  margin: 0 auto 18px;
+  max-width: 920px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(51, 50, 46, 0.62);
+}
+
+.jobs-view.dark .stats-dashboard-lead {
+  color: var(--dm-text-secondary);
+}
+
+.stats-code {
+  font-size: 12px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgba(99, 191, 183, 0.12);
+  border: 1px solid rgba(99, 191, 183, 0.28);
+}
+
+.jobs-view.dark .stats-code {
+  background: rgba(99, 191, 183, 0.1);
+  border-color: rgba(99, 191, 183, 0.35);
+  color: var(--dm-text-secondary);
+}
+
+.stats-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .stats-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stats-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(99, 191, 183, 0.32);
+  border-radius: 14px;
+  padding: 15px 16px 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.06), 0 12px 40px rgba(15, 23, 42, 0.08);
+}
+
+.jobs-view.dark .stats-card {
+  background: rgba(15, 23, 42, 0.55);
+  border-color: rgba(99, 191, 183, 0.38);
+  box-shadow:
+    0 0 0 1px rgba(251, 191, 36, 0.12),
+    0 0 28px rgba(99, 191, 183, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.stats-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.jobs-view.dark .stats-title {
+  color: var(--dm-text);
+}
+
+.stats-sub {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: rgba(51, 50, 46, 0.55);
+}
+
+.jobs-view.dark .stats-sub {
+  color: var(--dm-text-secondary);
+}
+
+.chart-box {
+  height: 260px;
+  width: 100%;
+  min-height: 220px;
+}
+
+.stats-hint {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(180, 83, 9, 0.9);
+}
+
+.jobs-view.dark .stats-hint {
+  color: #fcd34d;
+}
+
 .jobs-grid {
   width: 90%;
   max-width: 1600px;
@@ -666,6 +1164,35 @@ const goToJob = (job) => {
 
 .jobs-sort {
   width: 168px;
+}
+
+.jobs-view.dark :deep(.el-table) {
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: transparent;
+  --el-table-fixed-box-shadow: none;
+  --el-table-border-color: rgba(255, 255, 255, 0.08);
+  --el-table-row-hover-bg-color: rgba(255, 255, 255, 0.04);
+  background: transparent;
+}
+
+.jobs-view.dark :deep(.el-table th.el-table__cell),
+.jobs-view.dark :deep(.el-table td.el-table__cell) {
+  background: transparent;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.jobs-view.dark :deep(.jobs-search .el-input__wrapper) {
+  background: #111827;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+.jobs-view.dark :deep(.jobs-search .el-input__inner) {
+  color: #ffffff;
+}
+
+.jobs-view.dark :deep(.jobs-search .el-input__inner::placeholder) {
+  color: rgba(255, 255, 255, 0.58);
 }
 
 .job-skeleton-card {

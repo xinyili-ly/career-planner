@@ -190,23 +190,6 @@
                 </div>
               </div>
             </div>
-            <el-upload
-              class="resume-upload"
-              drag
-              :show-file-list="false"
-              :before-upload="handleBeforeUpload"
-            >
-              <el-icon class="el-icon--upload"><UploadFilled /></el-icon>
-              <div class="el-upload__text">
-                将简历拖到此处，或 <em>点击上传</em>
-              </div>
-              <template #tip>
-                <div class="el-upload__tip">
-                  支持 PDF / DOC / DOCX，大小不超过 5MB。
-                </div>
-              </template>
-            </el-upload>
-
             <el-button
               type="primary"
               size="large"
@@ -373,10 +356,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import {
-  UploadFilled
-} from '@element-plus/icons-vue'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
 import VinylProSection from '../components/VinylProSection.vue'
@@ -516,23 +495,6 @@ const handleTrainingPlanClick = () => {
   router.push({ name: 'AbilityTrainingPlan' })
 }
 
-const handleBeforeUpload = (file) => {
-  const isAllowedType = /pdf|doc|docx$/i.test(file.name)
-  const isLt5M = file.size / 1024 / 1024 < 5
-
-  if (!isAllowedType) {
-    ElMessage.error('仅支持 PDF / DOC / DOCX 格式')
-    return false
-  }
-  if (!isLt5M) {
-    ElMessage.error('文件大小不能超过 5MB')
-    return false
-  }
-  ElMessage.success(`已上传：${file.name}，后端接口对接后可进行分析。`)
-  // 阻止真实上传，仅做演示
-  return false
-}
-
 async function warmupJobPortraitApi() {
   const WARMUP_KEY = 'job_portrait_api_warmup_done_v1'
   try {
@@ -586,6 +548,7 @@ const resumeCards = ref([
 /* 核心容器：占满整个屏幕 */
 .home-view {
   --u-border-radius: 12px;
+  --home-main-btn-height: 54px;
 
   width: 100vw; /* 横向占满屏幕宽度 */
   min-height: 100vh; /* 纵向至少占满屏幕高度 */
@@ -594,8 +557,7 @@ const resumeCards = ref([
   flex-direction: column;
   background: var(--u-body-bg);
   color: var(--u-black);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+  font-family: var(--font-family-sans);
   margin: 0; /* 清除默认外边距 */
   padding: 0; /* 清除默认内边距 */
   box-sizing: border-box; /* 确保padding不超出容器 */
@@ -612,16 +574,31 @@ const resumeCards = ref([
 }
 
 .home-view.dark .hero {
-  background: var(--dm-gradient-hero);
+  background: var(--dm-bg);
+}
+
+.home-view.dark .page-scroll {
+  background: transparent;
 }
 
 .home-view.dark .ai-impact {
-  background: var(--dm-bg); /* 纯色，避免渐变“混色感” */
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--u-yellow) 18%, var(--dm-bg)) 0%,
+    color-mix(in srgb, var(--u-yellow) 10%, var(--dm-bg)) 52%,
+    var(--dm-bg) 100%
+  );
   border: 1px solid rgba(103, 232, 249, 0.12);
+  box-shadow: none;
 }
 
 .home-view.dark .ai-resume {
-  background: var(--dm-surface-card); /* 纯色 */
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--u-bg-discard) 22%, var(--dm-surface-card)) 0%,
+    color-mix(in srgb, var(--u-bg-discard) 14%, var(--dm-surface-card)) 48%,
+    var(--dm-surface-card) 100%
+  );
   color: #ffffff;
   border: 1px solid var(--dm-border-accent);
   box-shadow: 0 8px 32px rgba(167, 139, 250, 0.08);
@@ -799,7 +776,9 @@ const resumeCards = ref([
     3px 3px 0px #000000,
     9px 3px 0px #000000,
     3px 9px 0px #000000,
-    9px 9px 0px #000000;
+    9px 9px 0px #000000,
+    0 0 10px rgba(255, 214, 66, 0.16),
+    0 0 20px rgba(255, 214, 66, 0.08);
 }
 
 .home-view.dark .primary-btn.el-button,
@@ -808,19 +787,19 @@ const resumeCards = ref([
   background: var(--dm-accent) !important;
   border-color: var(--dm-accent) !important;
   color: #0a0a0a !important;
-  box-shadow: 4px 4px 0 #000000 !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
 }
 
 .home-view.dark .primary-btn.el-button:hover,
 .home-view.dark .ai-impact-btn.el-button:hover,
 .home-view.dark .resume-btn.el-button:hover {
-  box-shadow: 6px 6px 0 #000000 !important;
+  box-shadow: 6px 6px 0 var(--u-black) !important;
 }
 
 .home-view.dark .primary-btn.el-button:active,
 .home-view.dark .ai-impact-btn.el-button:active,
 .home-view.dark .resume-btn.el-button:active {
-  box-shadow: 0 0 0 #000000 !important;
+  box-shadow: 0 0 0 var(--u-black) !important;
 }
 
 /* 将“构建画像”按钮颜色强制改为黄色（覆盖全局 primary 粉色） */
@@ -842,7 +821,7 @@ html.dark .home-view .hero-actions .secondary-btn.el-button--primary {
   background-color: var(--u-yellow) !important;
   background: var(--u-yellow) !important;
   color: var(--u-black) !important;
-  box-shadow: 4px 4px 0 #000000 !important;
+  box-shadow: 4px 4px 0 var(--u-black) !important;
 }
 
 /* 顶部导航：自适应屏幕 */
@@ -1038,6 +1017,14 @@ html.dark .home-view .hero-actions .secondary-btn.el-button--primary {
   background: var(--dm-bg);
   border: none;
   box-shadow: none;
+}
+
+.home-view.dark .hero-carousel .carousel-card:not(.focused) {
+  opacity: 0.4 !important;
+}
+
+.home-view.dark .hero-carousel .carousel-card:not(.focused) .carousel-image {
+  filter: brightness(0.7);
 }
 
 .carousel-stage {
@@ -1378,10 +1365,20 @@ html.dark .home-view .hero-actions .secondary-btn.el-button--primary {
   font-size: clamp(16px, 1.1vw, 19px);
 }
 
-/* Hero 主按钮尺寸：交互与阴影见全局 main.css */
-.home-view:not(.dark) .hero-actions .primary-btn.el-button--primary {
-  height: 54px !important;
-  padding: 0 40px !important;
+/* 主界面关键按钮统一高度（Hero / 分区 CTA / 培训计划 CTA） */
+.home-view .primary-btn.el-button,
+.home-view .ai-impact-btn.el-button,
+.home-view .resume-btn.el-button {
+  height: var(--home-main-btn-height) !important;
+  min-height: var(--home-main-btn-height);
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Hero 主按钮额外保持更宽横向留白 */
+.home-view .hero-actions .primary-btn.el-button--primary {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
 }
 
 /* AI 影响力区块：自适应 */
@@ -1940,65 +1937,6 @@ html.dark .home-view .hero-actions .secondary-btn.el-button--primary {
   font-size: clamp(16px, 1.05vw, 20px);
   line-height: 1.75;
   color: #555;
-}
-
-.resume-upload {
-  margin-top: 0.5vw;
-  width: 100%;
-}
-
-/* 上传框：与页面统一为柔和卡片风格，避免突兀 */
-:deep(.resume-upload .el-upload) {
-  width: 100%;
-}
-
-:deep(.resume-upload .el-upload-dragger) {
-  width: 100%;
-  border: 2px dashed rgba(51, 50, 46, 0.35);
-  border-radius: 16px;
-  background: linear-gradient(180deg, #fdf8ef 0%, #fff7f5 100%);
-  padding: 22px 18px;
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
-}
-
-:deep(.resume-upload .el-upload-dragger:hover) {
-  border-color: rgba(51, 50, 46, 0.62);
-  background: linear-gradient(180deg, #fff9f1 0%, #fff4f0 100%);
-  transform: translateY(-1px);
-}
-
-:deep(.resume-upload .el-upload__text) {
-  color: rgba(51, 50, 46, 0.9);
-  font-size: clamp(14px, 0.95vw, 16px);
-}
-
-:deep(.resume-upload .el-upload__tip) {
-  color: rgba(51, 50, 46, 0.72);
-  font-size: clamp(12px, 0.85vw, 14px);
-}
-
-:deep(.resume-upload .el-icon--upload) {
-  color: rgba(51, 50, 46, 0.55);
-  margin-bottom: 8px;
-}
-
-.home-view.dark :deep(.resume-upload .el-upload-dragger) {
-  border-color: var(--dm-border);
-  background: var(--dm-surface-card);
-}
-
-.home-view.dark :deep(.resume-upload .el-upload-dragger:hover) {
-  border-color: var(--dm-border-accent);
-  background: var(--dm-surface-elevated);
-}
-
-.home-view.dark :deep(.resume-upload .el-upload__text) {
-  color: var(--dm-text);
-}
-
-.home-view.dark :deep(.resume-upload .el-upload__tip),
-.home-view.dark :deep(.resume-upload .el-icon--upload) {
-  color: var(--dm-text-secondary);
 }
 
 .resume-btn {

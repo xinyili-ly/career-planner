@@ -215,6 +215,55 @@ export function normalizeDetailExtras(raw) {
   const pathGraph =
     raw.path_graph && typeof raw.path_graph === 'object' ? raw.path_graph : null
 
+  /** 岗位七维雷达：后端 ability_radar / abilityRadar */
+  const abilityRadarRaw = raw.ability_radar ?? raw.abilityRadar
+  let abilityRadar = null
+  if (abilityRadarRaw && typeof abilityRadarRaw === 'object') {
+    const keys = [
+      'professional_skills',
+      'certificates',
+      'innovation',
+      'learning',
+      'stress_resistance',
+      'communication',
+      'internship'
+    ]
+    const out = {}
+    for (const k of keys) {
+      if (!(k in abilityRadarRaw)) continue
+      const n = Number(abilityRadarRaw[k])
+      if (Number.isFinite(n)) out[k] = Math.max(0, Math.min(100, Math.round(n)))
+    }
+    abilityRadar = Object.keys(out).length ? out : null
+  }
+
+  const abilitySourceInfo = normalizeText(
+    raw.source_info || raw.ability_source_info || raw.semantic_analysis_source || '',
+    ''
+  )
+
+  /** 可选：全行业七维基准，与 ability_radar 同键 */
+  const industryRadarAvgRaw = raw.industry_radar_avg ?? raw.industryRadarAvg
+  let industryRadarAvg = null
+  if (industryRadarAvgRaw && typeof industryRadarAvgRaw === 'object') {
+    const keys = [
+      'professional_skills',
+      'certificates',
+      'innovation',
+      'learning',
+      'stress_resistance',
+      'communication',
+      'internship'
+    ]
+    const out = {}
+    for (const k of keys) {
+      if (!(k in industryRadarAvgRaw)) continue
+      const n = Number(industryRadarAvgRaw[k])
+      if (Number.isFinite(n)) out[k] = Math.max(0, Math.min(100, Math.round(n)))
+    }
+    industryRadarAvg = Object.keys(out).length ? out : null
+  }
+
   return {
     heroImage: hero,
     tagline,
@@ -222,7 +271,10 @@ export function normalizeDetailExtras(raw) {
     skillHtml,
     conditions,
     conditionBullets,
-    pathGraph
+    pathGraph,
+    abilityRadar,
+    abilitySourceInfo,
+    industryRadarAvg
   }
 }
 

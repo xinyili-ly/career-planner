@@ -160,8 +160,10 @@ const handleProfileClick = () => {
 }
 
 .header.dark {
-  background: var(--dm-header-bg);
-  border-bottom: 1px solid var(--dm-border);
+  background: rgba(10, 14, 20, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 1px 0 rgba(167, 139, 250, 0.06);
 }
 
@@ -245,8 +247,8 @@ const handleProfileClick = () => {
 /* 夜间模式也统一“胶囊贴纸”效果（用 dm 变量点缀） */
 .header.dark .nav-item {
   background: rgba(18, 24, 32, 0.55);
-  border: 1px solid var(--dm-border);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+  border: 2px solid var(--u-stroke);
+  box-shadow: 2px 2px 0 var(--u-black);
 }
 
 .header.dark .nav-item:hover {
@@ -259,8 +261,8 @@ const handleProfileClick = () => {
 }
 
 .header.dark .theme-toggle {
-  border: 1px solid var(--dm-border);
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+  border: 2px solid var(--u-stroke);
+  box-shadow: 2px 2px 0 var(--u-black);
 }
 
 .header.dark .theme-option.active {
@@ -340,6 +342,8 @@ const handleProfileClick = () => {
 .header.dark .icon-btn {
   background: var(--dm-surface);
   color: var(--dm-text);
+  border: 2px solid var(--u-stroke);
+  box-shadow: 2px 2px 0 var(--u-black);
 }
 
 @media (max-width: 900px) {

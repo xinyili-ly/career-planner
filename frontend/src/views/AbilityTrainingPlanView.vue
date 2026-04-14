@@ -118,10 +118,14 @@
 
           <section class="guide-bottom">
             <p class="bottom-note">
-              如果你还没有生成基于你的职业发展报告，请先生成发展报告请完善生成你的专属提升计划哦，点击下面按钮进行构建学生能力画像。
+              {{
+                canGeneratePlan
+                  ? '已检测到你完成了第二页职业发展报告，可直接进入培训计划生成页。'
+                  : '如果你还没有生成基于你的职业发展报告，请先到第二页完成解析与报告生成，再回来生成专属提升计划。'
+              }}
             </p>
-            <button class="u-btn u-btn--primary u-btn--lg jump-btn" type="button" @click="goStudentAbilities">
-              跳转页到第二页
+            <button class="u-btn u-btn--primary u-btn--lg jump-btn" type="button" @click="handleGuideAction">
+              {{ canGeneratePlan ? '培训计划生成' : '跳转到第二页' }}
             </button>
           </section>
         </div>
@@ -136,12 +140,17 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
 import AppHeader from '../components/AppHeader.vue'
+import { getActionPlanCheckPending, isCareerAgentApiEnabled } from '../api/careerAgentApi'
 
 const { theme } = useTheme()
 const router = useRouter()
+const TRAINING_PLAN_READY_KEY = 'career_planner_training_plan_ready_v1'
+const STUDENT_ID_KEY = 'career_planner_student_id_v1'
+const canGeneratePlan = ref(false)
 
 const weeks = Array.from({ length: 12 }, (_, i) => i + 1)
 
@@ -179,9 +188,60 @@ const barStyle = (bar) => {
   return { gridColumn: `${start} / ${end + 1}` }
 }
 
-const goStudentAbilities = () => {
+const syncPlanReadyState = () => {
+  try {
+    canGeneratePlan.value = sessionStorage.getItem(TRAINING_PLAN_READY_KEY) === '1'
+  } catch {
+    canGeneratePlan.value = false
+  }
+}
+
+const getStudentId = () => {
+  try {
+    const id = sessionStorage.getItem(STUDENT_ID_KEY)
+    return id || 'student_demo_001'
+  } catch {
+    return 'student_demo_001'
+  }
+}
+
+const syncPlanReadyFromApi = async () => {
+  if (!isCareerAgentApiEnabled()) return
+  try {
+    const data = await getActionPlanCheckPending(getStudentId())
+    const hasPlan = Boolean(
+      data?.has_active_plan ??
+        data?.has_plan ??
+        data?.plan_exists ??
+        data?.current_plan ??
+        (Array.isArray(data?.items) && data.items.length > 0) ??
+        (typeof data?.completion_rate === 'number')
+    )
+    if (hasPlan) {
+      canGeneratePlan.value = true
+      try {
+        sessionStorage.setItem(TRAINING_PLAN_READY_KEY, '1')
+      } catch {
+        // ignore write errors
+      }
+    }
+  } catch (e) {
+    console.warn('[career-agent] action-plan/check-pending', e)
+  }
+}
+
+const handleGuideAction = () => {
+  if (canGeneratePlan.value) {
+    router.push('/ability-training-plan/generated')
+    return
+  }
   router.push('/student-abilities')
 }
+
+onMounted(async () => {
+  syncPlanReadyState()
+  await syncPlanReadyFromApi()
+})
 </script>
 
 <style scoped>
@@ -199,7 +259,7 @@ const goStudentAbilities = () => {
   flex-direction: column;
   background: var(--u-body-bg);
   color: var(--u-black);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-family-sans);
 }
 
 .ability-plan-view.dark {
@@ -436,13 +496,14 @@ const goStudentAbilities = () => {
 }
 
 .gantt-card {
-  border-radius: 14px;
+  /* 与外层 16px 圆角、3px 黑边对齐的内侧圆角 */
+  border-radius: calc(16px - 3px);
   overflow: hidden;
-  /* 内层主要负责裁切图片圆角 */
   box-shadow: none;
   background: transparent;
   border: none;
   height: 100%;
+  width: 100%;
   /* 避免创建新的堆叠上下文导致贴纸被图片盖住 */
   transform: none;
   position: relative;
@@ -451,11 +512,11 @@ const goStudentAbilities = () => {
 
 .gantt-card-outer {
   position: relative;
-  /* 与 To Do 示例外层一致 */
+  /* 与 To Do 示例外层一致；无内边距，甘特底色铺满至黑边内侧 */
   background: rgba(255, 255, 255, 0.98);
   border: 3px solid var(--u-black); /* 3px 黑边 */
   border-radius: 16px;
-  padding: 8px;
+  padding: 0;
   box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
   width: var(--example-half-width);
   height: var(--example-height);
@@ -490,9 +551,9 @@ const goStudentAbilities = () => {
 
 .gantt {
   height: 100%;
-  border-radius: 16px;
-  /* 与 .todo-card 同色带，渐变方向对角相反（todo 为 135deg） */
-  background: linear-gradient(315deg, var(--u-bg-normal), var(--u-gradient-fade));
+  border-radius: 0;
+  /* 与示例卡片主色一致，纯色底；圆角由 .gantt-card 裁切 */
+  background: var(--u-bg-normal);
   border: none;
   overflow: hidden;
 }
@@ -586,19 +647,19 @@ const goStudentAbilities = () => {
 }
 
 .bar.mint {
-  background: linear-gradient(90deg, var(--u-bg-completed), var(--u-fade-completed));
+  background: var(--u-bg-completed);
 }
 
 .bar.purple {
-  background: linear-gradient(90deg, var(--u-body-bg), var(--u-fade-body));
+  background: var(--u-body-bg);
 }
 
 .bar.yellow {
-  background: linear-gradient(90deg, var(--u-bg-normal), var(--u-fade-normal));
+  background: var(--u-bg-normal);
 }
 
 .bar.pink {
-  background: linear-gradient(90deg, var(--u-bg-submit), var(--u-fade-submit));
+  background: var(--u-bg-submit);
 }
 
 @media (max-width: 900px) {
@@ -631,7 +692,7 @@ const goStudentAbilities = () => {
   background: rgba(255, 255, 255, 0.98);
   border: 3px solid var(--u-black);
   border-radius: 16px;
-  padding: 8px;
+  padding: 0;
   box-shadow: 0 18px 40px rgba(16, 24, 40, 0.08);
 }
 
@@ -640,20 +701,20 @@ const goStudentAbilities = () => {
 }
 
 .todo-card {
-  border-radius: 14px;
+  border-radius: calc(16px - 3px);
   overflow: hidden;
-  /* 轻盈悬浮感：柔和投影 + 圆角卡片 */
   box-shadow: none;
-  /* UIIneed 配色：卡片底用主色 + 轻微渐变 */
-  background: linear-gradient(135deg, var(--u-bg-normal), var(--u-gradient-fade));
+  /* 与「已完成」条同款薄荷绿底，替代原先黄/米色 */
+  background: var(--u-bg-completed);
   border: none;
   padding: 14px 14px 16px;
   transform: none;
   height: 100%;
+  width: 100%;
 }
 
 .ability-plan-view.dark .todo-card {
-  background: var(--dm-surface-card);
+  background: var(--u-bg-completed);
   box-shadow: none;
 }
 
