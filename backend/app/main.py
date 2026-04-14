@@ -8,6 +8,7 @@ from typing import List, Dict, Optional, Any, Tuple
 from uuid import UUID, uuid4
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from app.api import positions, auth_json
 from pydantic import BaseModel
 
 from app.utils.extractor import extract_text_from_pdf, extract_text_from_docx
@@ -1707,6 +1708,7 @@ async def add_version_header(request, call_next):
 
 
 app.include_router(positions.router)
+app.include_router(auth_json.router)
 
 
 @app.get("/health", summary="健康检查")
